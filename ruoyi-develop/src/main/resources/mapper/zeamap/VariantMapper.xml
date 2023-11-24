@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.VariantMapper">
+
+    <resultMap type="Variant" id="VariantResult">
+        <result property="variantId" column="variant_id"/>
+        <result property="vid" column="VID"/>
+        <result property="type" column="type"/>
+        <result property="chr" column="chr"/>
+        <result property="posi" column="posi"/>
+        <result property="genorate" column="genorate"/>
+        <result property="maf" column="maf"/>
+        <result property="consequences" column="consequences"/>
+        <result property="impacts" column="impacts"/>
+        <result property="analysisId" column="analysis_id"/>
+    </resultMap>
+
+    <sql id="selectVariantVo">
+        select variant_id,
+               VID,
+               type,
+               chr,
+               posi,
+               genorate,
+               maf,
+               consequences,
+               impacts,
+               analysis_id
+        from variant
+    </sql>
+
+    <select id="selectVariantList" parameterType="Variant" resultMap="VariantResult">
+        <include refid="selectVariantVo"/>
+        <where>
+            <if test="vid != null  and vid != ''">and VID = #{vid}</if>
+            <if test="type != null  and type != ''">and type = #{type}</if>
+            <if test="chr != null  and chr != ''">and chr = #{chr}</if>
+            <if test="posi != null ">and posi = #{posi}</if>
+            <if test="genorate != null ">and genorate = #{genorate}</if>
+            <if test="maf != null ">and maf = #{maf}</if>
+            <if test="consequences != null  and consequences != ''">and consequences = #{consequences}</if>
+            <if test="impacts != null  and impacts != ''">and impacts = #{impacts}</if>
+            <if test="analysisId != null ">and analysis_id = #{analysisId}</if>
+        </where>
+    </select>
+
+    <select id="selectVariantByVariantId" parameterType="String" resultMap="VariantResult">
+        <include refid="selectVariantVo"/>
+        where VID = #{variantId}
+    </select>
+
+    <insert id="insertVariant" parameterType="Variant">
+        insert into variant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="variantId != null and variantId != ''">variant_id,</if>
+            <if test="vid != null">VID,</if>
+            <if test="type != null">type,</if>
+            <if test="chr != null">chr,</if>
+            <if test="posi != null">posi,</if>
+            <if test="genorate != null">genorate,</if>
+            <if test="maf != null">maf,</if>
+            <if test="consequences != null">consequences,</if>
+            <if test="impacts != null">impacts,</if>
+            <if test="analysisId != null">analysis_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="variantId != null and variantId != ''">#{variantId},</if>
+            <if test="vid != null">#{vid},</if>
+            <if test="type != null">#{type},</if>
+            <if test="chr != null">#{chr},</if>
+            <if test="posi != null">#{posi},</if>
+            <if test="genorate != null">#{genorate},</if>
+            <if test="maf != null">#{maf},</if>
+            <if test="consequences != null">#{consequences},</if>
+            <if test="impacts != null">#{impacts},</if>
+            <if test="analysisId != null">#{analysisId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateVariant" parameterType="Variant">
+        update variant
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vid != null">VID = #{vid},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="chr != null">chr = #{chr},</if>
+            <if test="posi != null">posi = #{posi},</if>
+            <if test="genorate != null">genorate = #{genorate},</if>
+            <if test="maf != null">maf = #{maf},</if>
+            <if test="consequences != null">consequences = #{consequences},</if>
+            <if test="impacts != null">impacts = #{impacts},</if>
+            <if test="analysisId != null">analysis_id = #{analysisId},</if>
+        </trim>
+        where variant_id = #{variantId}
+    </update>
+
+    <delete id="deleteVariantByVariantId" parameterType="String">
+        delete
+        from variant
+        where variant_id = #{variantId}
+    </delete>
+
+    <delete id="deleteVariantByVariantIds" parameterType="String">
+        delete from variant where variant_id in
+        <foreach item="variantId" collection="array" open="(" separator="," close=")">
+            #{variantId}
+        </foreach>
+    </delete>
+
+    <!--@Author 邵雯，刘洋-->
+    <!--reference下拉框-->
+    <select id="selectReference" resultType="String">
+        select distinct D.accession FROM dbxref D,db
+        where
+            db.name like '%-GFF' and D.db_id=db.db_id
+    </select>
+    <!--version下拉框-->
+    <select id="selectVersion" resultType="String">
+         select distinct version from dbxref where accession=#{accession} and version is not null and version!=''
+    </select>
+    <!--population下拉框-->
+    <select id="selectPopulation" resultType="String">
+        select distinct alias
+        from population P
+    </select>
+    <!--Analysis下拉框-->
+    <select id="selectAnalysis" resultType="String">
+        select distinct description
+        from analysis
+      </select>
+    <!--VariantClass下拉框-->
+    <select id="selectVariantClass" resultType="String">
+        select distinct type
+        from variant
+    </select>
+    <!--Region下拉框-->
+    <select id="selectChr" resultType="String">
+        select distinct chr
+        from variant
+    </select>
+    <select id="selectPosi" resultType="String">
+        select distinct posi
+        from variant
+    </select>
+    <!--Annotation下拉框-->
+    <select id="selectImpacts" resultType="String">
+        select distinct impacts
+        from variant
+    </select>
+    <select id="selectConsequences" resultType="String">
+        select distinct consequences
+        from variant
+    </select>
+
+
+    <!--大查询-->
+    <select id="selectVariant" resultMap="VariantResult">
+        select
+        type,
+        VID,
+        chr,
+        posi,
+        maf,
+        genorate,
+        impacts,
+        consequences,
+        variant_id,
+        variant.analysis_id
+            from variant,analysis,dbxref,population
+        where (type = #{type} or #{type} = '' or #{type} is null or #{type}='all')
+
+        and (chr = #{chr} or #{chr} = '' or #{chr} is null)
+
+        and (posi>#{posi_min} and #{posi_max}>posi)
+
+        and (maf>#{maf_min} and #{maf_max}>maf)
+
+        and (impacts = #{impacts} or #{impacts} = '' or #{impacts} is null)
+
+        and (consequences = #{consequences} or #{consequences} = '' or #{consequences} is null)
+
+        and  ( variant.analysis_id=analysis.analysis_id  and analysis.dbxref_id = dbxref.dbxref_id and dbxref.accession = #{accession} and dbxref.version = #{version}
+                  or  #{accession}=''or #{accession} is null)
+
+        and (variant.analysis_id = analysis.analysis_id and population.population_id = analysis.population_id and population.alias = #{alias}
+                 or #{alias}='' or #{alias} is null)
+
+        and (analysis.analysis_id = variant.analysis_id and analysis.description = #{description}
+                 or #{description}='' or #{description} is null)
+    </select>
+
+</mapper>

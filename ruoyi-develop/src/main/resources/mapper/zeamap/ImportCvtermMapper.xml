@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportCvtermMapper">
+    
+    <resultMap type="ImportCvterm" id="ImportCvtermResult">
+        <result property="cvtermId"    column="cvterm_id"    />
+        <result property="name"    column="name"    />
+        <result property="definition"    column="definition"    />
+        <result property="isObsolete"    column="is_obsolete"    />
+        <result property="isRelationshiptype"    column="is_relationshiptype"    />
+        <result property="cvId"    column="cv_id"    />
+        <result property="dbxrefId"    column="dbxref_id"    />
+    </resultMap>
+
+    <sql id="selectImportCvtermVo">
+        select cvterm_id, name, definition, is_obsolete, is_relationshiptype, cv_id, dbxref_id from cvterm
+    </sql>
+
+    <select id="selectImportCvtermList" parameterType="ImportCvterm" resultMap="ImportCvtermResult">
+        <include refid="selectImportCvtermVo"/>
+        <where>  
+            <if test="cvtermId != null  and cvtermId != ''"> and cvterm_id = #{cvtermId}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="definition != null  and definition != ''"> and definition = #{definition}</if>
+            <if test="isObsolete != null  and isObsolete != ''"> and is_obsolete = #{isObsolete}</if>
+            <if test="isRelationshiptype != null  and isRelationshiptype != ''"> and is_relationshiptype = #{isRelationshiptype}</if>
+            <if test="cvId != null  and cvId != ''"> and cv_id = #{cvId}</if>
+            <if test="dbxrefId != null  and dbxrefId != ''"> and dbxref_id = #{dbxrefId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportCvtermByCvtermId" parameterType="String" resultMap="ImportCvtermResult">
+        <include refid="selectImportCvtermVo"/>
+        where cvterm_id = #{cvtermId}
+    </select>
+        
+    <insert id="insertImportCvterm" parameterType="ImportCvterm">
+        insert into cvterm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cvtermId != null">cvterm_id,</if>
+            <if test="name != null">name,</if>
+            <if test="definition != null">definition,</if>
+            <if test="isObsolete != null">is_obsolete,</if>
+            <if test="isRelationshiptype != null">is_relationshiptype,</if>
+            <if test="cvId != null">cv_id,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cvtermId != null">#{cvtermId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="definition != null">#{definition},</if>
+            <if test="isObsolete != null">#{isObsolete},</if>
+            <if test="isRelationshiptype != null">#{isRelationshiptype},</if>
+            <if test="cvId != null">#{cvId},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportCvterm" parameterType="ImportCvterm">
+        update cvterm
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="definition != null">definition = #{definition},</if>
+            <if test="isObsolete != null">is_obsolete = #{isObsolete},</if>
+            <if test="isRelationshiptype != null">is_relationshiptype = #{isRelationshiptype},</if>
+            <if test="cvId != null">cv_id = #{cvId},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+        </trim>
+        where cvterm_id = #{cvtermId}
+    </update>
+
+    <delete id="deleteImportCvtermByCvtermId" parameterType="String">
+        delete from cvterm where cvterm_id = #{cvtermId}
+    </delete>
+
+    <delete id="deleteImportCvtermByCvtermIds" parameterType="String">
+        delete from cvterm where cvterm_id in 
+        <foreach item="cvtermId" collection="array" open="(" separator="," close=")">
+            #{cvtermId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportDbxrefMapper">
+    
+    <resultMap type="ImportDbxref" id="ImportDbxrefResult">
+        <result property="dbxrefId"    column="dbxref_id"    />
+        <result property="accession"    column="accession"    />
+        <result property="version"    column="version"    />
+        <result property="description"    column="description"    />
+        <result property="dbId"    column="db_id"    />
+    </resultMap>
+
+    <sql id="selectImportDbxrefVo">
+        select dbxref_id, accession, version, description, db_id from dbxref
+    </sql>
+
+    <select id="selectImportDbxrefList" parameterType="ImportDbxref" resultMap="ImportDbxrefResult">
+        <include refid="selectImportDbxrefVo"/>
+        <where>  
+            <if test="accession != null  and accession != ''"> and accession = #{accession}</if>
+            <if test="version != null  and version != ''"> and version = #{version}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="dbId != null "> and db_id = #{dbId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportDbxrefByDbxrefId" parameterType="Long" resultMap="ImportDbxrefResult">
+        <include refid="selectImportDbxrefVo"/>
+        where dbxref_id = #{dbxrefId}
+    </select>
+        
+    <insert id="insertImportDbxref" parameterType="ImportDbxref" useGeneratedKeys="true" keyProperty="dbxrefId">
+        insert into dbxref
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accession != null">accession,</if>
+            <if test="version != null">version,</if>
+            <if test="description != null">description,</if>
+            <if test="dbId != null">db_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accession != null">#{accession},</if>
+            <if test="version != null">#{version},</if>
+            <if test="description != null">#{description},</if>
+            <if test="dbId != null">#{dbId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportDbxref" parameterType="ImportDbxref">
+        update dbxref
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="accession != null">accession = #{accession},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="dbId != null">db_id = #{dbId},</if>
+        </trim>
+        where dbxref_id = #{dbxrefId}
+    </update>
+
+    <delete id="deleteImportDbxrefByDbxrefId" parameterType="Long">
+        delete from dbxref where dbxref_id = #{dbxrefId}
+    </delete>
+
+    <delete id="deleteImportDbxrefByDbxrefIds" parameterType="String">
+        delete from dbxref where dbxref_id in 
+        <foreach item="dbxrefId" collection="array" open="(" separator="," close=")">
+            #{dbxrefId}
+        </foreach>
+    </delete>
+</mapper>

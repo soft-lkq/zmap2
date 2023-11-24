@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.EnvironmentMapper">
+    
+    <resultMap type="Environment" id="EnvironmentResult">
+        <result property="environmentId"    column="environment_id"    />
+        <result property="name"    column="name"    />
+        <result property="environmentClass"    column="environment_class"    />
+        <result property="environmentCondition"    column="environment_condition"    />
+        <result property="environmentDesc"    column="environment_desc"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEnvironmentVo">
+        select environment_id, name, environment_class, environment_condition, environment_desc, status, create_by, create_time, update_by, update_time, remark from environment
+    </sql>
+
+    <select id="selectEnvironmentList" parameterType="Environment" resultMap="EnvironmentResult">
+        <include refid="selectEnvironmentVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="environmentClass != null  and environmentClass != ''"> and environment_class = #{environmentClass}</if>
+            <if test="environmentCondition != null  and environmentCondition != ''"> and environment_condition = #{environmentCondition}</if>
+            <if test="environmentDesc != null  and environmentDesc != ''"> and environment_desc = #{environmentDesc}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectEnvironmentByEnvironmentId" parameterType="Long" resultMap="EnvironmentResult">
+        <include refid="selectEnvironmentVo"/>
+        where environment_id = #{environmentId}
+    </select>
+
+    <insert id="insertEnvironment" parameterType="Environment" useGeneratedKeys="true" keyProperty="environmentId">
+        insert into environment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="environmentClass != null">environment_class,</if>
+            <if test="environmentCondition != null">environment_condition,</if>
+            <if test="environmentDesc != null">environment_desc,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="environmentClass != null">#{environmentClass},</if>
+            <if test="environmentCondition != null">#{environmentCondition},</if>
+            <if test="environmentDesc != null">#{environmentDesc},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEnvironment" parameterType="Environment">
+        update environment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="environmentClass != null">environment_class = #{environmentClass},</if>
+            <if test="environmentCondition != null">environment_condition = #{environmentCondition},</if>
+            <if test="environmentDesc != null">environment_desc = #{environmentDesc},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where environment_id = #{environmentId}
+    </update>
+
+    <delete id="deleteEnvironmentByEnvironmentId" parameterType="Long">
+        delete from environment where environment_id = #{environmentId}
+    </delete>
+
+    <delete id="deleteEnvironmentByEnvironmentIds" parameterType="String">
+        delete from environment where environment_id in 
+        <foreach item="environmentId" collection="array" open="(" separator="," close=")">
+            #{environmentId}
+        </foreach>
+    </delete>
+
+    <select id="selectMultiSelectorClassDesc" resultMap="EnvironmentResult">
+        select env.environment_class,env.environment_desc from environment env
+    </select>
+
+
+</mapper>

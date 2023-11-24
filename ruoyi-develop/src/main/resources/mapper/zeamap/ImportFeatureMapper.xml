@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportFeatureMapper">
+    
+    <resultMap type="ImportFeature" id="ImportFeatureResult">
+        <result property="featureId"    column="feature_id"    />
+        <result property="uniquename"    column="uniquename"    />
+        <result property="residues"    column="residues"    />
+        <result property="seqlen"    column="seqlen"    />
+        <result property="dbxrefId"    column="dbxref_id"    />
+        <result property="typeId"    column="type_id"    />
+        <result property="commonname"    column="commonname"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectImportFeatureVo">
+        select feature_id, uniquename, residues, seqlen, dbxref_id, type_id, commonname, status, create_by, create_time, update_by, update_time, remark from feature
+    </sql>
+
+    <select id="selectImportFeatureList" parameterType="ImportFeature" resultMap="ImportFeatureResult">
+        <include refid="selectImportFeatureVo"/>
+        <where>  
+            <if test="uniquename != null  and uniquename != ''"> and uniquename = #{uniquename}</if>
+            <if test="commonname != null  and commonname != ''"> and commonname = #{commonname}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportFeatureByFeatureId" parameterType="Long" resultMap="ImportFeatureResult">
+        <include refid="selectImportFeatureVo"/>
+        where feature_id = #{featureId}
+    </select>
+        
+    <insert id="insertImportFeature" parameterType="ImportFeature">
+        insert into feature
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="featureId != null">feature_id,</if>
+            <if test="uniquename != null">uniquename,</if>
+            <if test="residues != null">residues,</if>
+            <if test="seqlen != null">seqlen,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+            <if test="typeId != null">type_id,</if>
+            <if test="commonname != null and commonname != ''">commonname,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="featureId != null">#{featureId},</if>
+            <if test="uniquename != null">#{uniquename},</if>
+            <if test="residues != null">#{residues},</if>
+            <if test="seqlen != null">#{seqlen},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+            <if test="typeId != null">#{typeId},</if>
+            <if test="commonname != null and commonname != ''">#{commonname},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportFeature" parameterType="ImportFeature">
+        update feature
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="uniquename != null">uniquename = #{uniquename},</if>
+            <if test="residues != null">residues = #{residues},</if>
+            <if test="seqlen != null">seqlen = #{seqlen},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+            <if test="typeId != null">type_id = #{typeId},</if>
+            <if test="commonname != null and commonname != ''">commonname = #{commonname},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where feature_id = #{featureId}
+    </update>
+
+    <delete id="deleteImportFeatureByFeatureId" parameterType="Long">
+        delete from feature where feature_id = #{featureId}
+    </delete>
+
+    <delete id="deleteImportFeatureByFeatureIds" parameterType="String">
+        delete from feature where feature_id in 
+        <foreach item="featureId" collection="array" open="(" separator="," close=")">
+            #{featureId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportVariantMapper">
+    
+    <resultMap type="ImportVariant" id="ImportVariantResult">
+        <result property="variantId"    column="variant_id"    />
+        <result property="vid"    column="VID"    />
+        <result property="type"    column="type"    />
+        <result property="chr"    column="chr"    />
+        <result property="posi"    column="posi"    />
+        <result property="genorate"    column="genorate"    />
+        <result property="maf"    column="maf"    />
+        <result property="consequences"    column="consequences"    />
+        <result property="impacts"    column="impacts"    />
+        <result property="analysisId"    column="analysis_id"    />
+    </resultMap>
+
+    <sql id="selectImportVariantVo">
+        select variant_id, VID, type, chr, posi, genorate, maf, consequences, impacts, analysis_id from variant
+    </sql>
+
+    <select id="selectImportVariantList" parameterType="ImportVariant" resultMap="ImportVariantResult">
+        <include refid="selectImportVariantVo"/>
+        <where>  
+            <if test="variantId != null  and variantId != ''"> and variant_id = #{variantId}</if>
+            <if test="vid != null  and vid != ''"> and VID = #{vid}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="chr != null  and chr != ''"> and chr = #{chr}</if>
+            <if test="posi != null  and posi != ''"> and posi = #{posi}</if>
+            <if test="genorate != null  and genorate != ''"> and genorate = #{genorate}</if>
+            <if test="maf != null  and maf != ''"> and maf = #{maf}</if>
+            <if test="consequences != null  and consequences != ''"> and consequences = #{consequences}</if>
+            <if test="impacts != null  and impacts != ''"> and impacts = #{impacts}</if>
+            <if test="analysisId != null  and analysisId != ''"> and analysis_id = #{analysisId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportVariantByVariantId" parameterType="String" resultMap="ImportVariantResult">
+        <include refid="selectImportVariantVo"/>
+        where variant_id = #{variantId}
+    </select>
+        
+    <insert id="insertImportVariant" parameterType="ImportVariant">
+        insert into variant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="variantId != null">variant_id,</if>
+            <if test="vid != null">VID,</if>
+            <if test="type != null">type,</if>
+            <if test="chr != null">chr,</if>
+            <if test="posi != null">posi,</if>
+            <if test="genorate != null">genorate,</if>
+            <if test="maf != null">maf,</if>
+            <if test="consequences != null">consequences,</if>
+            <if test="impacts != null">impacts,</if>
+            <if test="analysisId != null">analysis_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="variantId != null">#{variantId},</if>
+            <if test="vid != null">#{vid},</if>
+            <if test="type != null">#{type},</if>
+            <if test="chr != null">#{chr},</if>
+            <if test="posi != null">#{posi},</if>
+            <if test="genorate != null">#{genorate},</if>
+            <if test="maf != null">#{maf},</if>
+            <if test="consequences != null">#{consequences},</if>
+            <if test="impacts != null">#{impacts},</if>
+            <if test="analysisId != null">#{analysisId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportVariant" parameterType="ImportVariant">
+        update variant
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vid != null">VID = #{vid},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="chr != null">chr = #{chr},</if>
+            <if test="posi != null">posi = #{posi},</if>
+            <if test="genorate != null">genorate = #{genorate},</if>
+            <if test="maf != null">maf = #{maf},</if>
+            <if test="consequences != null">consequences = #{consequences},</if>
+            <if test="impacts != null">impacts = #{impacts},</if>
+            <if test="analysisId != null">analysis_id = #{analysisId},</if>
+        </trim>
+        where variant_id = #{variantId}
+    </update>
+
+    <delete id="deleteImportVariantByVariantId" parameterType="String">
+        delete from variant where variant_id = #{variantId}
+    </delete>
+
+    <delete id="deleteImportVariantByVariantIds" parameterType="String">
+        delete from variant where variant_id in 
+        <foreach item="variantId" collection="array" open="(" separator="," close=")">
+            #{variantId}
+        </foreach>
+    </delete>
+</mapper>

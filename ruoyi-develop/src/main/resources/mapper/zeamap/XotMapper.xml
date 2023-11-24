@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.XotMapper">
+    
+    <resultMap type="Xot" id="XotResult">
+        <result property="xotId"    column="xot_id"    />
+        <result property="omics"    column="omics"    />
+        <result property="category"    column="category"    />
+        <result property="type"    column="type"    />
+        <result property="name"    column="name"    />
+        <result property="xotUid"    column="xot_uid"    />
+        <result property="analysisId"    column="analysis_id"    />
+        <result property="crossrefid"    column="crossrefid"    />
+        <result property="crossreflink"    column="crossreflink"    />
+        <result property="description"    column="description"    />
+        <result property="mesuredetail"    column="mesuredetail"    />
+        <result property="traitdetail"    column="traitdetail"    />
+<!--        返回行转列额外加的数据段-->
+        <result property="location" column="location"/>
+        <result property="tissue" column="tissue"/>
+        <result property="traitDateLoc" column="traitDateLoc"/>
+        <result property="year" column="year"/>
+        <association property="analysis">
+            <result property="analysisId"    column="analysis_id"    />
+<!--            可能会有点问题,有同名列-->
+            <result property="name"    column="aname"    />
+            <result property="description"    column="description"    />
+            <result property="dbxrefId"    column="dbxref_id"    />
+            <result property="populationId"    column="population_id"    />
+            <result property="detailed"    column="detailed"    />
+            <result property="methods"    column="methods"    />
+            <result property="omics"    column="omics"    />
+            <result property="reference"    column="reference"    />
+        </association>
+    </resultMap>
+
+    <sql id="selectXotVo">
+        select xot.*,
+                a.name as aname, a.description,
+               a.reference, a.omics,
+               a.methods, a.detailed, a.dbxref_id, a.population_id
+                from xot left join analysis a on xot.analysis_id = a.analysis_id
+    </sql>
+
+    <select id="selectXotList" parameterType="Xot" resultMap="XotResult">
+        <include refid="selectXotVo"/>
+        <where>  
+            <if test="omics != null  and omics != ''"> and xot.omics = #{omics}</if>
+            <if test="category != null  and category != ''"> and xot.category = #{category}</if>
+            <if test="type != null  and type != ''"> and xot.type = #{type}</if>
+            <if test="name != null  and name != ''"> and xot.name like concat('%', #{name}, '%')</if>
+            <if test="xotUid != null  and xotUid != ''"> and xot.xot_uid = #{xotUid}</if>
+            <if test="analysisId != null  and analysisId != 0"> and xot.analysis_id = #{analysisId}</if>
+        </where>
+    </select>
+    
+    <select id="selectXotByXotId" parameterType="Long" resultMap="XotResult">
+        <include refid="selectXotVo"/>
+        where xot.xot_id = #{xotId}
+    </select>
+    <select id="selectFull" parameterType="Xot" resultMap="XotResult">
+        select tt.* from
+        (select xot.xot_id,xot.omics,xot.category,xot.`name`,xot.xot_uid,xot.type,max(CASE mut.mutable_class
+        WHEN 'TraitDateLoc' THEN
+        mut.mutable_condition
+        END) as traitDateLoc,
+        max(CASE mut.mutable_class
+        WHEN 'Tissue' THEN
+        mut.mutable_condition
+        END) as tissue,
+        max(CASE mut.mutable_class
+        WHEN 'Location' THEN
+        mut.mutable_condition
+        END) as location,
+        max(CASE mut.mutable_class
+        WHEN 'Year' THEN
+        mut.mutable_condition
+        END) as `year`,a.`name` as aname,a.analysis_id
+        from xot inner join analysis a on a.analysis_id = xot.analysis_id
+        inner join  xot_mutable xt on xt.xot_id = xot.xot_id
+        inner join mutable mut on mut.mutable_id = xt.mutable_id
+        <where>
+            <if test="category != null  and category != ''"> and xot.category = #{category}</if>
+            <if test="type != null  and type != ''"> and xot.type = #{type}</if>
+            <if test="analysisId != null  and analysisId != 0"> and xot.analysis_id = #{analysisId}</if>
+            <if test="description != null  and description != ''"> and xot.description = #{description}</if>
+<!--            <if test="name != null  and name != ''"> and xot.name like concat('%', #{name}, '%')</if>-->
+<!--            <if test="analysis.name != null  and analysis.name != ''"> and a.name = #{analysis.name}</if>-->
+        </where>
+        GROUP BY xot.xot_id,a.`name`
+        ) as tt <where>
+            <if test="location != null  and location != ''"> and tt.location = #{location}</if>
+            <if test="traitDateLoc != null  and traitDateLoc != ''"> and tt。traitDateLoc = #{traitDateLoc}</if>
+            <if test="year != null  and year != ''"> and tt.year = #{year}</if>
+            <if test="tissue != null  and tissue != ''"> and tt.tissue = #{tissue}</if>
+        </where>
+    </select>
+
+
+<!--    下拉菜单查询-->
+
+
+    <select id="selectXotAllCategory" resultType="java.lang.String">
+        select DISTINCT category from xot;
+    </select>
+    <select id="selectXotAllType" resultType="java.lang.String">
+        select DISTINCT type from xot;
+    </select>
+
+    <select id="selectXotAllName" resultType="java.lang.String">
+        select DISTINCT description from xot;
+    </select>
+
+    <select id="selectXotAllAnalysis" resultType="java.lang.String">
+        select DISTINCT name from analysis;
+    </select>
+
+
+    <select id="selectXotAllLocation" resultType="java.lang.String">
+        select DISTINCT mut.mutable_condition
+        from mutable mut
+        where mut.mutable_class = 'Location';
+
+    </select>
+
+    <select id="selectXotAllTraitDateLoc" resultType="java.lang.String">
+        select DISTINCT mut.mutable_condition
+        from mutable mut
+        where mut.mutable_class = 'TraitDateLoc';
+    </select>
+    <select id="selectXotAllTissue" resultType="java.lang.String">
+        select DISTINCT mut.mutable_condition
+        from mutable mut
+        where mut.mutable_class = 'Tissue';
+    </select>
+    <select id="selectXotAllYear" resultType="java.lang.String">
+        select DISTINCT mut.mutable_condition
+        from mutable mut
+        where mut.mutable_class = 'Year';
+    </select>
+    <select id="selectXotAllDescription" resultType="java.lang.String">
+        select DISTINCT xot.description from xot
+    </select>
+    <select id="selectXotAllAnalysisId" resultType="java.lang.String">
+        select DISTINCT analysis.analysis_id from analysis
+    </select>
+
+
+    <select id="selectXotName" resultType="java.lang.Long">
+        select xot_id
+        from xot
+        where xot.`name` = #{uid}
+
+    </select>
+    <select id="selectGermplasmByXotId" resultType="com.ruoyi.zeamap.domain.XotGermplasm">
+        select xg.*
+        from xot_germplasm xg
+        where xg.xot_id = #{id}
+    </select>
+    <select id="selectGermplasmByXot" resultType="com.ruoyi.zeamap.domain.XotGermplasm">
+        select xg.*
+        from xot_germplasm xg
+                 inner join xot on xg.xot_id = xot.xot_id
+        where xot.name = #{uid}
+
+    </select>
+
+
+    <insert id="insertXot" parameterType="Xot">
+        insert into xot
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="xotId != null">xot_id,</if>
+            <if test="omics != null">omics,</if>
+            <if test="category != null">category,</if>
+            <if test="type != null">type,</if>
+            <if test="name != null">name,</if>
+            <if test="xotUid != null">xot_uid,</if>
+            <if test="analysisId != null">analysis_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="xotId != null">#{xotId},</if>
+            <if test="omics != null">#{omics},</if>
+            <if test="category != null">#{category},</if>
+            <if test="type != null">#{type},</if>
+            <if test="name != null">#{name},</if>
+            <if test="xotUid != null">#{xotUid},</if>
+            <if test="analysisId != null">#{analysisId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateXot" parameterType="Xot">
+        update xot
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="omics != null">omics = #{omics},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="xotUid != null">xot_uid = #{xotUid},</if>
+            <if test="analysisId != null">analysis_id = #{analysisId},</if>
+        </trim>
+        where xot_id = #{xotId}
+</update>
+
+
+    <delete id="deleteXotByXotId" parameterType="Long">
+        delete from xot where xot_id = #{xotId}
+    </delete>
+
+    <delete id="deleteXotByXotIds" parameterType="String">
+        delete from xot where xot_id in 
+        <foreach item="xotId" collection="array" open="(" separator="," close=")">
+            #{xotId}
+        </foreach>
+    </delete>
+</mapper>

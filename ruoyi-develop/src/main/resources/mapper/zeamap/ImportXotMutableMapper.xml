@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportXotMutableMapper">
+    
+    <resultMap type="ImportXotMutable" id="ImportXotMutableResult">
+        <result property="xotMutableId"    column="xot_mutable_id"    />
+        <result property="mutableId"    column="mutable_id"    />
+        <result property="xotId"    column="xot_id"    />
+    </resultMap>
+
+    <sql id="selectImportXotMutableVo">
+        select xot_mutable_id, mutable_id, xot_id from xot_mutable
+    </sql>
+
+    <select id="selectImportXotMutableList" parameterType="ImportXotMutable" resultMap="ImportXotMutableResult">
+        <include refid="selectImportXotMutableVo"/>
+        <where>  
+            <if test="mutableId != null "> and mutable_id = #{mutableId}</if>
+            <if test="xotId != null "> and xot_id = #{xotId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportXotMutableByXotMutableId" parameterType="Long" resultMap="ImportXotMutableResult">
+        <include refid="selectImportXotMutableVo"/>
+        where xot_mutable_id = #{xotMutableId}
+    </select>
+        
+    <insert id="insertImportXotMutable" parameterType="ImportXotMutable" useGeneratedKeys="true" keyProperty="xotMutableId">
+        insert into xot_mutable
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mutableId != null">mutable_id,</if>
+            <if test="xotId != null">xot_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mutableId != null">#{mutableId},</if>
+            <if test="xotId != null">#{xotId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportXotMutable" parameterType="ImportXotMutable">
+        update xot_mutable
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="mutableId != null">mutable_id = #{mutableId},</if>
+            <if test="xotId != null">xot_id = #{xotId},</if>
+        </trim>
+        where xot_mutable_id = #{xotMutableId}
+    </update>
+
+    <delete id="deleteImportXotMutableByXotMutableId" parameterType="Long">
+        delete from xot_mutable where xot_mutable_id = #{xotMutableId}
+    </delete>
+
+    <delete id="deleteImportXotMutableByXotMutableIds" parameterType="String">
+        delete from xot_mutable where xot_mutable_id in 
+        <foreach item="xotMutableId" collection="array" open="(" separator="," close=")">
+            #{xotMutableId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.TraitMapper">
+    
+    <resultMap type="Trait" id="TraitResult">
+        <result property="traitId"    column="trait_id"    />
+        <result property="traitName"    column="trait_name"    />
+        <result property="fullName"    column="full_name"    />
+        <result property="abbreviationName"    column="abbreviation_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="isdeleted"    column="isdeleted"    />
+    </resultMap>
+
+    <sql id="selectTraitVo">
+        select trait_id, trait_name, full_name, abbreviation_name, create_by, create_time, update_by, update_time, remark, isdeleted from trait
+    </sql>
+
+    <select id="selectTraitList" parameterType="Trait" resultMap="TraitResult">
+        <include refid="selectTraitVo"/>
+        <where>  
+            <if test="traitName != null  and traitName != ''"> and trait_name like concat('%', #{traitName}, '%')</if>
+            <if test="fullName != null  and fullName != ''"> and full_name like concat('%', #{fullName}, '%')</if>
+            <if test="abbreviationName != null  and abbreviationName != ''"> and abbreviation_name like concat('%', #{abbreviationName}, '%')</if>
+            <if test="isdeleted != null "> and isdeleted = #{isdeleted}</if>
+        </where>
+    </select>
+    
+    <select id="selectTraitByTraitId" parameterType="Long" resultMap="TraitResult">
+        <include refid="selectTraitVo"/>
+        where trait_id = #{traitId}
+    </select>
+        
+    <insert id="insertTrait" parameterType="Trait" useGeneratedKeys="true" keyProperty="traitId">
+        insert into trait
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="traitName != null and traitName != ''">trait_name,</if>
+            <if test="fullName != null">full_name,</if>
+            <if test="abbreviationName != null">abbreviation_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="isdeleted != null">isdeleted,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="traitName != null and traitName != ''">#{traitName},</if>
+            <if test="fullName != null">#{fullName},</if>
+            <if test="abbreviationName != null">#{abbreviationName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="isdeleted != null">#{isdeleted},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTrait" parameterType="Trait">
+        update trait
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="traitName != null and traitName != ''">trait_name = #{traitName},</if>
+            <if test="fullName != null">full_name = #{fullName},</if>
+            <if test="abbreviationName != null">abbreviation_name = #{abbreviationName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="isdeleted != null">isdeleted = #{isdeleted},</if>
+        </trim>
+        where trait_id = #{traitId}
+    </update>
+
+    <delete id="deleteTraitByTraitId" parameterType="Long">
+        delete from trait where trait_id = #{traitId}
+    </delete>
+
+    <delete id="deleteTraitByTraitIds" parameterType="String">
+        delete from trait where trait_id in 
+        <foreach item="traitId" collection="array" open="(" separator="," close=")">
+            #{traitId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.PhenotypeMapper">
+
+    <resultMap id="TraitVoResult" type="TraitVo">
+        <result property="pedigree" column="pedigree"/>
+        <result property="newSource"    column="newSource"    />
+        <result property="pastSource"    column="pastSource"    />
+        <result property="trait" column="traitt"/>
+    </resultMap>
+
+    <resultMap type="Phenotype" id="PhenotypeResult">
+        <result property="code"    column="code"    />
+        <result property="pedigree"    column="pedigree"    />
+        <result property="newsource"    column="newSource"    />
+        <result property="pastsource"    column="pastSource"    />
+        <result property="year"    column="year"    />
+        <result property="location"    column="location"    />
+        <result property="silking"    column="silking"    />
+        <result property="dispersal"    column="dispersal"    />
+        <result property="mature"    column="mature"    />
+        <result property="height"    column="height"    />
+        <result property="earheight"    column="earHeight"    />
+        <result property="malespikes"    column="maleSpikes"    />
+        <result property="spindlelength"    column="spindleLength"    />
+        <result property="leaflength"    column="leafLength"    />
+        <result property="leafwidth"    column="leafWidth"    />
+        <result property="stemdiameter"    column="stemDiameter"    />
+        <result property="rates"    column="rates"    />
+        <result property="rust"    column="rust"    />
+        <result property="stemrot"    column="stemRot"    />
+        <result property="roughdwarf"    column="roughDwarf"    />
+        <result property="hollow"    column="hollow"    />
+        <result property="plantsnum"    column="plantsNum"    />
+        <result property="blackpowder"    column="blackPowder"    />
+        <result property="expression"    column="expression"    />
+        <result property="spikelength"    column="spikeLength"    />
+        <result property="spikewidth"    column="spikeWidth"    />
+        <result property="row"    column="row"    />
+        <result property="kernels"    column="kernels"    />
+        <result property="axiscolor"    column="axisColor"    />
+        <result property="grainweight"    column="grainWeight"    />
+        <result property="grainlength"    column="grainLength"    />
+        <result property="grainwidth"    column="grainWidth"    />
+        <result property="yield"    column="yield"    />
+        <result property="seedyield"    column="seedYield"    />
+    </resultMap>
+
+    <sql id="selectPhenotypeVo">
+        select code, pedigree, newSource, pastSource, year, location, silking, dispersal, mature, height, earHeight, maleSpikes, spindleLength, leafLength, leafWidth, stemDiameter, rates, rust, stemRot, roughDwarf, hollow, plantsNum, blackPowder, expression, spikeLength, spikeWidth, row, kernels, 
+axisColor, grainWeight, 
+grainLength, 
+grainWidth, yield, seedYield from phenotype
+    </sql>
+
+    <select id="selectPhenotypeList" parameterType="Phenotype" resultMap="PhenotypeResult">
+        <include refid="selectPhenotypeVo"/>
+        <where>  
+            <if test="pedigree != null  and pedigree != ''"> and pedigree = #{pedigree}</if>
+            <if test="newsource != null  and newsource != ''"> and newSource = #{newsource}</if>
+            <if test="pastsource != null  and pastsource != ''"> and pastSource = #{pastsource}</if>
+            <if test="year != null "> and year = #{year}</if>
+            <if test="location != null  and location != ''"> and location = #{location}</if>
+            <if test="silking != null "> and silking = #{silking}</if>
+            <if test="dispersal != null "> and dispersal = #{dispersal}</if>
+            <if test="mature != null "> and mature = #{mature}</if>
+            <if test="height != null "> and height = #{height}</if>
+            <if test="earheight != null "> and earHeight = #{earheight}</if>
+            <if test="malespikes != null "> and maleSpikes = #{malespikes}</if>
+            <if test="spindlelength != null "> and spindleLength = #{spindlelength}</if>
+            <if test="leaflength != null "> and leafLength = #{leaflength}</if>
+            <if test="leafwidth != null "> and leafWidth = #{leafwidth}</if>
+            <if test="stemdiameter != null "> and stemDiameter = #{stemdiameter}</if>
+            <if test="rates != null "> and rates = #{rates}</if>
+            <if test="rust != null "> and rust = #{rust}</if>
+            <if test="stemrot != null "> and stemRot = #{stemrot}</if>
+            <if test="roughdwarf != null "> and roughDwarf = #{roughdwarf}</if>
+            <if test="hollow != null "> and hollow = #{hollow}</if>
+            <if test="plantsnum != null "> and plantsNum = #{plantsnum}</if>
+            <if test="blackpowder != null "> and blackPowder = #{blackpowder}</if>
+            <if test="expression != null  and expression != ''"> and expression = #{expression}</if>
+            <if test="spikelength != null "> and spikeLength = #{spikelength}</if>
+            <if test="spikewidth != null "> and spikeWidth = #{spikewidth}</if>
+            <if test="row != null "> and row = #{row}</if>
+            <if test="kernels != null "> and kernels = #{kernels}</if>
+            <if test="
+axiscolor != null  and axiscolor != ''"> and 
+axisColor = #{
+axiscolor}</if>
+            <if test="grainweight != null "> and grainWeight = #{grainweight}</if>
+            <if test="
+grainlength != null "> and 
+grainLength = #{
+grainlength}</if>
+            <if test="
+grainwidth != null "> and 
+grainWidth = #{
+grainwidth}</if>
+            <if test="yield != null "> and yield = #{yield}</if>
+            <if test="seedyield != null "> and seedYield = #{seedyield}</if>
+        </where>
+    </select>
+    
+    <select id="selectPhenotypeByCode" parameterType="Long" resultMap="PhenotypeResult">
+        <include refid="selectPhenotypeVo"/>
+        where code = #{code}
+    </select>
+        
+    <insert id="insertPhenotype" parameterType="Phenotype">
+        insert into phenotype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">code,</if>
+            <if test="pedigree != null">pedigree,</if>
+            <if test="newsource != null">newSource,</if>
+            <if test="pastsource != null">pastSource,</if>
+            <if test="year != null">year,</if>
+            <if test="location != null">location,</if>
+            <if test="silking != null">silking,</if>
+            <if test="dispersal != null">dispersal,</if>
+            <if test="mature != null">mature,</if>
+            <if test="height != null">height,</if>
+            <if test="earheight != null">earHeight,</if>
+            <if test="malespikes != null">maleSpikes,</if>
+            <if test="spindlelength != null">spindleLength,</if>
+            <if test="leaflength != null">leafLength,</if>
+            <if test="leafwidth != null">leafWidth,</if>
+            <if test="stemdiameter != null">stemDiameter,</if>
+            <if test="rates != null">rates,</if>
+            <if test="rust != null">rust,</if>
+            <if test="stemrot != null">stemRot,</if>
+            <if test="roughdwarf != null">roughDwarf,</if>
+            <if test="hollow != null">hollow,</if>
+            <if test="plantsnum != null">plantsNum,</if>
+            <if test="blackpowder != null">blackPowder,</if>
+            <if test="expression != null">expression,</if>
+            <if test="spikelength != null">spikeLength,</if>
+            <if test="spikewidth != null">spikeWidth,</if>
+            <if test="row != null">row,</if>
+            <if test="kernels != null">kernels,</if>
+            <if test="
+axiscolor != null">
+axisColor,</if>
+            <if test="grainweight != null">grainWeight,</if>
+            <if test="
+grainlength != null">
+grainLength,</if>
+            <if test="
+grainwidth != null">
+grainWidth,</if>
+            <if test="yield != null">yield,</if>
+            <if test="seedyield != null">seedYield,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">#{code},</if>
+            <if test="pedigree != null">#{pedigree},</if>
+            <if test="newsource != null">#{newsource},</if>
+            <if test="pastsource != null">#{pastsource},</if>
+            <if test="year != null">#{year},</if>
+            <if test="location != null">#{location},</if>
+            <if test="silking != null">#{silking},</if>
+            <if test="dispersal != null">#{dispersal},</if>
+            <if test="mature != null">#{mature},</if>
+            <if test="height != null">#{height},</if>
+            <if test="earheight != null">#{earheight},</if>
+            <if test="malespikes != null">#{malespikes},</if>
+            <if test="spindlelength != null">#{spindlelength},</if>
+            <if test="leaflength != null">#{leaflength},</if>
+            <if test="leafwidth != null">#{leafwidth},</if>
+            <if test="stemdiameter != null">#{stemdiameter},</if>
+            <if test="rates != null">#{rates},</if>
+            <if test="rust != null">#{rust},</if>
+            <if test="stemrot != null">#{stemrot},</if>
+            <if test="roughdwarf != null">#{roughdwarf},</if>
+            <if test="hollow != null">#{hollow},</if>
+            <if test="plantsnum != null">#{plantsnum},</if>
+            <if test="blackpowder != null">#{blackpowder},</if>
+            <if test="expression != null">#{expression},</if>
+            <if test="spikelength != null">#{spikelength},</if>
+            <if test="spikewidth != null">#{spikewidth},</if>
+            <if test="row != null">#{row},</if>
+            <if test="kernels != null">#{kernels},</if>
+            <if test="
+axiscolor != null">#{
+axiscolor},</if>
+            <if test="grainweight != null">#{grainweight},</if>
+            <if test="
+grainlength != null">#{
+grainlength},</if>
+            <if test="
+grainwidth != null">#{
+grainwidth},</if>
+            <if test="yield != null">#{yield},</if>
+            <if test="seedyield != null">#{seedyield},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePhenotype" parameterType="Phenotype">
+        update phenotype
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pedigree != null">pedigree = #{pedigree},</if>
+            <if test="newsource != null">newSource = #{newsource},</if>
+            <if test="pastsource != null">pastSource = #{pastsource},</if>
+            <if test="year != null">year = #{year},</if>
+            <if test="location != null">location = #{location},</if>
+            <if test="silking != null">silking = #{silking},</if>
+            <if test="dispersal != null">dispersal = #{dispersal},</if>
+            <if test="mature != null">mature = #{mature},</if>
+            <if test="height != null">height = #{height},</if>
+            <if test="earheight != null">earHeight = #{earheight},</if>
+            <if test="malespikes != null">maleSpikes = #{malespikes},</if>
+            <if test="spindlelength != null">spindleLength = #{spindlelength},</if>
+            <if test="leaflength != null">leafLength = #{leaflength},</if>
+            <if test="leafwidth != null">leafWidth = #{leafwidth},</if>
+            <if test="stemdiameter != null">stemDiameter = #{stemdiameter},</if>
+            <if test="rates != null">rates = #{rates},</if>
+            <if test="rust != null">rust = #{rust},</if>
+            <if test="stemrot != null">stemRot = #{stemrot},</if>
+            <if test="roughdwarf != null">roughDwarf = #{roughdwarf},</if>
+            <if test="hollow != null">hollow = #{hollow},</if>
+            <if test="plantsnum != null">plantsNum = #{plantsnum},</if>
+            <if test="blackpowder != null">blackPowder = #{blackpowder},</if>
+            <if test="expression != null">expression = #{expression},</if>
+            <if test="spikelength != null">spikeLength = #{spikelength},</if>
+            <if test="spikewidth != null">spikeWidth = #{spikewidth},</if>
+            <if test="row != null">row = #{row},</if>
+            <if test="kernels != null">kernels = #{kernels},</if>
+            <if test="
+axiscolor != null">
+axisColor = #{
+axiscolor},</if>
+            <if test="grainweight != null">grainWeight = #{grainweight},</if>
+            <if test="
+grainlength != null">
+grainLength = #{
+grainlength},</if>
+            <if test="
+grainwidth != null">
+grainWidth = #{
+grainwidth},</if>
+            <if test="yield != null">yield = #{yield},</if>
+            <if test="seedyield != null">seedYield = #{seedyield},</if>
+        </trim>
+        where code = #{code}
+    </update>
+
+    <delete id="deletePhenotypeByCode" parameterType="Long">
+        delete from phenotype where code = #{code}
+    </delete>
+
+    <delete id="deletePhenotypeByCodes" parameterType="String">
+        delete from phenotype where code in 
+        <foreach item="code" collection="array" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </delete>
+
+    <select id="selectPhenotypeByname" resultType="Phenotype">
+        select * from phenotype where pedigree=#{pedigree}
+    </select>
+
+    <select id="selectPhenotypeByYear" parameterType="Long" resultType="Phenotype">
+        select * from phenotype where year=#{year}
+    </select>
+
+    <select id="selectMorphologicalByname" resultType="MorphologicalVo">
+        select height,stemDiameter,earHeight,leafLength,leafWidth,maleSpikes,spindleLength
+        from phenotype where pedigree=#{pedigree}
+    </select>
+
+    <select id="selectAllPhenotype" resultType="Phenotype">
+        select * from phenotype
+    </select>
+
+    <select id="selectAllMorphological" resultType="MorphologicalVo">
+        select height,stemDiameter,earHeight,leafLength,leafWidth,maleSpikes,spindleLength from phenotype
+        where height is not null and stemDiameter is not null and earHeight is not null and leafLength is not null and leafWidth is not null and maleSpikes is not null and spindleLength is not null
+    </select>
+
+    <select id="selectPhenotypeByLocation" resultType="Phenotype">
+        select * from phenotype where location=#{location}
+    </select>
+
+    <select id="selectAgronomicalByname" resultType="AgronomicalVo">
+        select spikeLength,spikeWidth,`row`,kernels,grainWeight,grainLength,grainWidth,yield,seedYield from phenotype
+        where pedigree=#{pedigree}
+    </select>
+
+    <select id="selectAllAgronomical" resultType="AgronomicalVo">
+        select spikeLength,spikeWidth,`row`,kernels,grainWeight,grainLength,grainWidth,yield,seedYield from phenotype
+        where spikeLength is not null and spikeWidth is not null and `row` is not null and kernels is not null and grainWeight is not null and grainLength is not null and grainWidth is not null and yield is not null and seedYield is not null
+    </select>
+
+    <select id="selectBxDate" resultType="BxDateVo">
+        select silking, dispersal, mature from phenotype where pedigree=#{pedigree}
+    </select>
+
+    <select id="selectAllDate" resultType="BxDateVo">
+        select silking, dispersal, mature from phenotype where silking is not null and dispersal is not null and mature is not null;
+    </select>
+
+    <select id="selectBxRateByName" resultType="BxRateVo">
+        select rates,stemRot,roughDwarf from phenotype
+        where pedigree=#{pedigree}
+    </select>
+
+    <select id="selectAllRate" resultType="BxRateVo">
+        select rates,stemRot,roughDwarf from phenotype where rates is not null and stemRot is not null and roughDwarf is not null;
+    </select>
+
+    <select id="selectTrait" resultType="String" statementType="STATEMENT">
+        select ${trait} from phenotype where pedigree is not null;
+    </select>
+
+    <select id="selectTVo" resultType="TraitVo">
+        select pedigree,newSource,pastSource from phenotype where pedigree is not null;
+    </select>
+
+    <select id="selectTraitGroup" resultType="String">
+        select ${trait},year,location from phenotype GROUP BY ${trait},year,location
+    </select>
+
+    <select id="selectGe" resultType="GeVo">
+        select year,location,${trait} from phenotype group by year,location,${trait}
+    </select>
+
+    <select id="selectTraitGroupByName" resultType="String">
+        select ${trait},year,location from phenotype where pedigree=#{pedigree} GROUP BY ${trait},year,location
+    </select>
+
+    <select id="selectGeByName" resultType="GeVo">
+        select year,location,${trait} from phenotype where pedigree=#{pedigree} group by year,location,${trait}
+    </select>
+
+    <select id="selectTVoByName" resultType="TraitVo">
+        select pedigree,newSource,pastSource from phenotype where pedigree=#{pedigree}
+    </select>
+
+    <select id="selectTraitByName" resultType="String">
+        select ${trait} from phenotype where pedigree=#{pedigree}
+    </select>
+
+    <select id="selectAllMar" resultType="MorphologicalVo">
+        select height,stemDiameter,earHeight,leafLength,leafWidth,maleSpikes,spindleLength from phenotype
+    </select>
+
+    <select id="selectYearMor" resultType="YearMorVo">
+        select year,height,stemDiameter,earHeight,leafLength,leafWidth,maleSpikes,spindleLength from phenotype group by year,height,stemDiameter,earHeight,leafLength,leafWidth,maleSpikes,spindleLength
+    </select>
+
+    <select id="countBx" resultType="int">
+        select count(*) from as_trait_type where trait_type_id in (select trait_type_id from trait_type where trait_type_name=#{traitName})
+    </select>
+
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.GermplasmMapper">
+    
+    <resultMap type="Germplasm" id="GermplasmResult">
+        <result property="germplasmId"    column="germplasm_id"    />
+        <result property="name"    column="name"    />
+        <result property="genus"    column="genus"    />
+        <result property="species"    column="species"    />
+        <result property="commonName"    column="common_name"    />
+        <result property="comment"    column="comment"    />
+        <result property="groupId"    column="group_id"    />
+        <result property="populationId"    column="population_id"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="longtitude"    column="longtitude"    />
+        <result property="ngbId"    column="ngb_id"    />
+        <result property="origin"    column="origin"    />
+    </resultMap>
+    <resultMap type="Germplasm" id="GermplasmResult1">
+        <result property="germplasmId"    column="germplasm_id"    />
+        <result property="name"    column="name"    />
+        <result property="genus"    column="genus"    />
+        <result property="species"    column="species"    />
+        <result property="commonName"    column="common_name"    />
+        <result property="comment"    column="comment"    />
+        <result property="groupId"    column="group_id"    />
+        <result property="populationId"    column="population_id"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="longtitude"    column="longtitude"    />
+        <result property="ngbId"    column="ngb_id"    />
+        <result property="origin"    column="origin"    />
+        <association property="subgroup" javaType ="subgroup">
+            <result property="subgroupId"    column="subgroup_id"    />
+            <result property="name"    column="subgroup_name"    />
+            <result property="description"    column="description"    />
+            <result property="populationId"    column="population_id"    />
+        </association>
+    </resultMap>
+
+    <sql id="selectGermplasmVo">
+        select germplasm_id, name, genus, species, common_name, comment, group_id, population_id, latitude, longtitude, ngb_id, origin from germplasm
+    </sql>
+
+    <select id="selectPopulationId" resultType="Long">
+        select population_id from population where name=#{name}
+    </select>
+
+    <select id="selectGermplasmByName" resultMap="GermplasmResult">
+        select * from germplasm where name=#{name}
+    </select>
+
+    <select id="selectGermplasmListFromPid" resultMap="GermplasmResult">
+        select * from germplasm where population_id=#{population_id}
+    </select>
+
+    <select id="selectGermplasmList" parameterType="Germplasm" resultMap="GermplasmResult">
+        <include refid="selectGermplasmVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="genus != null  and genus != ''"> and genus = #{genus}</if>
+            <if test="species != null  and species != ''"> and species = #{species}</if>
+            <if test="commonName != null  and commonName != ''"> and common_name like concat('%', #{commonName}, '%')</if>
+            <if test="comment != null  and comment != ''"> and comment = #{comment}</if>
+            <if test="groupId != null "> and group_id = #{groupId}</if>
+            <if test="populationId != null "> and population_id = #{populationId}</if>
+            <if test="latitude != null "> and latitude = #{latitude}</if>
+            <if test="longtitude != null "> and longtitude = #{longtitude}</if>
+            <if test="ngbId != null  and ngbId != ''"> and ngb_id = #{ngbId}</if>
+            <if test="origin != null  and origin != ''"> and origin = #{origin}</if>
+        </where>
+    </select>
+    
+    <select id="selectGermplasmByGermplasmId" parameterType="Long" resultMap="GermplasmResult">
+        <include refid="selectGermplasmVo"/>
+        where germplasm_id = #{germplasmId}
+    </select>
+        
+    <insert id="insertGermplasm" parameterType="Germplasm">
+        insert into germplasm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="germplasmId != null">germplasm_id,</if>
+            <if test="name != null">name,</if>
+            <if test="genus != null">genus,</if>
+            <if test="species != null">species,</if>
+            <if test="commonName != null">common_name,</if>
+            <if test="comment != null">comment,</if>
+            <if test="groupId != null">group_id,</if>
+            <if test="populationId != null">population_id,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="longtitude != null">longtitude,</if>
+            <if test="ngbId != null">ngb_id,</if>
+            <if test="origin != null">origin,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="germplasmId != null">#{germplasmId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="genus != null">#{genus},</if>
+            <if test="species != null">#{species},</if>
+            <if test="commonName != null">#{commonName},</if>
+            <if test="comment != null">#{comment},</if>
+            <if test="groupId != null">#{groupId},</if>
+            <if test="populationId != null">#{populationId},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="longtitude != null">#{longtitude},</if>
+            <if test="ngbId != null">#{ngbId},</if>
+            <if test="origin != null">#{origin},</if>
+         </trim>
+    </insert>
+
+    <update id="updateGermplasm" parameterType="Germplasm">
+        update germplasm
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="genus != null">genus = #{genus},</if>
+            <if test="species != null">species = #{species},</if>
+            <if test="commonName != null">common_name = #{commonName},</if>
+            <if test="comment != null">comment = #{comment},</if>
+            <if test="groupId != null">group_id = #{groupId},</if>
+            <if test="populationId != null">population_id = #{populationId},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="longtitude != null">longtitude = #{longtitude},</if>
+            <if test="ngbId != null">ngb_id = #{ngbId},</if>
+            <if test="origin != null">origin = #{origin},</if>
+        </trim>
+        where germplasm_id = #{germplasmId}
+    </update>
+
+    <delete id="deleteGermplasmByGermplasmId" parameterType="Long">
+        delete from germplasm where germplasm_id = #{germplasmId}
+    </delete>
+
+    <delete id="deleteGermplasmByGermplasmIds" parameterType="String">
+        delete from germplasm where germplasm_id in 
+        <foreach item="germplasmId" collection="array" open="(" separator="," close=")">
+            #{germplasmId}
+        </foreach>
+    </delete>
+
+    <select id="SelectorSubGroupGermplasm" resultMap="GermplasmResult1">
+        select g.*,s.subgroup_id,s.name as subgroup_name,s.description,s.population_id from germplasm g
+        inner join subgroup s on s.subgroup_id = g.group_id
+    </select>
+</mapper>

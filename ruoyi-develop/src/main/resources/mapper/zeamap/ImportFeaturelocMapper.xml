@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportFeaturelocMapper">
+    
+    <resultMap type="ImportFeatureloc" id="ImportFeaturelocResult">
+        <result property="featurelocId"    column="featureloc_id"    />
+        <result property="fmin"    column="fmin"    />
+        <result property="fmax"    column="fmax"    />
+        <result property="strand"    column="strand"    />
+        <result property="featureId"    column="feature_id"    />
+        <result property="srcfeatureId"    column="srcfeature_id"    />
+    </resultMap>
+
+    <sql id="selectImportFeaturelocVo">
+        select featureloc_id, fmin, fmax, strand, feature_id, srcfeature_id from featureloc
+    </sql>
+
+    <select id="selectImportFeaturelocList" parameterType="ImportFeatureloc" resultMap="ImportFeaturelocResult">
+        <include refid="selectImportFeaturelocVo"/>
+        <where>  
+            <if test="featurelocId != null  and featurelocId != ''"> and featureloc_id = #{featurelocId}</if>
+            <if test="fmin != null  and fmin != ''"> and fmin = #{fmin}</if>
+            <if test="fmax != null  and fmax != ''"> and fmax = #{fmax}</if>
+            <if test="strand != null  and strand != ''"> and strand = #{strand}</if>
+            <if test="featureId != null  and featureId != ''"> and feature_id = #{featureId}</if>
+            <if test="srcfeatureId != null  and srcfeatureId != ''"> and srcfeature_id = #{srcfeatureId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportFeaturelocByFeaturelocId" parameterType="String" resultMap="ImportFeaturelocResult">
+        <include refid="selectImportFeaturelocVo"/>
+        where featureloc_id = #{featurelocId}
+    </select>
+        
+    <insert id="insertImportFeatureloc" parameterType="ImportFeatureloc">
+        insert into featureloc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="featurelocId != null">featureloc_id,</if>
+            <if test="fmin != null">fmin,</if>
+            <if test="fmax != null">fmax,</if>
+            <if test="strand != null">strand,</if>
+            <if test="featureId != null">feature_id,</if>
+            <if test="srcfeatureId != null">srcfeature_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="featurelocId != null">#{featurelocId},</if>
+            <if test="fmin != null">#{fmin},</if>
+            <if test="fmax != null">#{fmax},</if>
+            <if test="strand != null">#{strand},</if>
+            <if test="featureId != null">#{featureId},</if>
+            <if test="srcfeatureId != null">#{srcfeatureId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportFeatureloc" parameterType="ImportFeatureloc">
+        update featureloc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fmin != null">fmin = #{fmin},</if>
+            <if test="fmax != null">fmax = #{fmax},</if>
+            <if test="strand != null">strand = #{strand},</if>
+            <if test="featureId != null">feature_id = #{featureId},</if>
+            <if test="srcfeatureId != null">srcfeature_id = #{srcfeatureId},</if>
+        </trim>
+        where featureloc_id = #{featurelocId}
+    </update>
+
+    <delete id="deleteImportFeaturelocByFeaturelocId" parameterType="String">
+        delete from featureloc where featureloc_id = #{featurelocId}
+    </delete>
+
+    <delete id="deleteImportFeaturelocByFeaturelocIds" parameterType="String">
+        delete from featureloc where featureloc_id in 
+        <foreach item="featurelocId" collection="array" open="(" separator="," close=")">
+            #{featurelocId}
+        </foreach>
+    </delete>
+</mapper>

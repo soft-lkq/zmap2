@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.VariantInfoMapper">
+    
+    <resultMap type="VariantInfo" id="VariantInfoResult">
+        <result property="variantinfoId"    column="variantinfo_id"    />
+        <result property="vid"    column="VID"    />
+        <result property="annotation"    column="annotation"    />
+        <result property="information"    column="information"    />
+        <result property="pieplots"    column="pieplots"    />
+        <result property="summary"    column="summary"    />
+    </resultMap>
+
+    <sql id="selectVariantInfoVo">
+        select variantinfo_id, VID, annotation, information, pieplots, summary from variant_info
+    </sql>
+
+    <select id="selectVariantInfoList" parameterType="VariantInfo" resultMap="VariantInfoResult">
+        <include refid="selectVariantInfoVo"/>
+        <where>  
+            <if test="vid != null  and vid != ''"> and VID = #{vid}</if>
+            <if test="annotation != null  and annotation != ''"> and annotation = #{annotation}</if>
+            <if test="information != null  and information != ''"> and information = #{information}</if>
+            <if test="pieplots != null  and pieplots != ''"> and pieplots = #{pieplots}</if>
+            <if test="summary != null  and summary != ''"> and summary = #{summary}</if>
+        </where>
+    </select>
+    
+    <select id="selectVariantInfoByVariantinfoId" parameterType="Long" resultMap="VariantInfoResult">
+        <include refid="selectVariantInfoVo"/>
+        where variantinfo_id = #{variantinfoId}
+    </select>
+        
+    <insert id="insertVariantInfo" parameterType="VariantInfo">
+        insert into variant_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="variantinfoId != null">variantinfo_id,</if>
+            <if test="vid != null">VID,</if>
+            <if test="annotation != null">annotation,</if>
+            <if test="information != null">information,</if>
+            <if test="pieplots != null">pieplots,</if>
+            <if test="summary != null">summary,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="variantinfoId != null">#{variantinfoId},</if>
+            <if test="vid != null">#{vid},</if>
+            <if test="annotation != null">#{annotation},</if>
+            <if test="information != null">#{information},</if>
+            <if test="pieplots != null">#{pieplots},</if>
+            <if test="summary != null">#{summary},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVariantInfo" parameterType="VariantInfo">
+        update variant_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vid != null">VID = #{vid},</if>
+            <if test="annotation != null">annotation = #{annotation},</if>
+            <if test="information != null">information = #{information},</if>
+            <if test="pieplots != null">pieplots = #{pieplots},</if>
+            <if test="summary != null">summary = #{summary},</if>
+        </trim>
+        where variantinfo_id = #{variantinfoId}
+    </update>
+
+    <delete id="deleteVariantInfoByVariantinfoId" parameterType="Long">
+        delete from variant_info where variantinfo_id = #{variantinfoId}
+    </delete>
+
+    <delete id="deleteVariantInfoByVariantinfoIds" parameterType="String">
+        delete from variant_info where variantinfo_id in 
+        <foreach item="variantinfoId" collection="array" open="(" separator="," close=")">
+            #{variantinfoId}
+        </foreach>
+    </delete>
+
+
+    <!--变异详情页-->
+    <select id="selectSummaryByVID" parameterType="java.lang.String" resultType="java.lang.String">
+        select summary
+        from variant_info
+        where VID = #{VID}
+    </select>
+    <select id="selectPieplotsByVID" parameterType="String" resultType="String">
+        select pieplots
+        from variant_info
+        where VID = #{VID}
+    </select>
+    <select id="selectAnnotationsByVID" parameterType="String" resultType="String">
+        select annotation
+        from variant_info
+        where VID = #{VID}
+    </select>
+    <select id="selectInformationByVID" parameterType="String" resultType="String">
+        select information
+        from variant_info
+        where VID = #{VID}
+    </select>
+
+</mapper>

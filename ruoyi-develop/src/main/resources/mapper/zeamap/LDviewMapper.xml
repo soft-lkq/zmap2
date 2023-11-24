@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.LDviewMapper">
+    <resultMap type="Population" id="PopulationResult">
+        <result property="populationId"    column="population_id"    />
+        <result property="name"    column="name"    />
+        <result property="description"    column="description"    />
+        <result property="image"    column="image"    />
+        <result property="alias"    column="alias"    />
+    </resultMap>
+
+    <resultMap type="Dbxref" id="DbxrefResult">
+        <result property="dbxrefId"    column="dbxref_id"    />
+        <result property="accession"    column="accession"    />
+        <result property="version"    column="version"    />
+        <result property="description"    column="description"    />
+        <result property="dbId"    column="db_id"    />
+    </resultMap>
+
+    <resultMap type="Db" id="DbResult">
+        <result property="dbId"    column="db_id"    />
+        <result property="name"    column="name"    />
+        <result property="description"    column="description"    />
+        <result property="urlprefix"    column="urlprefix"    />
+        <result property="url"    column="url"    />
+    </resultMap>
+
+    <resultMap type="Analysis" id="AnalysisResult">
+        <result property="analysisId"    column="analysis_id"    />
+        <result property="name"    column="name"    />
+        <result property="description"    column="description"    />
+        <result property="dbxrefId"    column="dbxref_id"    />
+        <result property="populationId"    column="population_id"    />
+        <result property="detailed"    column="detailed"    />
+        <result property="methods"    column="methods"    />
+        <result property="omics"    column="omics"    />
+        <result property="reference"    column="reference"    />
+    </resultMap>
+
+
+    <select id="selectDbid" resultType="Long">
+        select distinct db_id from db where name like '%${accession}%' and name like "%-GFF"
+    </select>
+
+    <select id="selectaccession" resultType="String">
+        select distinct D.accession FROM dbxref D
+        where accession in (
+            select replace( name, '-GFF', '' )
+            FROM db
+            where name like '%-GFF')
+    </select>
+
+    <select id="selectDescription" resultType="String">
+        select distinct description from analysis where population_id=#{population_id} and dbxref_id=#{dbxref_id}
+    </select>
+
+    <select id="selectAnalysisId" resultType="Long">
+        select distinct analysis_id from analysis where population_id=#{population_id} and dbxref_id=#{dbxref_id} and description=#{description}
+    </select>
+
+    <select id="selectDbName" resultType="String">
+        select replace(name,'-GFF','') from db where name like '%-GFF'
+    </select>
+
+    <select id="selectAccesion" resultType="String">
+        select accession from dbxref
+    </select>
+
+    <select id="selectVersionByAccesion" resultType="String">
+        select distinct version from dbxref where accession=#{accession} and version!=''
+    </select>
+
+    <select id="selectDbxrefIdByAll" resultType="Long">
+        select distinct dbxref_id from dbxref where accession=#{accession} and version=#{version} and db_id=#{db_id}
+    </select>
+
+    <select id="selectPopulationId" resultType="Long" >
+        select distinct population_id from population where alias=#{alias}
+    </select>
+
+    <select id="selectAlias" resultType="String">
+        select distinct alias from population
+    </select>
+
+    <select id="selectLoadByAnalysisId" resultType="String">
+        select distinct ldfilepath from ldblock where analysis_id=#{analysis_id}
+    </select>
+
+
+
+
+</mapper>

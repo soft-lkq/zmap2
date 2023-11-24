@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.AssociationMarkerMapper">
+
+    <resultMap type="AssociationMarker" id="AssociationMarkerResult">
+        <result property="associationMarkerId"    column="association_marker_id"    />
+        <result property="accession" column="accession"/>
+        <result property="version" column="version"/>
+        <result property="chr" column="chr"/>
+        <result property="posi" column="posi"/>
+        <result property="omics" column="omics"/>
+        <result property="xot_uid" column="xot_uid"/>
+        <result property="type" column="type"/>
+        <result property="log"    column="log"    />
+        <result property="effectiveSize"    column="effective_size"    />
+        <result property="pip"    column="pip"    />
+        <result property="dbxrefId"    column="dbxref_id"    />
+        <result property="qtlId"    column="qtl_id"    />
+        <result property="variantId"    column="variant_id"    />
+        <result property="vid"    column="VID"    />
+        <result property="qtlUid"      column="qtl_uid"/>
+    </resultMap>
+
+    <sql id="selectAssociationMarkerVo">
+        select association_marker_id, log, effect_size, pip, dbxref_id, qtl_id, variant_id from association_marker
+    </sql>
+
+    <select id="selectAssociationMarkerList" parameterType="AssociationMarker" resultMap="AssociationMarkerResult">
+        <include refid="selectAssociationMarkerVo"/>
+        <where>  
+            <if test="log != null  and log != ''"> and log = #{log}</if>
+            <if test="effectiveSize != null  and effectiveSize != ''"> and effective_size = #{effectiveSize}</if>
+            <if test="pip != null  and pip != ''"> and pip = #{pip}</if>
+            <if test="dbxrefId != null "> and dbxref_id = #{dbxrefId}</if>
+            <if test="qtlId != null "> and qtl_id = #{qtlId}</if>
+            <if test="variantId != null "> and variant_id = #{variantId}</if>
+        </where>
+    </select>
+    
+    <select id="selectAssociationMarkerByAssociationMarkerId" parameterType="Long" resultMap="AssociationMarkerResult">
+        <include refid="selectAssociationMarkerVo"/>
+        where association_marker_id = #{associationMarkerId}
+    </select>
+        
+    <insert id="insertAssociationMarker" parameterType="AssociationMarker" useGeneratedKeys="true" keyProperty="associationMarkerId">
+        insert into association_marker
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="log != null">log,</if>
+            <if test="effectiveSize != null">effective_size,</if>
+            <if test="pip != null">pip,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+            <if test="qtlId != null">qtl_id,</if>
+            <if test="variantId != null">variant_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="log != null">#{log},</if>
+            <if test="effectiveSize != null">#{effectiveSize},</if>
+            <if test="pip != null">#{pip},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+            <if test="qtlId != null">#{qtlId},</if>
+            <if test="variantId != null">#{variantId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAssociationMarker" parameterType="AssociationMarker">
+        update association_marker
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="log != null">log = #{log},</if>
+            <if test="effectiveSize != null">effective_size = #{effectiveSize},</if>
+            <if test="pip != null">pip = #{pip},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+            <if test="qtlId != null">qtl_id = #{qtlId},</if>
+            <if test="variantId != null">variant_id = #{variantId},</if>
+        </trim>
+        where association_marker_id = #{associationMarkerId}
+    </update>
+
+    <delete id="deleteAssociationMarkerByAssociationMarkerId" parameterType="Long">
+        delete from association_marker where association_marker_id = #{associationMarkerId}
+    </delete>
+
+    <delete id="deleteAssociationMarkerByAssociationMarkerIds" parameterType="String">
+        delete from association_marker where association_marker_id in
+        <foreach item="associationMarkerId" collection="array" open="(" separator="," close=")">
+            #{associationMarkerId}
+        </foreach>
+    </delete>
+
+    <!--@Author 刘洋-->
+    <!--查找dbxref表里面的accession-->
+    <select id="selectaccession" resultType="String">
+        select distinct D.accession FROM dbxref D,db
+        where
+        db.name like '%-GFF' and D.db_id=db.db_id
+
+        <!--
+        select distinct D.accession FROM dbxref D
+        where accession in (
+                select replace( name, '-GFF', '' )
+                FROM db
+                where name like '%-GFF')
+        -->
+    </select>
+    <!--查找dbxref表里面的version,version是reference的下级-->
+    <select id="selectversion" parameterType="String" resultType="String">
+         select distinct version from dbxref where accession=#{accession} and version is not null and version!=''
+    </select>
+    <!--查找Trait Category -->
+    <select id="selecttraitcategory" resultType="String">
+        select distinct omics from xot
+    </select>
+    <!--查找Trait Id -->
+    <select id="selecttraitid" resultType="String">
+        select distinct xot_uid
+        from xot
+        where xot_uid like concat('%',#{trait_id},'%') or #{trait_id} is null or #{trait_id}='' or #{trait_id}='null'
+        limit 20
+    </select>
+    <!--查找chr-->
+    <select id="selectchr" resultType="String">
+        select distinct chr from variant
+    </select>
+    <!--查找variant Type-->
+    <select id="selecttype" resultType="String">
+        select distinct type from variant
+    </select>
+    <!--大查询-->
+    <select id="selectassociation_marker" parameterType="com.ruoyi.zeamap.domain.AssociationMarkerSelectCondition" resultMap="AssociationMarkerResult">
+        select association_marker_id,qtl_id,qtl_uid,accession,version,variant.chr,posi,omics,xot_uid,variant.type,association_marker.log,effect_size,pip,association_marker.dbxref_id,VID
+        from association_marker,dbxref,variant,xot,association_qtl
+        where
+            (association_marker.dbxref_id=dbxref.dbxref_id and accession=#{accession} and version=#{version}
+                or (#{accession}=''or #{accession} is null))
+          and (association_marker.qtl_id=association_qtl.association_qtl_id and association_qtl.trait_id=xot.xot_id and omics=#{omics}
+                or (#{omics}=''or #{omics} is null))
+          and ((association_marker.qtl_id=association_qtl.association_qtl_id and association_qtl.trait_id=xot.xot_id and xot_uid=#{xot_uid} )
+                or (#{xot_uid}=''or #{xot_uid} is null))
+          and ( association_marker.variant_id=variant.variant_id and variant.chr=#{chr}
+                or (#{chr}=''or #{chr} is null))
+          and (find_in_set(variant.type,#{variantType}) or #{variantType} is null or #{variantType}='')
+          and association_marker.log>#{log_min} and #{log_max}>association_marker.log
+          and effect_size>#{effect_min} and #{effect_max}>effect_size
+          and pip>#{pip_min} and #{pip_max}>pip
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.AsTraitTypeMapper">
+    
+    <resultMap type="AsTraitType" id="AsTraitTypeResult">
+        <result property="asTraitTypeId"    column="as_trait_type_id"    />
+        <result property="traitTypeId"    column="trait_type_id"    />
+        <result property="traitId"    column="trait_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectAsTraitTypeVo">
+        select as_trait_type_id, trait_type_id, trait_id, create_by, create_time, update_by, update_time, remark from as_trait_type
+    </sql>
+
+    <select id="selectAsTraitTypeList" parameterType="AsTraitType" resultMap="AsTraitTypeResult">
+        <include refid="selectAsTraitTypeVo"/>
+        <where>  
+            <if test="traitTypeId != null "> and trait_type_id = #{traitTypeId}</if>
+            <if test="traitId != null  and traitId != ''"> and trait_id = #{traitId}</if>
+        </where>
+    </select>
+    
+    <select id="selectAsTraitTypeByAsTraitTypeId" parameterType="Long" resultMap="AsTraitTypeResult">
+        <include refid="selectAsTraitTypeVo"/>
+        where as_trait_type_id = #{asTraitTypeId}
+    </select>
+        
+    <insert id="insertAsTraitType" parameterType="AsTraitType" useGeneratedKeys="true" keyProperty="asTraitTypeId">
+        insert into as_trait_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="traitTypeId != null">trait_type_id,</if>
+            <if test="traitId != null and traitId != ''">trait_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="traitTypeId != null">#{traitTypeId},</if>
+            <if test="traitId != null and traitId != ''">#{traitId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAsTraitType" parameterType="AsTraitType">
+        update as_trait_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="traitTypeId != null">trait_type_id = #{traitTypeId},</if>
+            <if test="traitId != null and traitId != ''">trait_id = #{traitId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where as_trait_type_id = #{asTraitTypeId}
+    </update>
+
+    <delete id="deleteAsTraitTypeByAsTraitTypeId" parameterType="Long">
+        delete from as_trait_type where as_trait_type_id = #{asTraitTypeId}
+    </delete>
+
+    <delete id="deleteAsTraitTypeByAsTraitTypeIds" parameterType="String">
+        delete from as_trait_type where as_trait_type_id in 
+        <foreach item="asTraitTypeId" collection="array" open="(" separator="," close=")">
+            #{asTraitTypeId}
+        </foreach>
+    </delete>
+</mapper>

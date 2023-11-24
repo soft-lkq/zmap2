@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportExpressionMapper">
+    
+    <resultMap type="ImportExpression" id="ImportExpressionResult">
+        <result property="expressionId"    column="expression_id"    />
+        <result property="expressionValue"    column="expression_value"    />
+        <result property="expressionUnit"    column="expression_unit"    />
+        <result property="analysisId"    column="analysis_id"    />
+        <result property="environmentId"    column="environment_id"    />
+        <result property="featureId"    column="feature_id"    />
+        <result property="germplasmId"    column="germplasm_id"    />
+        <result property="tissueId"    column="tissue_id"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectImportExpressionVo">
+        select expression_id, expression_value, expression_unit, analysis_id, environment_id, feature_id, germplasm_id, tissue_id, status, create_by, create_time, update_by, update_time, remark from expression
+    </sql>
+
+    <select id="selectImportExpressionList" parameterType="ImportExpression" resultMap="ImportExpressionResult">
+        <include refid="selectImportExpressionVo"/>
+        <where>  
+            <if test="expressionValue != null  and expressionValue != ''"> and expression_value = #{expressionValue}</if>
+            <if test="expressionUnit != null  and expressionUnit != ''"> and expression_unit = #{expressionUnit}</if>
+            <if test="analysisId != null "> and analysis_id = #{analysisId}</if>
+            <if test="environmentId != null "> and environment_id = #{environmentId}</if>
+            <if test="featureId != null "> and feature_id = #{featureId}</if>
+            <if test="germplasmId != null "> and germplasm_id = #{germplasmId}</if>
+            <if test="tissueId != null "> and tissue_id = #{tissueId}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportExpressionByExpressionId" parameterType="Long" resultMap="ImportExpressionResult">
+        <include refid="selectImportExpressionVo"/>
+        where expression_id = #{expressionId}
+    </select>
+        
+    <insert id="insertImportExpression" parameterType="ImportExpression">
+        insert into expression
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="expressionId != null">expression_id,</if>
+            <if test="expressionValue != null">expression_value,</if>
+            <if test="expressionUnit != null">expression_unit,</if>
+            <if test="analysisId != null">analysis_id,</if>
+            <if test="environmentId != null">environment_id,</if>
+            <if test="featureId != null">feature_id,</if>
+            <if test="germplasmId != null">germplasm_id,</if>
+            <if test="tissueId != null">tissue_id,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="expressionId != null">#{expressionId},</if>
+            <if test="expressionValue != null">#{expressionValue},</if>
+            <if test="expressionUnit != null">#{expressionUnit},</if>
+            <if test="analysisId != null">#{analysisId},</if>
+            <if test="environmentId != null">#{environmentId},</if>
+            <if test="featureId != null">#{featureId},</if>
+            <if test="germplasmId != null">#{germplasmId},</if>
+            <if test="tissueId != null">#{tissueId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportExpression" parameterType="ImportExpression">
+        update expression
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="expressionValue != null">expression_value = #{expressionValue},</if>
+            <if test="expressionUnit != null">expression_unit = #{expressionUnit},</if>
+            <if test="analysisId != null">analysis_id = #{analysisId},</if>
+            <if test="environmentId != null">environment_id = #{environmentId},</if>
+            <if test="featureId != null">feature_id = #{featureId},</if>
+            <if test="germplasmId != null">germplasm_id = #{germplasmId},</if>
+            <if test="tissueId != null">tissue_id = #{tissueId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where expression_id = #{expressionId}
+    </update>
+
+    <delete id="deleteImportExpressionByExpressionId" parameterType="Long">
+        delete from expression where expression_id = #{expressionId}
+    </delete>
+
+    <delete id="deleteImportExpressionByExpressionIds" parameterType="String">
+        delete from expression where expression_id in 
+        <foreach item="expressionId" collection="array" open="(" separator="," close=")">
+            #{expressionId}
+        </foreach>
+    </delete>
+</mapper>

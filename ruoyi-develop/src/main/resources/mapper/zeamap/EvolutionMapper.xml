@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.EvolutionMapper">
+
+    <resultMap type="Evolution" id="EvolutionResult">
+        <result property="evolutionId" column="evolution_id"/>
+        <result property="chro" column="chro"/>
+        <result property="start" column="start"/>
+        <result property="end" column="end"/>
+        <result property="value" column="value"/>
+        <result property="tag" column="tag"/>
+        <result property="evolutionTypeId" column="evolution_type_id"/>
+        <result property="dbxrefId" column="dbxref_id"/>
+    </resultMap>
+
+    <sql id="selectEvolutionVo">
+        select evolution_id,
+               chro,
+               start,
+               end,
+               value,
+               tag,
+               evolution_type_id,
+               dbxref_id
+        from evolution
+    </sql>
+
+
+    <!--Reference 下拉框+展示-->
+    <select id="selectReference" resultType="String">
+        select distinct D.accession
+        from dbxref D,
+             db DB
+        where DB.db_id = D.db_id
+          and DB.name like '%GFF'
+    </select>
+    <!--select distinct D.accession
+        from dbxref D,
+             db DB,
+             evolution E,
+             analysis A
+        where E.dbxref_id = A.dbxref_id
+          and A.dbxref_id = D.dbxref_id
+
+          and D.accession in (
+            select replace(name, '-GFF', '')
+            from DB
+            where name like '%-GFF')-->
+
+
+    <!--Version 下拉框+展示-->
+    <select id="selectVersion" resultType="String">
+        select distinct D.version
+        from dbxref D
+        where accession = #{accession}
+          and D.version is not null
+          and D.version != ''
+    </select>
+
+    <!--Indicator 选项 展示-->
+    <select id="selectIndicator" resultType="String">
+        select distinct ET.Indicator
+        from evolution_type ET
+    </select>
+
+    <!--selectiontype 在选择了indicator的基础上筛选可能的 selectiontype 即 select -->
+    <select id="selectselectiontype" resultType="String">
+        select distinct ET.select
+        from evolution_type ET
+        where ET.indicator = #{indicator}
+           or #{indicator} is null
+           or #{indicator} = ''
+    </select>
+
+    <!--popcompared 在选择了indicator的基础上筛选可能的 compare_pop -->
+    <select id="selectpopcompared" resultType="String">
+        select distinct ET.compare_pop
+        from evolution_type ET
+        where ET.indicator = #{indicator}
+           or #{indicator} is null
+           or #{indicator} = ''
+    </select>
+
+    <!--chr 即查询E表的 chro-->
+    <select id="selectchr" resultType="String">
+        select distinct E.chro
+        from evolution E
+    </select>
+
+
+    <resultMap id="EvolSelectionConditionResult" type="com.ruoyi.zeamap.domain.EvolSelectCondition">
+        <result property="ref" column="ref"/>
+        <result property="version" column="version"/>
+        <result property="indicator" column="indicator"/>
+        <result property="analysis_name" column="analysis_name"/>
+        <result property="select" column="select"/>
+        <result property="compare_pop" column="compare_pop"/>
+        <result property="chro" column="chro"/>
+        <result property="start" column="start"/>
+        <result property="end" column="end"/>
+        <result property="value" column="value"/>
+        <result property="tag" column="tag"/>
+    </resultMap>
+
+    <!--大查询-->
+    <select id="selectevol" resultMap="EvolSelectionConditionResult">
+        select D.accession    ref,
+               D.version      version,
+               A.name         analysis_name,
+               ET.indicator   indicator,
+               ET.select      `select`,
+               ET.compare_pop compare_pop,
+               E.chro         chro,
+               E.start        start,
+               E.end          end,
+               E.value        value
+
+        from dbxref D,
+             analysis A,
+             evolution_type ET,
+             evolution E
+
+        where A.analysis_id = ET.analysis_id
+          and A.dbxref_id = D.dbxref_id
+          and E.dbxref_id = D.dbxref_id
+          and E.evolution_type_id = ET.evolution_type_id
+
+          and (D.accession = #{ref} or #{ref} is null or #{ref} = '')
+          and (D.version = #{version} or #{version} is null or #{version} = '')
+          and (ET.indicator = #{indicator} or #{indicator} is null or #{indicator} = '')
+          and (ET.select = #{select} or #{select} is null or #{select} = '')
+          and (ET.compare_pop = #{compare_pop} or #{compare_pop} is null or #{compare_pop} = '')
+          and (E.chro = #{chro} or #{chro} is null or #{chro} = '')
+          and (E.start &gt;= #{start} or #{start} is null or #{start} = '')
+          and (E.end &lt;= #{end} or #{end} is null or #{end} = '')
+
+    </select>
+
+
+    <select id="selectEvolutionList" parameterType="Evolution" resultMap="EvolutionResult">
+        <include refid="selectEvolutionVo"/>
+        <where>
+            <if test="chro != null  and chro != ''">and chro = #{chro}</if>
+            <if test="start != null ">and start = #{start}</if>
+            <if test="end != null ">and end = #{end}</if>
+            <if test="value != null ">and value = #{value}</if>
+            <if test="tag != null  and tag != ''">and tag = #{tag}</if>
+            <if test="evolutionTypeId != null ">and evolution_type_id = #{evolutionTypeId}</if>
+            <if test="dbxrefId != null ">and dbxref_id = #{dbxrefId}</if>
+        </where>
+    </select>
+
+    <select id="selectEvolutionByEvolutionId" parameterType="Long" resultMap="EvolutionResult">
+        <include refid="selectEvolutionVo"/>
+        where evolution_id = #{evolutionId}
+    </select>
+
+    <insert id="insertEvolution" parameterType="Evolution">
+        insert into evolution
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="evolutionId != null">evolution_id,</if>
+            <if test="chro != null">chro,</if>
+            <if test="start != null">start,</if>
+            <if test="end != null">end,</if>
+            <if test="value != null">value,</if>
+            <if test="tag != null">tag,</if>
+            <if test="evolutionTypeId != null">evolution_type_id,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="evolutionId != null">#{evolutionId},</if>
+            <if test="chro != null">#{chro},</if>
+            <if test="start != null">#{start},</if>
+            <if test="end != null">#{end},</if>
+            <if test="value != null">#{value},</if>
+            <if test="tag != null">#{tag},</if>
+            <if test="evolutionTypeId != null">#{evolutionTypeId},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateEvolution" parameterType="Evolution">
+        update evolution
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chro != null">chro = #{chro},</if>
+            <if test="start != null">start = #{start},</if>
+            <if test="end != null">end = #{end},</if>
+            <if test="value != null">value = #{value},</if>
+            <if test="tag != null">tag = #{tag},</if>
+            <if test="evolutionTypeId != null">evolution_type_id = #{evolutionTypeId},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+        </trim>
+        where evolution_id = #{evolutionId}
+    </update>
+
+    <delete id="deleteEvolutionByEvolutionId" parameterType="Long">
+        delete
+        from evolution
+        where evolution_id = #{evolutionId}
+    </delete>
+
+    <delete id="deleteEvolutionByEvolutionIds" parameterType="String">
+        delete from evolution where evolution_id in
+        <foreach item="evolutionId" collection="array" open="(" separator="," close=")">
+            #{evolutionId}
+        </foreach>
+    </delete>
+</mapper>

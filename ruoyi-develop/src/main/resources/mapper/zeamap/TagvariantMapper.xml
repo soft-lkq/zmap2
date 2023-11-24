@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.TagvariantMapper">
+
+    <resultMap type="Tagvariant" id="TagvariantResult">
+        <result property="tagvariantId" column="tagvariant_id"/>
+        <result property="vid" column="VID"/>
+        <result property="chr" column="chr"/>
+        <result property="start" column="start"/>
+        <result property="end" column="end"/>
+        <result property="ntag" column="ntag"/>
+        <result property="kbspan" column="kbspan"/>
+        <result property="tags" column="tags"/>
+        <result property="analysisId" column="analysis_id"/>
+    </resultMap>
+
+    <sql id="selectTagvariantVo">
+        select tagvariant_id,
+               VID,
+               chr,
+               start,
+               end,
+               ntag,
+               kbspan,
+               tags,
+               analysis_id
+        from tagvariant
+    </sql>
+
+    <!--Reference 下拉框+展示-->
+    <select id="selectReference" resultType="String">
+        select distinct D.accession
+        from dbxref D,
+             db DB
+        where DB.db_id = D.db_id
+          and DB.name like '%GFF'
+    </select>
+
+    <!--Version 下拉框+展示-->
+    <select id="selectVersion" resultType="String">
+        select distinct D.version
+        from dbxref D
+        where accession = #{accession}
+          and D.version is not null
+          and D.version != ''
+    </select>
+
+    <!--Population-->
+    <select id="selectPopulation" resultType="String">
+        select distinct alias
+        from population P
+    </select>
+
+    <!--Analysis-->
+    <select id="selectAnalysis" resultType="String">
+        select distinct description
+        from analysis
+    </select>
+
+    <!--Region下拉框 Chr -->
+    <select id="selectChr" resultType="String">
+        select distinct chr
+        from tagvariant
+    </select>
+
+
+    <resultMap id="TagvSelectConditionResult" type="com.ruoyi.zeamap.domain.TagvSelectCondition" >
+        <result property="tagvariantId" column="tagvariant_id"/>
+        <result property="accession" column="accession"/>
+        <result property="population" column="population"/>
+        <result property="description" column="description"/>
+        <result property="vid" column="VID"/>
+        <result property="chr" column="chr"/>
+        <result property="start" column="start"/>
+        <result property="end" column="end"/>
+        <result property="ntag" column="ntag"/>
+        <result property="kbspan" column="kbspan"/>
+        <result property="tags" column="tags"/>
+        <result property="analysisId" column="analysis_id"/>
+    </resultMap>
+
+    <!--大查询-->
+    <select id="selectTagvariant" resultMap="TagvSelectConditionResult">
+        select T.tagvariant_id,
+               T.VID,
+               T.chr,
+               T.start,
+               T.end,
+               T.ntag,
+               T.kbspan,
+               T.tags
+
+        from tagvariant T,
+             analysis A,
+             dbxref D,
+             population P
+
+        where T.analysis_id = A.analysis_id
+          and A.dbxref_id = D.dbxref_id
+          and P.population_id = A.population_id
+
+          and (D.accession = #{accession} or #{accession} = '' or #{accession} is null)
+          and (D.version = #{version} or #{version} = '' or #{version} is null)
+          and (P.alias = #{population} or #{population} = '' or #{population} is null)
+          and (A.description=#{description} or #{description} ='' or #{description} is null)
+          and (T.chr = #{chr} or #{chr} = '' or #{chr} is null)
+          and (T.start &gt;= #{start} or #{start} = '' or #{start} is null)
+          and (T.end &lt;= #{end} or #{end} = '' or #{end} is null)
+
+    </select>
+
+
+    <select id="selectTagvariantList" parameterType="Tagvariant" resultMap="TagvariantResult">
+        <include refid="selectTagvariantVo"/>
+        <where>
+            <if test="vid != null  and vid != ''">and VID = #{vid}</if>
+            <if test="chr != null  and chr != ''">and chr = #{chr}</if>
+            <if test="start != null ">and start = #{start}</if>
+            <if test="end != null ">and end = #{end}</if>
+            <if test="ntag != null ">and ntag = #{ntag}</if>
+            <if test="kbspan != null ">and kbspan = #{kbspan}</if>
+            <if test="tags != null  and tags != ''">and tags = #{tags}</if>
+            <if test="analysisId != null ">and analysis_id = #{analysisId}</if>
+        </where>
+    </select>
+
+    <select id="selectTagvariantByTagvariantId" parameterType="Long" resultMap="TagvariantResult">
+        <include refid="selectTagvariantVo"/>
+        where tagvariant_id = #{tagvariantId}
+    </select>
+
+    <insert id="insertTagvariant" parameterType="Tagvariant">
+        insert into tagvariant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tagvariantId != null">tagvariant_id,</if>
+            <if test="vid != null">VID,</if>
+            <if test="chr != null">chr,</if>
+            <if test="start != null">start,</if>
+            <if test="end != null">end,</if>
+            <if test="ntag != null">ntag,</if>
+            <if test="kbspan != null">kbspan,</if>
+            <if test="tags != null">tags,</if>
+            <if test="analysisId != null">analysis_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tagvariantId != null">#{tagvariantId},</if>
+            <if test="vid != null">#{vid},</if>
+            <if test="chr != null">#{chr},</if>
+            <if test="start != null">#{start},</if>
+            <if test="end != null">#{end},</if>
+            <if test="ntag != null">#{ntag},</if>
+            <if test="kbspan != null">#{kbspan},</if>
+            <if test="tags != null">#{tags},</if>
+            <if test="analysisId != null">#{analysisId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTagvariant" parameterType="Tagvariant">
+        update tagvariant
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vid != null">VID = #{vid},</if>
+            <if test="chr != null">chr = #{chr},</if>
+            <if test="start != null">start = #{start},</if>
+            <if test="end != null">end = #{end},</if>
+            <if test="ntag != null">ntag = #{ntag},</if>
+            <if test="kbspan != null">kbspan = #{kbspan},</if>
+            <if test="tags != null">tags = #{tags},</if>
+            <if test="analysisId != null">analysis_id = #{analysisId},</if>
+        </trim>
+        where tagvariant_id = #{tagvariantId}
+    </update>
+
+    <delete id="deleteTagvariantByTagvariantId" parameterType="Long">
+        delete
+        from tagvariant
+        where tagvariant_id = #{tagvariantId}
+    </delete>
+
+    <delete id="deleteTagvariantByTagvariantIds" parameterType="String">
+        delete from tagvariant where tagvariant_id in
+        <foreach item="tagvariantId" collection="array" open="(" separator="," close=")">
+            #{tagvariantId}
+        </foreach>
+    </delete>
+</mapper>

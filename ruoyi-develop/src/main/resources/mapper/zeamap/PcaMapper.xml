@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.PcaMapper">
+    
+    <resultMap type="Pca" id="PcaResult">
+        <result property="sample"    column="sample"    />
+        <result property="pc1"    column="PC1"    />
+        <result property="pc2"    column="PC2"    />
+        <result property="pc3"    column="PC3"    />
+        <result property="pop"    column="POP"    />
+    </resultMap>
+
+    <sql id="selectPcaVo">
+        select sample, PC1, PC2, PC3, POP from pca
+    </sql>
+
+    <select id="selectPcaList" parameterType="Pca" resultMap="PcaResult">
+        <include refid="selectPcaVo"/>
+        <where>  
+            <if test="sample != null  and sample != ''"> and sample = #{sample}</if>
+            <if test="pc1 != null  and pc1 != ''"> and PC1 = #{pc1}</if>
+            <if test="pc2 != null  and pc2 != ''"> and PC2 = #{pc2}</if>
+            <if test="pc3 != null  and pc3 != ''"> and PC3 = #{pc3}</if>
+            <if test="pop != null  and pop != ''"> and POP = #{pop}</if>
+        </where>
+    </select>
+    
+    <select id="selectPcaBySample" parameterType="String" resultMap="PcaResult">
+        <include refid="selectPcaVo"/>
+        where sample = #{sample}
+    </select>
+        
+    <insert id="insertPca" parameterType="Pca">
+        insert into pca
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sample != null">sample,</if>
+            <if test="pc1 != null">PC1,</if>
+            <if test="pc2 != null">PC2,</if>
+            <if test="pc3 != null">PC3,</if>
+            <if test="pop != null">POP,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sample != null">#{sample},</if>
+            <if test="pc1 != null">#{pc1},</if>
+            <if test="pc2 != null">#{pc2},</if>
+            <if test="pc3 != null">#{pc3},</if>
+            <if test="pop != null">#{pop},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePca" parameterType="Pca">
+        update pca
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pc1 != null">PC1 = #{pc1},</if>
+            <if test="pc2 != null">PC2 = #{pc2},</if>
+            <if test="pc3 != null">PC3 = #{pc3},</if>
+            <if test="pop != null">POP = #{pop},</if>
+        </trim>
+        where sample = #{sample}
+    </update>
+
+    <delete id="deletePcaBySample" parameterType="String">
+        delete from pca where sample = #{sample}
+    </delete>
+
+    <delete id="deletePcaBySamples" parameterType="String">
+        delete from pca where sample in 
+        <foreach item="sample" collection="array" open="(" separator="," close=")">
+            #{sample}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportXotMapper">
+    
+    <resultMap type="ImportXot" id="ImportXotResult">
+        <result property="xotId"    column="xot_id"    />
+        <result property="omics"    column="omics"    />
+        <result property="category"    column="category"    />
+        <result property="type"    column="type"    />
+        <result property="name"    column="name"    />
+        <result property="xotUid"    column="xot_uid"    />
+        <result property="analysisId"    column="analysis_id"    />
+        <result property="crossrefid"    column="crossrefid"    />
+        <result property="crossreflink"    column="crossreflink"    />
+        <result property="description"    column="description"    />
+        <result property="mesuredetail"    column="mesuredetail"    />
+        <result property="traitdetail"    column="traitdetail"    />
+    </resultMap>
+
+    <sql id="selectImportXotVo">
+        select xot_id, omics, category, type, name, xot_uid, analysis_id, crossrefid, crossreflink, description, mesuredetail, traitdetail from xot
+    </sql>
+
+    <select id="selectImportXotList" parameterType="ImportXot" resultMap="ImportXotResult">
+        <include refid="selectImportXotVo"/>
+        <where>  
+            <if test="omics != null  and omics != ''"> and omics = #{omics}</if>
+            <if test="category != null  and category != ''"> and category like concat('%', #{category}, '%')</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="xotUid != null  and xotUid != ''"> and xot_uid = #{xotUid}</if>
+            <if test="analysisId != null "> and analysis_id = #{analysisId}</if>
+            <if test="crossrefid != null  and crossrefid != ''"> and crossrefid like concat('%', #{crossrefid}, '%')</if>
+            <if test="crossreflink != null  and crossreflink != ''"> and crossreflink like concat('%', #{crossreflink}, '%')</if>
+            <if test="description != null  and description != ''"> and description like concat('%', #{description}, '%')</if>
+            <if test="mesuredetail != null  and mesuredetail != ''"> and mesuredetail like concat('%', #{mesuredetail}, '%')</if>
+            <if test="traitdetail != null  and traitdetail != ''"> and traitdetail like concat('%', #{traitdetail}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectImportXotByXotId" parameterType="Long" resultMap="ImportXotResult">
+        <include refid="selectImportXotVo"/>
+        where xot_id = #{xotId}
+    </select>
+        
+    <insert id="insertImportXot" parameterType="ImportXot">
+        insert into xot
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="xotId != null">xot_id,</if>
+            <if test="omics != null">omics,</if>
+            <if test="category != null">category,</if>
+            <if test="type != null">type,</if>
+            <if test="name != null">name,</if>
+            <if test="xotUid != null">xot_uid,</if>
+            <if test="analysisId != null">analysis_id,</if>
+            <if test="crossrefid != null">crossrefid,</if>
+            <if test="crossreflink != null">crossreflink,</if>
+            <if test="description != null">description,</if>
+            <if test="mesuredetail != null">mesuredetail,</if>
+            <if test="traitdetail != null">traitdetail,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="xotId != null">#{xotId},</if>
+            <if test="omics != null">#{omics},</if>
+            <if test="category != null">#{category},</if>
+            <if test="type != null">#{type},</if>
+            <if test="name != null">#{name},</if>
+            <if test="xotUid != null">#{xotUid},</if>
+            <if test="analysisId != null">#{analysisId},</if>
+            <if test="crossrefid != null">#{crossrefid},</if>
+            <if test="crossreflink != null">#{crossreflink},</if>
+            <if test="description != null">#{description},</if>
+            <if test="mesuredetail != null">#{mesuredetail},</if>
+            <if test="traitdetail != null">#{traitdetail},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportXot" parameterType="ImportXot">
+        update xot
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="omics != null">omics = #{omics},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="xotUid != null">xot_uid = #{xotUid},</if>
+            <if test="analysisId != null">analysis_id = #{analysisId},</if>
+            <if test="crossrefid != null">crossrefid = #{crossrefid},</if>
+            <if test="crossreflink != null">crossreflink = #{crossreflink},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="mesuredetail != null">mesuredetail = #{mesuredetail},</if>
+            <if test="traitdetail != null">traitdetail = #{traitdetail},</if>
+        </trim>
+        where xot_id = #{xotId}
+    </update>
+
+    <delete id="deleteImportXotByXotId" parameterType="Long">
+        delete from xot where xot_id = #{xotId}
+    </delete>
+
+    <delete id="deleteImportXotByXotIds" parameterType="String">
+        delete from xot where xot_id in 
+        <foreach item="xotId" collection="array" open="(" separator="," close=")">
+            #{xotId}
+        </foreach>
+    </delete>
+</mapper>

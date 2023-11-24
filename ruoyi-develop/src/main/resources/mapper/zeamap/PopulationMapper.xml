@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.PopulationMapper">
+    
+    <resultMap type="Population" id="PopulationResult">
+        <result property="populationId"    column="population_id"    />
+        <result property="name"    column="name"    />
+        <result property="description"    column="description"    />
+        <result property="image"    column="image"    />
+        <result property="alias"    column="alias"    />
+    </resultMap>
+
+    <sql id="selectPopulationVo">
+        select population_id, name, description, image, alias from population
+    </sql>
+
+    <select id="selectPopulationidByName" parameterType="Long" resultMap="PopulationResult">
+        select population_id from population where name=#{name}
+    </select>
+
+    <select id="selectPopulationList" parameterType="Population" resultMap="PopulationResult">
+        <include refid="selectPopulationVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="image != null  and image != ''"> and image = #{image}</if>
+            <if test="alias != null  and alias != ''"> and alias = #{alias}</if>
+        </where>
+    </select>
+    
+    <select id="selectPopulationByPopulationId" parameterType="Long" resultMap="PopulationResult">
+        <include refid="selectPopulationVo"/>
+        where population_id = #{populationId}
+    </select>
+        
+    <insert id="insertPopulation" parameterType="Population" useGeneratedKeys="true" keyProperty="populationId">
+        insert into population
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="description != null">description,</if>
+            <if test="image != null">image,</if>
+            <if test="alias != null">alias,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="description != null">#{description},</if>
+            <if test="image != null">#{image},</if>
+            <if test="alias != null">#{alias},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePopulation" parameterType="Population">
+        update population
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="alias != null">alias = #{alias},</if>
+        </trim>
+        where population_id = #{populationId}
+    </update>
+
+    <delete id="deletePopulationByPopulationId" parameterType="Long">
+        delete from population where population_id = #{populationId}
+    </delete>
+
+    <delete id="deletePopulationByPopulationIds" parameterType="String">
+        delete from population where population_id in 
+        <foreach item="populationId" collection="array" open="(" separator="," close=")">
+            #{populationId}
+        </foreach>
+    </delete>
+</mapper>

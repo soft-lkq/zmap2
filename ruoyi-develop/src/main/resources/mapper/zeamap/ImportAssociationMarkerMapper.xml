@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportAssociationMarkerMapper">
+    
+    <resultMap type="ImportAssociationMarker" id="ImportAssociationMarkerResult">
+        <result property="associationMarkerId"    column="association_marker_id"    />
+        <result property="log"    column="log"    />
+        <result property="effectSize"    column="effect_size"    />
+        <result property="pip"    column="pip"    />
+        <result property="dbxrefId"    column="dbxref_id"    />
+        <result property="qtlId"    column="qtl_id"    />
+        <result property="variantId"    column="variant_id"    />
+    </resultMap>
+
+    <sql id="selectImportAssociationMarkerVo">
+        select association_marker_id, log, effect_size, pip, dbxref_id, qtl_id, variant_id from association_marker
+    </sql>
+
+    <select id="selectImportAssociationMarkerList" parameterType="ImportAssociationMarker" resultMap="ImportAssociationMarkerResult">
+        <include refid="selectImportAssociationMarkerVo"/>
+        <where>  
+            <if test="log != null  and log != ''"> and log = #{log}</if>
+            <if test="effectSize != null  and effectSize != ''"> and effect_size = #{effectSize}</if>
+            <if test="pip != null  and pip != ''"> and pip = #{pip}</if>
+            <if test="dbxrefId != null "> and dbxref_id = #{dbxrefId}</if>
+            <if test="qtlId != null "> and qtl_id = #{qtlId}</if>
+            <if test="variantId != null "> and variant_id = #{variantId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportAssociationMarkerByAssociationMarkerId" parameterType="Long" resultMap="ImportAssociationMarkerResult">
+        <include refid="selectImportAssociationMarkerVo"/>
+        where association_marker_id = #{associationMarkerId}
+    </select>
+        
+    <insert id="insertImportAssociationMarker" parameterType="ImportAssociationMarker" useGeneratedKeys="true" keyProperty="associationMarkerId">
+        insert into association_marker
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="log != null">log,</if>
+            <if test="effectSize != null">effect_size,</if>
+            <if test="pip != null">pip,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+            <if test="qtlId != null">qtl_id,</if>
+            <if test="variantId != null">variant_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="log != null">#{log},</if>
+            <if test="effectSize != null">#{effectSize},</if>
+            <if test="pip != null">#{pip},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+            <if test="qtlId != null">#{qtlId},</if>
+            <if test="variantId != null">#{variantId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportAssociationMarker" parameterType="ImportAssociationMarker">
+        update association_marker
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="log != null">log = #{log},</if>
+            <if test="effectSize != null">effect_size = #{effectSize},</if>
+            <if test="pip != null">pip = #{pip},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+            <if test="qtlId != null">qtl_id = #{qtlId},</if>
+            <if test="variantId != null">variant_id = #{variantId},</if>
+        </trim>
+        where association_marker_id = #{associationMarkerId}
+    </update>
+
+    <delete id="deleteImportAssociationMarkerByAssociationMarkerId" parameterType="Long">
+        delete from association_marker where association_marker_id = #{associationMarkerId}
+    </delete>
+
+    <delete id="deleteImportAssociationMarkerByAssociationMarkerIds" parameterType="String">
+        delete from association_marker where association_marker_id in 
+        <foreach item="associationMarkerId" collection="array" open="(" separator="," close=")">
+            #{associationMarkerId}
+        </foreach>
+    </delete>
+</mapper>

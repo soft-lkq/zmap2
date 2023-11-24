@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.AnalysisMapper">
+
+    <resultMap type="Analysis" id="AnalysisResult">
+        <result property="analysisId" column="analysis_id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="dbxrefId" column="dbxref_id"/>
+        <result property="populationId" column="population_id"/>
+        <result property="detailed" column="detailed"/>
+        <result property="methods" column="methods"/>
+        <result property="omics" column="omics"/>
+        <result property="reference" column="reference"/>
+    </resultMap>
+
+    <sql id="selectAnalysisVo">
+        select analysis_id,
+               name,
+               description,
+               dbxref_id,
+               population_id,
+               detailed,
+               methods,
+               omics,
+               reference
+        from analysis
+    </sql>
+
+
+
+    <!--查询 Omica-->
+    <select id="selectOmics" resultType="String">
+        select distinct omics
+        from analysis
+    </select>
+
+    <!--查询 AnalysisID-->
+    <select id="selectAnalysisID" resultType="String">
+        select distinct name
+        from analysis
+    </select>
+
+    <!--查询 Analysis-->
+    <select id="selectAnalysis" resultMap="AnalysisResult">
+        select analysis_id,
+               omics,
+               name,
+               description
+        from analysis
+        where (description like '%${description}%' or #{description} = '' or #{description} is null)
+          and (name = #{name} or #{name} = '' or #{name} is null)
+          and (omics = #{omics} or #{omics} = '' or #{omics} is null)
+    </select>
+
+    <!--通过Name查询Analysis 下载用-->
+    <select id="selectAnalysisByName" resultMap="AnalysisResult">
+        select *
+        from analysis
+        where name = #{name}
+    </select>
+
+
+    <select id="selectAnalysisList" parameterType="Analysis" resultMap="AnalysisResult">
+        <include refid="selectAnalysisVo"/>
+        <where>
+            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
+            <if test="description != null  and description != ''">and description = #{description}</if>
+            <if test="dbxrefId != null ">and dbxref_id = #{dbxrefId}</if>
+            <if test="populationId != null  and populationId != ''">and population_id = #{populationId}</if>
+            <if test="detailed != null  and detailed != ''">and detailed = #{detailed}</if>
+            <if test="methods != null  and methods != ''">and methods = #{methods}</if>
+            <if test="omics != null  and omics != ''">and omics = #{omics}</if>
+            <if test="reference != null  and reference != ''">and reference = #{reference}</if>
+        </where>
+    </select>
+
+    <select id="selectAnalysisByAnalysisId" parameterType="Long" resultMap="AnalysisResult">
+        <include refid="selectAnalysisVo"/>
+        where analysis_id = #{analysisId}
+    </select>
+
+    <insert id="insertAnalysis" parameterType="Analysis">
+        insert into analysis
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="analysisId != null">analysis_id,</if>
+            <if test="name != null">name,</if>
+            <if test="description != null">description,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+            <if test="populationId != null">population_id,</if>
+            <if test="detailed != null">detailed,</if>
+            <if test="methods != null">methods,</if>
+            <if test="omics != null">omics,</if>
+            <if test="reference != null">reference,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="analysisId != null">#{analysisId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="description != null">#{description},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+            <if test="populationId != null">#{populationId},</if>
+            <if test="detailed != null">#{detailed},</if>
+            <if test="methods != null">#{methods},</if>
+            <if test="omics != null">#{omics},</if>
+            <if test="reference != null">#{reference},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAnalysis" parameterType="Analysis">
+        update analysis
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+            <if test="populationId != null">population_id = #{populationId},</if>
+            <if test="detailed != null">detailed = #{detailed},</if>
+            <if test="methods != null">methods = #{methods},</if>
+            <if test="omics != null">omics = #{omics},</if>
+            <if test="reference != null">reference = #{reference},</if>
+        </trim>
+        where analysis_id = #{analysisId}
+    </update>
+
+    <delete id="deleteAnalysisByAnalysisId" parameterType="Long">
+        delete
+        from analysis
+        where analysis_id = #{analysisId}
+    </delete>
+
+    <delete id="deleteAnalysisByAnalysisIds" parameterType="String">
+        delete from analysis where analysis_id in
+        <foreach item="analysisId" collection="array" open="(" separator="," close=")">
+            #{analysisId}
+        </foreach>
+    </delete>
+</mapper>

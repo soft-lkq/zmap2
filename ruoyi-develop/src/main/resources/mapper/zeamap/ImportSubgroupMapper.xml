@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportSubgroupMapper">
+    
+    <resultMap type="ImportSubgroup" id="ImportSubgroupResult">
+        <result property="subgroupId"    column="subgroup_id"    />
+        <result property="name"    column="name"    />
+        <result property="description"    column="description"    />
+        <result property="populationId"    column="population_id"    />
+    </resultMap>
+
+    <sql id="selectImportSubgroupVo">
+        select subgroup_id, name, description, population_id from subgroup
+    </sql>
+
+    <select id="selectImportSubgroupList" parameterType="ImportSubgroup" resultMap="ImportSubgroupResult">
+        <include refid="selectImportSubgroupVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="populationId != null "> and population_id = #{populationId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportSubgroupBySubgroupId" parameterType="Long" resultMap="ImportSubgroupResult">
+        <include refid="selectImportSubgroupVo"/>
+        where subgroup_id = #{subgroupId}
+    </select>
+        
+    <insert id="insertImportSubgroup" parameterType="ImportSubgroup" useGeneratedKeys="true" keyProperty="subgroupId">
+        insert into subgroup
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="description != null">description,</if>
+            <if test="populationId != null">population_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="description != null">#{description},</if>
+            <if test="populationId != null">#{populationId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportSubgroup" parameterType="ImportSubgroup">
+        update subgroup
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="populationId != null">population_id = #{populationId},</if>
+        </trim>
+        where subgroup_id = #{subgroupId}
+    </update>
+
+    <delete id="deleteImportSubgroupBySubgroupId" parameterType="Long">
+        delete from subgroup where subgroup_id = #{subgroupId}
+    </delete>
+
+    <delete id="deleteImportSubgroupBySubgroupIds" parameterType="String">
+        delete from subgroup where subgroup_id in 
+        <foreach item="subgroupId" collection="array" open="(" separator="," close=")">
+            #{subgroupId}
+        </foreach>
+    </delete>
+</mapper>

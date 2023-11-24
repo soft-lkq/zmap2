@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.MutableMapper">
+    
+    <resultMap type="Mutable" id="MutableResult">
+        <result property="mutableId"    column="mutable_id"    />
+        <result property="mutableClass"    column="mutable_class"    />
+        <result property="mutableCondition"    column="mutable_condition"    />
+        <result property="mutableDesc"    column="mutable_desc"    />
+    </resultMap>
+
+    <sql id="selectMutableVo">
+        select mutable_id, mutable_class, mutable_condition, mutable_desc from mutable
+    </sql>
+
+    <select id="selectMutableList" parameterType="Mutable" resultMap="MutableResult">
+        <include refid="selectMutableVo"/>
+        <where>  
+            <if test="mutableClass != null  and mutableClass != ''"> and mutable_class = #{mutableClass}</if>
+            <if test="mutableCondition != null  and mutableCondition != ''"> and mutable_condition = #{mutableCondition}</if>
+            <if test="mutableDesc != null  and mutableDesc != ''"> and mutable_desc = #{mutableDesc}</if>
+        </where>
+    </select>
+    
+    <select id="selectMutableByMutableId" parameterType="Long" resultMap="MutableResult">
+        <include refid="selectMutableVo"/>
+        where mutable_id = #{mutableId}
+    </select>
+        
+    <insert id="insertMutable" parameterType="Mutable">
+        insert into mutable
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mutableId != null">mutable_id,</if>
+            <if test="mutableClass != null">mutable_class,</if>
+            <if test="mutableCondition != null">mutable_condition,</if>
+            <if test="mutableDesc != null">mutable_desc,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mutableId != null">#{mutableId},</if>
+            <if test="mutableClass != null">#{mutableClass},</if>
+            <if test="mutableCondition != null">#{mutableCondition},</if>
+            <if test="mutableDesc != null">#{mutableDesc},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMutable" parameterType="Mutable">
+        update mutable
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="mutableClass != null">mutable_class = #{mutableClass},</if>
+            <if test="mutableCondition != null">mutable_condition = #{mutableCondition},</if>
+            <if test="mutableDesc != null">mutable_desc = #{mutableDesc},</if>
+        </trim>
+        where mutable_id = #{mutableId}
+    </update>
+
+    <delete id="deleteMutableByMutableId" parameterType="Long">
+        delete from mutable where mutable_id = #{mutableId}
+    </delete>
+
+    <delete id="deleteMutableByMutableIds" parameterType="String">
+        delete from mutable where mutable_id in 
+        <foreach item="mutableId" collection="array" open="(" separator="," close=")">
+            #{mutableId}
+        </foreach>
+    </delete>
+</mapper>

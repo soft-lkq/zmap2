@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportLinkageMarkerMapper">
+    
+    <resultMap type="ImportLinkageMarker" id="ImportLinkageMarkerResult">
+        <result property="linkageMarkerId"    column="linkage_marker_id"    />
+        <result property="linkageGroup"    column="linkage_group"    />
+        <result property="linkageCm"    column="linkage_cm"    />
+        <result property="dbxrefId"    column="dbxref_id"    />
+        <result property="qtlId"    column="qtl_id"    />
+        <result property="variantId"    column="variant_id"    />
+    </resultMap>
+
+    <sql id="selectImportLinkageMarkerVo">
+        select linkage_marker_id, linkage_group, linkage_cm, dbxref_id, qtl_id, variant_id from linkage_marker
+    </sql>
+
+    <select id="selectImportLinkageMarkerList" parameterType="ImportLinkageMarker" resultMap="ImportLinkageMarkerResult">
+        <include refid="selectImportLinkageMarkerVo"/>
+        <where>  
+            <if test="linkageGroup != null  and linkageGroup != ''"> and linkage_group = #{linkageGroup}</if>
+            <if test="linkageCm != null  and linkageCm != ''"> and linkage_cm = #{linkageCm}</if>
+            <if test="dbxrefId != null "> and dbxref_id = #{dbxrefId}</if>
+            <if test="qtlId != null "> and qtl_id = #{qtlId}</if>
+            <if test="variantId != null "> and variant_id = #{variantId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportLinkageMarkerByLinkageMarkerId" parameterType="Long" resultMap="ImportLinkageMarkerResult">
+        <include refid="selectImportLinkageMarkerVo"/>
+        where linkage_marker_id = #{linkageMarkerId}
+    </select>
+        
+    <insert id="insertImportLinkageMarker" parameterType="ImportLinkageMarker">
+        insert into linkage_marker
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="linkageMarkerId != null">linkage_marker_id,</if>
+            <if test="linkageGroup != null">linkage_group,</if>
+            <if test="linkageCm != null">linkage_cm,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+            <if test="qtlId != null">qtl_id,</if>
+            <if test="variantId != null">variant_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="linkageMarkerId != null">#{linkageMarkerId},</if>
+            <if test="linkageGroup != null">#{linkageGroup},</if>
+            <if test="linkageCm != null">#{linkageCm},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+            <if test="qtlId != null">#{qtlId},</if>
+            <if test="variantId != null">#{variantId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportLinkageMarker" parameterType="ImportLinkageMarker">
+        update linkage_marker
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="linkageGroup != null">linkage_group = #{linkageGroup},</if>
+            <if test="linkageCm != null">linkage_cm = #{linkageCm},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+            <if test="qtlId != null">qtl_id = #{qtlId},</if>
+            <if test="variantId != null">variant_id = #{variantId},</if>
+        </trim>
+        where linkage_marker_id = #{linkageMarkerId}
+    </update>
+
+    <delete id="deleteImportLinkageMarkerByLinkageMarkerId" parameterType="Long">
+        delete from linkage_marker where linkage_marker_id = #{linkageMarkerId}
+    </delete>
+
+    <delete id="deleteImportLinkageMarkerByLinkageMarkerIds" parameterType="String">
+        delete from linkage_marker where linkage_marker_id in 
+        <foreach item="linkageMarkerId" collection="array" open="(" separator="," close=")">
+            #{linkageMarkerId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportAnalysisMapper">
+    
+    <resultMap type="ImportAnalysis" id="ImportAnalysisResult">
+        <result property="analysisId"    column="analysis_id"    />
+        <result property="name"    column="name"    />
+        <result property="description"    column="description"    />
+        <result property="dbxrefId"    column="dbxref_id"    />
+        <result property="populationId"    column="population_id"    />
+        <result property="detailed"    column="detailed"    />
+        <result property="methods"    column="methods"    />
+        <result property="omics"    column="omics"    />
+        <result property="reference"    column="reference"    />
+    </resultMap>
+
+    <sql id="selectImportAnalysisVo">
+        select analysis_id, name, description, dbxref_id, population_id, detailed, methods, omics, reference from analysis
+    </sql>
+
+    <select id="selectImportAnalysisList" parameterType="ImportAnalysis" resultMap="ImportAnalysisResult">
+        <include refid="selectImportAnalysisVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="description != null  and description != ''"> and description like concat('%', #{description}, '%')</if>
+            <if test="dbxrefId != null "> and dbxref_id = #{dbxrefId}</if>
+            <if test="populationId != null "> and population_id = #{populationId}</if>
+            <if test="detailed != null  and detailed != ''"> and detailed like concat('%', #{detailed}, '%')</if>
+            <if test="methods != null  and methods != ''"> and methods like concat('%', #{methods}, '%')</if>
+            <if test="omics != null  and omics != ''"> and omics like concat('%', #{omics}, '%')</if>
+            <if test="reference != null  and reference != ''"> and reference like concat('%', #{reference}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectImportAnalysisByAnalysisId" parameterType="Long" resultMap="ImportAnalysisResult">
+        <include refid="selectImportAnalysisVo"/>
+        where analysis_id = #{analysisId}
+    </select>
+        
+    <insert id="insertImportAnalysis" parameterType="ImportAnalysis">
+        insert into analysis
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="analysisId != null">analysis_id,</if>
+            <if test="name != null">name,</if>
+            <if test="description != null">description,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+            <if test="populationId != null">population_id,</if>
+            <if test="detailed != null">detailed,</if>
+            <if test="methods != null">methods,</if>
+            <if test="omics != null">omics,</if>
+            <if test="reference != null">reference,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="analysisId != null">#{analysisId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="description != null">#{description},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+            <if test="populationId != null">#{populationId},</if>
+            <if test="detailed != null">#{detailed},</if>
+            <if test="methods != null">#{methods},</if>
+            <if test="omics != null">#{omics},</if>
+            <if test="reference != null">#{reference},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportAnalysis" parameterType="ImportAnalysis">
+        update analysis
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+            <if test="populationId != null">population_id = #{populationId},</if>
+            <if test="detailed != null">detailed = #{detailed},</if>
+            <if test="methods != null">methods = #{methods},</if>
+            <if test="omics != null">omics = #{omics},</if>
+            <if test="reference != null">reference = #{reference},</if>
+        </trim>
+        where analysis_id = #{analysisId}
+    </update>
+
+    <delete id="deleteImportAnalysisByAnalysisId" parameterType="Long">
+        delete from analysis where analysis_id = #{analysisId}
+    </delete>
+
+    <delete id="deleteImportAnalysisByAnalysisIds" parameterType="String">
+        delete from analysis where analysis_id in 
+        <foreach item="analysisId" collection="array" open="(" separator="," close=")">
+            #{analysisId}
+        </foreach>
+    </delete>
+</mapper>

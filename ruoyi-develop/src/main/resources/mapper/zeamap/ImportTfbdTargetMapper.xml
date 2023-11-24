@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportTfbdTargetMapper">
+    
+    <resultMap type="ImportTfbdTarget" id="ImportTfbdTargetResult">
+        <result property="tfbdTargetId"    column="tfbd_target_id"    />
+        <result property="targetGene"    column="target_gene"    />
+        <result property="pValue"    column="p_value"    />
+        <result property="tfbdNameId"    column="tfbd_name_id"    />
+    </resultMap>
+
+    <sql id="selectImportTfbdTargetVo">
+        select tfbd_target_id, target_gene, p_value, tfbd_name_id from tfbd_target
+    </sql>
+
+    <select id="selectImportTfbdTargetList" parameterType="ImportTfbdTarget" resultMap="ImportTfbdTargetResult">
+        <include refid="selectImportTfbdTargetVo"/>
+        <where>  
+            <if test="targetGene != null  and targetGene != ''"> and target_gene = #{targetGene}</if>
+            <if test="pValue != null "> and p_value = #{pValue}</if>
+            <if test="tfbdNameId != null "> and tfbd_name_id = #{tfbdNameId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportTfbdTargetByTfbdTargetId" parameterType="Long" resultMap="ImportTfbdTargetResult">
+        <include refid="selectImportTfbdTargetVo"/>
+        where tfbd_target_id = #{tfbdTargetId}
+    </select>
+        
+    <insert id="insertImportTfbdTarget" parameterType="ImportTfbdTarget">
+        insert into tfbd_target
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tfbdTargetId != null">tfbd_target_id,</if>
+            <if test="targetGene != null">target_gene,</if>
+            <if test="pValue != null">p_value,</if>
+            <if test="tfbdNameId != null">tfbd_name_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tfbdTargetId != null">#{tfbdTargetId},</if>
+            <if test="targetGene != null">#{targetGene},</if>
+            <if test="pValue != null">#{pValue},</if>
+            <if test="tfbdNameId != null">#{tfbdNameId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportTfbdTarget" parameterType="ImportTfbdTarget">
+        update tfbd_target
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="targetGene != null">target_gene = #{targetGene},</if>
+            <if test="pValue != null">p_value = #{pValue},</if>
+            <if test="tfbdNameId != null">tfbd_name_id = #{tfbdNameId},</if>
+        </trim>
+        where tfbd_target_id = #{tfbdTargetId}
+    </update>
+
+    <delete id="deleteImportTfbdTargetByTfbdTargetId" parameterType="Long">
+        delete from tfbd_target where tfbd_target_id = #{tfbdTargetId}
+    </delete>
+
+    <delete id="deleteImportTfbdTargetByTfbdTargetIds" parameterType="String">
+        delete from tfbd_target where tfbd_target_id in 
+        <foreach item="tfbdTargetId" collection="array" open="(" separator="," close=")">
+            #{tfbdTargetId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportXotGermplasmMapper">
+    
+    <resultMap type="ImportXotGermplasm" id="ImportXotGermplasmResult">
+        <result property="xotGermplasmId"    column="xot_germplasm_id"    />
+        <result property="type"    column="type"    />
+        <result property="value"    column="value"    />
+        <result property="germplasmId"    column="germplasm_id"    />
+        <result property="xotId"    column="xot_id"    />
+    </resultMap>
+
+    <sql id="selectImportXotGermplasmVo">
+        select xot_germplasm_id, type, value, germplasm_id, xot_id from xot_germplasm
+    </sql>
+
+    <select id="selectImportXotGermplasmList" parameterType="ImportXotGermplasm" resultMap="ImportXotGermplasmResult">
+        <include refid="selectImportXotGermplasmVo"/>
+        <where>  
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="value != null  and value != ''"> and value = #{value}</if>
+            <if test="germplasmId != null "> and germplasm_id = #{germplasmId}</if>
+            <if test="xotId != null "> and xot_id = #{xotId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportXotGermplasmByXotGermplasmId" parameterType="Long" resultMap="ImportXotGermplasmResult">
+        <include refid="selectImportXotGermplasmVo"/>
+        where xot_germplasm_id = #{xotGermplasmId}
+    </select>
+        
+    <insert id="insertImportXotGermplasm" parameterType="ImportXotGermplasm">
+        insert into xot_germplasm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="xotGermplasmId != null">xot_germplasm_id,</if>
+            <if test="type != null">type,</if>
+            <if test="value != null">value,</if>
+            <if test="germplasmId != null">germplasm_id,</if>
+            <if test="xotId != null">xot_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="xotGermplasmId != null">#{xotGermplasmId},</if>
+            <if test="type != null">#{type},</if>
+            <if test="value != null">#{value},</if>
+            <if test="germplasmId != null">#{germplasmId},</if>
+            <if test="xotId != null">#{xotId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportXotGermplasm" parameterType="ImportXotGermplasm">
+        update xot_germplasm
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null">type = #{type},</if>
+            <if test="value != null">value = #{value},</if>
+            <if test="germplasmId != null">germplasm_id = #{germplasmId},</if>
+            <if test="xotId != null">xot_id = #{xotId},</if>
+        </trim>
+        where xot_germplasm_id = #{xotGermplasmId}
+    </update>
+
+    <delete id="deleteImportXotGermplasmByXotGermplasmId" parameterType="Long">
+        delete from xot_germplasm where xot_germplasm_id = #{xotGermplasmId}
+    </delete>
+
+    <delete id="deleteImportXotGermplasmByXotGermplasmIds" parameterType="String">
+        delete from xot_germplasm where xot_germplasm_id in 
+        <foreach item="xotGermplasmId" collection="array" open="(" separator="," close=")">
+            #{xotGermplasmId}
+        </foreach>
+    </delete>
+</mapper>

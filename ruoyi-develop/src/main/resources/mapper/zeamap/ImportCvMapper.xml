@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportCvMapper">
+    
+    <resultMap type="ImportCv" id="ImportCvResult">
+        <result property="cvId"    column="cv_id"    />
+        <result property="name"    column="name"    />
+        <result property="definition"    column="definition"    />
+    </resultMap>
+
+    <sql id="selectImportCvVo">
+        select cv_id, name, definition from cv
+    </sql>
+
+    <select id="selectImportCvList" parameterType="ImportCv" resultMap="ImportCvResult">
+        <include refid="selectImportCvVo"/>
+        <where>  
+            <if test="cvId != null  and cvId != ''"> and cv_id = #{cvId}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="definition != null  and definition != ''"> and definition = #{definition}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportCvByCvId" parameterType="String" resultMap="ImportCvResult">
+        <include refid="selectImportCvVo"/>
+        where cv_id = #{cvId}
+    </select>
+        
+    <insert id="insertImportCv" parameterType="ImportCv">
+        insert into cv
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cvId != null">cv_id,</if>
+            <if test="name != null">name,</if>
+            <if test="definition != null">definition,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cvId != null">#{cvId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="definition != null">#{definition},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportCv" parameterType="ImportCv">
+        update cv
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="definition != null">definition = #{definition},</if>
+        </trim>
+        where cv_id = #{cvId}
+    </update>
+
+    <delete id="deleteImportCvByCvId" parameterType="String">
+        delete from cv where cv_id = #{cvId}
+    </delete>
+
+    <delete id="deleteImportCvByCvIds" parameterType="String">
+        delete from cv where cv_id in 
+        <foreach item="cvId" collection="array" open="(" separator="," close=")">
+            #{cvId}
+        </foreach>
+    </delete>
+</mapper>

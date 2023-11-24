@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.StructureMapper">
+    
+    <resultMap type="Structure" id="StructureResult">
+        <result property="group"    column="Group"    />
+        <result property="sample"    column="Sample"    />
+        <result property="k1"    column="K1"    />
+        <result property="k2"    column="K2"    />
+        <result property="k3"    column="K3"    />
+    </resultMap>
+
+    <sql id="selectStructureVo">
+        select 'Group', Sample, K1, K2, K3 from structure
+    </sql>
+
+    <select id="selectStructureList" parameterType="Structure" resultMap="StructureResult">
+        <include refid="selectStructureVo"/>
+        <where>  
+            <if test="group != null  and group != ''"> and 'Group' = #{group}</if>
+            <if test="sample != null  and sample != ''"> and Sample = #{sample}</if>
+            <if test="k1 != null  and k1 != ''"> and K1 = #{k1}</if>
+            <if test="k2 != null  and k2 != ''"> and K2 = #{k2}</if>
+            <if test="k3 != null  and k3 != ''"> and K3 = #{k3}</if>
+        </where>
+    </select>
+    
+    <select id="selectStructureByGroup" parameterType="String" resultMap="StructureResult">
+        <include refid="selectStructureVo"/>
+        where 'Group' = #{group}
+    </select>
+        
+    <insert id="insertStructure" parameterType="Structure">
+        insert into structure
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="group != null">'Group',</if>
+            <if test="sample != null">Sample,</if>
+            <if test="k1 != null">K1,</if>
+            <if test="k2 != null">K2,</if>
+            <if test="k3 != null">K3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="group != null">#{group},</if>
+            <if test="sample != null">#{sample},</if>
+            <if test="k1 != null">#{k1},</if>
+            <if test="k2 != null">#{k2},</if>
+            <if test="k3 != null">#{k3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStructure" parameterType="Structure">
+        update structure
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sample != null">Sample = #{sample},</if>
+            <if test="k1 != null">K1 = #{k1},</if>
+            <if test="k2 != null">K2 = #{k2},</if>
+            <if test="k3 != null">K3 = #{k3},</if>
+        </trim>
+        where Group = #{group}
+    </update>
+
+    <delete id="deleteStructureByGroup" parameterType="String">
+        delete from structure where 'Group' = #{group}
+    </delete>
+
+    <delete id="deleteStructureByGroups" parameterType="String">
+        delete from structure where 'Group' in
+        <foreach item="group" collection="array" open="(" separator="," close=")">
+            #{group}
+        </foreach>
+    </delete>
+</mapper>

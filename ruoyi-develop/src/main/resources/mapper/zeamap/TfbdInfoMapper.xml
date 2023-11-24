@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.TfbdInfoMapper">
+
+    <resultMap type="TfbdInfo" id="TfbdInfoResult">
+        <result property="tfbdId" column="tfbd_id"/>
+        <result property="name" column="name"/>
+        <result property="family" column="family"/>
+        <result property="simplename" column="simplename"/>
+        <result property="genev4" column="genev4"/>
+        <result property="genev3" column="genev3"/>
+        <result property="tfClass" column="tf_class"/>
+        <result property="enrichGo" column="enrich_go"/>
+        <result property="enrichMp" column="enrich_mp"/>
+        <result property="AtID" column="AtID"/>
+        <result property="Atsimplename" column="Atsimplename"/>
+        <result property="description" column="description"/>
+        <result property="phenotype" column="phenotype"/>
+        <result property="analysisId" column="analysis_id"/>
+    </resultMap>
+
+
+    <sql id="selectTfbdInfoVo">
+        select tfbd_id,
+               name,
+               family,
+               simplename,
+               genev4,
+               genev3,
+               tf_class,
+               enrich_go,
+               enrich_mp,
+               AtID,
+               Atsimplename,
+               description,
+               phenotype,
+               analysis_id
+        from tfbd_info
+    </sql>
+
+    <!--Reference 下拉框+展示-->
+    <select id="selectReference" resultType="String">
+        select distinct D.accession
+        from dbxref D,
+             db DB
+        where DB.db_id = D.db_id
+          and DB.name like '%GFF'
+    </select>
+
+    <!--    select distinct D.accession
+        from dbxref D,
+
+             variant V,
+             analysis A
+        where V.analysis_id = A.analysis_id
+          and A.dbxref_id = D.dbxref_id -->
+
+    <!--Version-->
+    <select id="selectVersion" resultType="String">
+        select distinct D.version
+        from dbxref D
+        where accession = #{accession}
+          and D.version is not null
+          and D.version != ''
+    </select>
+
+    <!--Analysis-->
+    <select id="selectAnalysis" resultType="String">
+        select distinct A.name
+        from analysis A
+    </select>
+
+    <!--TF ID-->
+    <select id="selectTFID" resultType="String">
+        select distinct T.name
+        from tfbd_info T
+    </select>
+
+    <!--TF Name-->
+    <select id="selectTFName" resultType="String">
+        select distinct T.simplename
+        from tfbd_info T
+    </select>
+
+    <!--TF Family-->
+    <select id="selectTFFamily" resultType="String">
+        select distinct T.family
+        from tfbd_info T
+    </select>
+
+    <!--TF Gene ID-->
+    <select id="selectTFGeneID" resultType="String">
+        select distinct T.target_gene
+        from tfbd_target T
+    </select>
+
+
+    <resultMap id="SelectionConditionResult" type="com.ruoyi.zeamap.domain.InfoSelectCondition">
+        <result property="accession" column="accession"/>
+        <result property="version" column="version"/>
+        <result property="analysis_name" column="analysis_name"/>
+        <result property="info_name" column="info_name"/>
+        <result property="info_simplename" column="info_simplename"/>
+        <result property="info_family" column="info_family"/>
+        <result property="target_gene" column="target_gene"/>
+        <result property="p_value" column="p_value"/>
+    </resultMap>
+
+
+    <!--Info-->
+    <select id="selectInfo" resultMap="SelectionConditionResult">
+        select D.accession    accession,
+               D.version      version,
+               A.name         analysis_name,
+               T1.name        info_name,
+               T1.simplename  info_simplename,
+               T1.family      info_family,
+               T2.target_gene target_gene,
+               T2.p_value     p_value
+
+        from analysis A,
+             dbxref D,
+             tfbd_info T1,
+             tfbd_target T2
+
+        where A.analysis_id = T1.analysis_id
+          and A.dbxref_id = D.dbxref_id
+          and T1.tfbd_id = T2.tfbd_name_id
+
+          and (D.accession = #{accession} or #{accession} = '' or #{accession} is null)
+
+          and (D.version = #{version} or #{version} = '' or #{version} is null)
+
+          and (A.name = #{analysis_name} or #{analysis_name} is null or #{analysis_name} = '')
+
+          and (T1.name = #{info_name} or #{info_name} = '' or #{info_name} is null)
+          and (T1.simplename = #{info_simplename} or #{info_simplename} = '' or #{info_simplename} is null)
+          and (T1.family = #{info_family} or #{info_family} = '' or #{info_family} is null)
+
+          and (T2.target_gene = #{target_gene} or #{target_gene} = '' or #{target_gene} is null)
+
+          and (T2.p_value &lt;= #{p_value} or #{p_value} = '' or #{p_value} is null)
+
+    </select>
+
+    <!---->
+    <select id="selectInfo11" resultMap="SelectionConditionResult">
+        select D.accession    accession,
+               D.version      version,
+               A.name         analysis_name,
+               T1.name        info_name,
+               T1.simplename  info_simplename,
+               T1.family      info_family,
+               T2.target_gene target_gene,
+               T2.p_value     p_value
+
+        from analysis A,
+             dbxref D,
+             tfbd_info T1,
+             tfbd_target T2
+
+        where A.analysis_id = T1.analysis_id
+          and A.dbxref_id = D.dbxref_id
+          and T1.tfbd_id = T2.tfbd_name_id
+    </select>
+
+
+    <select id="selectTfbdInfoList" parameterType="TfbdInfo" resultMap="TfbdInfoResult">
+        <include refid="selectTfbdInfoVo"/>
+        <where>
+            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
+            <if test="family != null  and family != ''">and family = #{family}</if>
+            <if test="simplename != null  and simplename != ''">and simplename like concat('%', #{simplename}, '%')</if>
+            <if test="genev4 != null  and genev4 != ''">and genev4 = #{genev4}</if>
+            <if test="genev3 != null  and genev3 != ''">and genev3 = #{genev3}</if>
+            <if test="tfClass != null  and tfClass != ''">and tf_class = #{tfClass}</if>
+            <if test="enrichGo != null  and enrichGo != ''">and enrich_go = #{enrichGo}</if>
+            <if test="enrichMp != null  and enrichMp != ''">and enrich_mp = #{enrichMp}</if>
+            <if test="AtID != null  and AtID != ''">and AtID = #{AtID}</if>
+            <if test="Atsimplename != null  and Atsimplename != ''">and Atsimplename like concat('%', #{Atsimplename},
+                '%')
+            </if>
+            <if test="description != null  and description != ''">and description = #{description}</if>
+            <if test="phenotype != null  and phenotype != ''">and phenotype = #{phenotype}</if>
+            <if test="analysisId != null ">and analysis_id = #{analysisId}</if>
+        </where>
+    </select>
+
+    <select id="selectTfbdInfoByTfbdId" parameterType="Long" resultMap="TfbdInfoResult">
+        <include refid="selectTfbdInfoVo"/>
+        where tfbd_id = #{tfbdId}
+    </select>
+
+    <insert id="insertTfbdInfo" parameterType="TfbdInfo">
+        insert into tfbd_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tfbdId != null">tfbd_id,</if>
+            <if test="name != null">name,</if>
+            <if test="family != null">family,</if>
+            <if test="simplename != null">simplename,</if>
+            <if test="genev4 != null">genev4,</if>
+            <if test="genev3 != null">genev3,</if>
+            <if test="tfClass != null">tf_class,</if>
+            <if test="enrichGo != null">enrich_go,</if>
+            <if test="enrichMp != null">enrich_mp,</if>
+            <if test="AtID != null">AtID,</if>
+            <if test="Atsimplename != null">Atsimplename,</if>
+            <if test="description != null">description,</if>
+            <if test="phenotype != null">phenotype,</if>
+            <if test="analysisId != null">analysis_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tfbdId != null">#{tfbdId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="family != null">#{family},</if>
+            <if test="simplename != null">#{simplename},</if>
+            <if test="genev4 != null">#{genev4},</if>
+            <if test="genev3 != null">#{genev3},</if>
+            <if test="tfClass != null">#{tfClass},</if>
+            <if test="enrichGo != null">#{enrichGo},</if>
+            <if test="enrichMp != null">#{enrichMp},</if>
+            <if test="AtID != null">#{AtID},</if>
+            <if test="Atsimplename != null">#{Atsimplename},</if>
+            <if test="description != null">#{description},</if>
+            <if test="phenotype != null">#{phenotype},</if>
+            <if test="analysisId != null">#{analysisId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTfbdInfo" parameterType="TfbdInfo">
+        update tfbd_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="family != null">family = #{family},</if>
+            <if test="simplename != null">simplename = #{simplename},</if>
+            <if test="genev4 != null">genev4 = #{genev4},</if>
+            <if test="genev3 != null">genev3 = #{genev3},</if>
+            <if test="tfClass != null">tf_class = #{tfClass},</if>
+            <if test="enrichGo != null">enrich_go = #{enrichGo},</if>
+            <if test="enrichMp != null">enrich_mp = #{enrichMp},</if>
+            <if test="AtID != null">AtID = #{AtID},</if>
+            <if test="Atsimplename != null">Atsimplename = #{Atsimplename},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="phenotype != null">phenotype = #{phenotype},</if>
+            <if test="analysisId != null">analysis_id = #{analysisId},</if>
+        </trim>
+        where tfbd_id = #{tfbdId}
+    </update>
+
+    <delete id="deleteTfbdInfoByTfbdId" parameterType="Long">
+        delete
+        from tfbd_info
+        where tfbd_id = #{tfbdId}
+    </delete>
+
+    <delete id="deleteTfbdInfoByTfbdIds" parameterType="String">
+        delete from tfbd_info where tfbd_id in
+        <foreach item="tfbdId" collection="array" open="(" separator="," close=")">
+            #{tfbdId}
+        </foreach>
+    </delete>
+</mapper>

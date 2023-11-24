@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.FeatureMapper">
+
+    <select id="selectUniqueName" resultType="String">
+        select distinct uniquename
+        from feature
+    </select>
+
+    <select id="selectName" resultType="String">
+        select distinct name
+        from cvterm
+    </select>
+
+    <resultMap type="QueryResult" id="QueryResult">
+        <result property="featureId"    column="feature_id"    />
+        <result property="name"    column="commonname"    />
+        <result property="description"    column="accession"    />
+        <result property="chromosome"    column="uniquename"    />
+        <result property="start"    column="fmin"    />
+        <result property="end"    column="fmax"    />
+        <result property="strand"    column="strand"    />
+    </resultMap>
+
+    <select id="selectQueryResult" parameterType="com.ruoyi.zeamap.domain.QueryCriteria" resultMap="QueryResult">
+        select feature.feature_id,commonname,accession,uniquename,fmin,fmax,strand
+        from feature,dbxref,featureloc
+        where feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.srcfeature_id
+            and feature.feature_id in(
+                select criterria1.feature_id
+                from
+                (
+                    select distinct feature_id
+                    from feature
+                    where dbxref_id in(
+                        select dbxref_id
+                        from dbxref
+                        where ( ( accession=#{accession} or #{accession}='' or #{accession} is null ) and ( version=#{version} or #{version}='' or #{version} is null) )
+                    )
+                )as criterria1
+                join
+                (
+                    select distinct srcfeature_id feature_id
+                    from featureloc
+                    where srcfeature_id in(
+                        select feature_id
+                        from feature
+                        where (uniquename=#{uniquename} or #{uniquename}='' or #{uniquename} is null )
+                    )
+                    and (cast(fmin as signed) >= cast(#{start} as signed) or (#{uniquename}='' or #{uniquename} is null or #{start}='' or #{start} is null) )
+                    and (cast(fmax as signed) &lt;= cast(#{end} as signed) or (#{uniquename}='' or #{uniquename} is null or #{end}='' or #{end} is null) )
+                    <!--  <和<=与<>符号冲突，需要转义或反序  -->
+                )as criterria2
+                    on criterria1.feature_id = criterria2.feature_id
+                join
+                (
+                    select distinct feature_id
+                    from feature_dbxref
+                    where dbxref_id in(
+                        select dbxref_id
+                        from cvterm
+                        where (name=#{name} or (#{name}='' or #{name} is null) )
+                    )
+                )as criterria3
+                    on criterria2.feature_id = criterria3.feature_id
+                join
+                (
+                    select distinct feature_id
+                    from feature
+                    where (
+<!--        <if test="commonname is not null and commonname != ''">-->
+<!--            <bind name="commonname" value="'%'+commonname+'%'"/>-->
+<!--                and commonname like #{commonname}-->
+<!--        </if>-->
+                        commonname like concat('%',#{commonname},'%') or (#{commonname} is null or #{commonname}='')
+                    )
+                )as criterria4
+                    on criterria3.feature_id = criterria4.feature_id
+                join
+                (
+                    select distinct feature_id
+                    from feature_dbxref
+                    where dbxref_id in(
+                        select dbxref_id
+                        from dbxref
+                        where (
+<!--                        <if test="description is not null and description != ''">-->
+<!--                            <bind name="description" value="'%'+description+'%'"/>-->
+<!--                            and description like #{description}-->
+<!--                        </if>-->
+                            description like concat('%',#{description},'%') or (#{description} is null or #{description}='')
+                        )
+                    )
+                )as criterria5
+                    on criterria4.feature_id = criterria5.feature_id
+            )
+    </select>
+
+    <select id="download" parameterType="String" resultMap="QueryResult">
+        select feature.feature_id,commonname,accession,uniquename,fmin,fmax,strand
+        from feature,dbxref,featureloc
+        where feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.srcfeature_id
+          and feature.feature_id = #{feature_id}
+    </select>
+
+    <select id="selectSummary" parameterType="String" resultType="com.ruoyi.zeamap.domain.SkipResult">
+        select commonname featureName,name featureType,dbxref.accession germplasm,concat('GFF Version ',version) featureAnnotationVersion,
+               concat(uniquename,':',fmin,'-',fmax) featureLocation,description
+        from feature,cvterm,dbxref,featureloc
+        where feature.feature_id = #{featureId} and feature.dbxref_id = cvterm.dbxref_id
+            and feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.srcfeature_id
+    </select>
+
+    <select id="selectFunctionAnnotation" parameterType="String" resultType="com.ruoyi.zeamap.domain.FunctionAnnotation">
+        select accession id,cv.name ontology,cvterm.name term,cvterm.definition
+        from feature,feature_dbxref,dbxref,cv,cvterm
+        where feature.feature_id = #{featureId} and feature.feature_id = feature_dbxref.feature_id and feature_dbxref.dbxref_id = dbxref.dbxref_id
+            and dbxref.dbxref_id = cvterm.dbxref_id and cv.cv_id = cvterm.cv_id
+    </select>
+
+    <select id="selectSequences" parameterType="String" resultType="String">
+        select residues sequences
+        from feature
+        where feature.feature_id = #{featureId}
+    </select>
+
+
+
+
+
+
+
+
+
+
+    <resultMap type="Feature" id="FeatureResult">
+        <result property="featureId"    column="feature_id"    />
+        <result property="uniquename"    column="uniquename"    />
+        <result property="residues"    column="residues"    />
+        <result property="seqlen"    column="seqlen"    />
+        <result property="dbxrefId"    column="dbxref_id"    />
+        <result property="typeId"    column="type_id"    />
+        <result property="commonname"    column="commonname"    />
+    </resultMap>
+
+    <sql id="selectFeatureVo">
+        select feature_id, uniquename, residues, seqlen, dbxref_id, type_id, commonname from feature
+    </sql>
+
+    <select id="selectFeatureList" parameterType="Feature" resultMap="FeatureResult">
+        <include refid="selectFeatureVo"/>
+        <where>
+            <if test="uniquename != null  and uniquename != ''"> and uniquename like concat('%', #{uniquename}, '%')</if>
+            <if test="residues != null  and residues != ''"> and residues = #{residues}</if>
+            <if test="seqlen != null  and seqlen != ''"> and seqlen = #{seqlen}</if>
+            <if test="dbxrefId != null "> and dbxref_id = #{dbxrefId}</if>
+            <if test="typeId != null "> and type_id = #{typeId}</if>
+            <if test="commonname != null  and commonname != ''"> and commonname like concat('%', #{commonname}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectFeatureByFeatureId" parameterType="Long" resultMap="FeatureResult">
+        <include refid="selectFeatureVo"/>
+        where feature_id = #{featureId}
+    </select>
+<!--侯永杰-->
+<select id="selectByUniquename" parameterType="String" resultType="Long">
+        select feature_id from feature where uniquename =#{uniquename}
+    </select>
+
+    <insert id="insertFeature" parameterType="Feature">
+        insert into feature
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="featureId != null">feature_id,</if>
+            <if test="uniquename != null">uniquename,</if>
+            <if test="residues != null">residues,</if>
+            <if test="seqlen != null">seqlen,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+            <if test="typeId != null">type_id,</if>
+            <if test="commonname != null">commonname,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="featureId != null">#{featureId},</if>
+            <if test="uniquename != null">#{uniquename},</if>
+            <if test="residues != null">#{residues},</if>
+            <if test="seqlen != null">#{seqlen},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+            <if test="typeId != null">#{typeId},</if>
+            <if test="commonname != null">#{commonname},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFeature" parameterType="Feature">
+        update feature
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="uniquename != null">uniquename = #{uniquename},</if>
+            <if test="residues != null">residues = #{residues},</if>
+            <if test="seqlen != null">seqlen = #{seqlen},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+            <if test="typeId != null">type_id = #{typeId},</if>
+            <if test="commonname != null">commonname = #{commonname},</if>
+        </trim>
+        where feature_id = #{featureId}
+    </update>
+
+    <delete id="deleteFeatureByFeatureId" parameterType="Long">
+        delete from feature where feature_id = #{featureId}
+    </delete>
+
+    <delete id="deleteFeatureByFeatureIds" parameterType="String">
+        delete from feature where feature_id in
+        <foreach item="featureId" collection="array" open="(" separator="," close=")">
+            #{featureId}
+        </foreach>
+    </delete>
+</mapper>

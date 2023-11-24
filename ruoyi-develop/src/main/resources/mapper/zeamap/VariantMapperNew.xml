@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.VariantMapperNew">
+
+    <resultMap type="Variant" id="VariantResult">
+        <result property="variantId"    column="variant_id"    />
+        <result property="VID"    column="VID"    />
+        <result property="type"    column="type"    />
+        <result property="chr"    column="chr"    />
+        <result property="posi"    column="posi"    />
+        <result property="genorate"    column="genorate"    />
+        <result property="maf"    column="maf"    />
+        <result property="consequences"    column="consequences"    />
+        <result property="impacts"    column="impacts"    />
+        <result property="analysisId"    column="analysis_id"    />
+    </resultMap>
+
+    <select id="select" parameterType="String" resultType="String">
+        select distinct VID
+        from variant
+        where VID like concat('%',#{VID},'%') or #{VID}='' or #{VID} is null
+        limit 0,20
+    </select>
+
+    <select id="selectChr" parameterType="String" resultType="String">
+        select distinct chr
+        from variant
+        where VID = #{VID}
+    </select>
+
+    <select id="selectPosition" parameterType="String" resultType="String">
+        select distinct posi
+        from variant
+        where VID = #{VID}
+    </select>
+
+    <resultMap id="GeneMap" type="com.ruoyi.zeamap.domain.Gene">
+        <result property="feature_id1" column="feature_id"/>
+        <result property="chrom" column="uniquename"/>
+        <result property="end" column="fmax"/>
+        <result property="gene_id" column="gene_id"/>
+        <result property="gene_name" column="gene_name"/>
+        <result property="gene_type" column="gene_type"/>
+        <result property="start" column="fmin"/>
+        <result property="strand" column="strand"/>
+        <collection property="transcripts" column="feature_id" javaType="list" ofType="com.ruoyi.zeamap.domain.Transcript" select="selectTranscripts"/>
+    </resultMap>
+
+    <select id="selectGenes" parameterType="com.ruoyi.zeamap.domain.GeneCriteria" resultMap="GeneMap">
+        select feature.feature_id,uniquename,fmax,commonname gene_id,commonname gene_name,'protein_coding' gene_type,fmin,strand
+        from feature,featureloc,cvterm,dbxref
+        where cvterm_id = type_id and feature.feature_id = srcfeature_id and dbxref.dbxref_id = feature.dbxref_id
+          and name = #{type_name} and version = #{dbxref_version} and accession = #{dbxref_accession}
+          and cast(fmin as signed) >= cast(#{start} as signed) and cast(fmax as signed) &lt;= cast(#{end} as signed)
+          and uniquename = #{chr}
+    </select>
+
+    <resultMap id="transcriptsMap" type="com.ruoyi.zeamap.domain.Transcript">
+        <result property="feature_id2" column="feature_id"/>
+        <result property="chrom" column="uniquename"/>
+        <result property="end" column="fmax"/>
+        <result property="start" column="fmin"/>
+        <result property="strand" column="strand"/>
+        <result property="transcript_id" column="commonname"/>
+        <collection property="exons" column="feature_id" javaType="list" ofType="com.ruoyi.zeamap.domain.Exon" select="selectExons"/>
+    </resultMap>
+
+    <select id="selectTranscripts" parameterType="String" resultMap="transcriptsMap">
+        select feature.feature_id,uniquename,fmax,fmin,strand,commonname
+        from feature,featureloc
+        where feature.feature_id in(
+                select object_id
+                from feature,feature_relationship
+                where feature_id = #{feature_id} and feature_id = subject_id
+            ) and feature.feature_id = srcfeature_id
+    </select>
+
+    <resultMap id="exonsMap" type="com.ruoyi.zeamap.domain.Exon">
+        <result property="chrom" column="uniquename"/>
+        <result property="end" column="fmax"/>
+        <result property="exon_id" column="commonname"/>
+        <result property="start" column="fmin"/>
+        <result property="strand" column="strand"/>
+    </resultMap>
+
+    <select id="selectExons" parameterType="String" resultMap="exonsMap">
+        select uniquename,fmax,commonname,fmin,strand
+        from feature,featureloc
+        where feature.feature_id in(
+            select object_id
+            from feature,feature_relationship
+            where feature_id = #{feature_id} and feature_id = subject_id
+        ) and feature.feature_id = srcfeature_id
+    </select>
+
+    <resultMap id="TraitAndGroupMap" type="com.ruoyi.zeamap.domain.TraitAndGroup">
+        <result property="trait" column="xot_uid"/>
+        <result property="trait_group" column="type"/>
+    </resultMap>
+
+    <select id="selectTraitAndGroup" resultMap="TraitAndGroupMap">
+        select xot_uid,type
+        from xot
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <sql id="selectVariantVo">
+        select variant_id, VID, type, chr, posi, genorate, maf, consequences, impacts, analysis_id from variant
+    </sql>
+
+    <select id="selectVariantList" parameterType="Variant" resultMap="VariantResult">
+        <include refid="selectVariantVo"/>
+        <where>
+            <if test="variantId != null  and variantId != ''"> and variant_id = #{variantId}</if>
+            <if test="VID != null  and VID != ''"> and VID = #{VID}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="chr != null  and chr != ''"> and chr = #{chr}</if>
+            <if test="posi != null  and posi != ''"> and posi = #{posi}</if>
+            <if test="genorate != null  and genorate != ''"> and genorate = #{genorate}</if>
+            <if test="maf != null  and maf != ''"> and maf = #{maf}</if>
+            <if test="consequences != null  and consequences != ''"> and consequences = #{consequences}</if>
+            <if test="impacts != null  and impacts != ''"> and impacts = #{impacts}</if>
+            <if test="analysisId != null  and analysisId != ''"> and analysis_id = #{analysisId}</if>
+        </where>
+    </select>
+
+    <select id="selectVariantByVariantId" parameterType="String" resultMap="VariantResult">
+        <include refid="selectVariantVo"/>
+        where variant_id = #{variantId}
+    </select>
+
+    <insert id="insertVariant" parameterType="Variant">
+        insert into variant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="variantId != null">variant_id,</if>
+            <if test="VID != null">VID,</if>
+            <if test="type != null">type,</if>
+            <if test="chr != null">chr,</if>
+            <if test="posi != null">posi,</if>
+            <if test="genorate != null">genorate,</if>
+            <if test="maf != null">maf,</if>
+            <if test="consequences != null">consequences,</if>
+            <if test="impacts != null">impacts,</if>
+            <if test="analysisId != null">analysis_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="variantId != null">#{variantId},</if>
+            <if test="VID != null">#{VID},</if>
+            <if test="type != null">#{type},</if>
+            <if test="chr != null">#{chr},</if>
+            <if test="posi != null">#{posi},</if>
+            <if test="genorate != null">#{genorate},</if>
+            <if test="maf != null">#{maf},</if>
+            <if test="consequences != null">#{consequences},</if>
+            <if test="impacts != null">#{impacts},</if>
+            <if test="analysisId != null">#{analysisId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVariant" parameterType="Variant">
+        update variant
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="VID != null">VID = #{VID},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="chr != null">chr = #{chr},</if>
+            <if test="posi != null">posi = #{posi},</if>
+            <if test="genorate != null">genorate = #{genorate},</if>
+            <if test="maf != null">maf = #{maf},</if>
+            <if test="consequences != null">consequences = #{consequences},</if>
+            <if test="impacts != null">impacts = #{impacts},</if>
+            <if test="analysisId != null">analysis_id = #{analysisId},</if>
+        </trim>
+        where variant_id = #{variantId}
+    </update>
+
+    <delete id="deleteVariantByVariantId" parameterType="String">
+        delete from variant where variant_id = #{variantId}
+    </delete>
+
+    <delete id="deleteVariantByVariantIds" parameterType="String">
+        delete from variant where variant_id in
+        <foreach item="variantId" collection="array" open="(" separator="," close=")">
+            #{variantId}
+        </foreach>
+    </delete>
+</mapper>

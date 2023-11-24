@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportAssociationQtlMapper">
+    
+    <resultMap type="ImportAssociationQtl" id="ImportAssociationQtlResult">
+        <result property="associationQtlId"    column="association_qtl_id"    />
+        <result property="chr"    column="chr"    />
+        <result property="start"    column="start"    />
+        <result property="end"    column="end"    />
+        <result property="qtlUid"    column="qtl_uid"    />
+        <result property="log"    column="log"    />
+        <result property="dbxrefId"    column="dbxref_id"    />
+        <result property="traitId"    column="trait_id"    />
+    </resultMap>
+
+    <sql id="selectImportAssociationQtlVo">
+        select association_qtl_id, chr, start, end, qtl_uid, log, dbxref_id, trait_id from association_qtl
+    </sql>
+
+    <select id="selectImportAssociationQtlList" parameterType="ImportAssociationQtl" resultMap="ImportAssociationQtlResult">
+        <include refid="selectImportAssociationQtlVo"/>
+        <where>  
+            <if test="chr != null  and chr != ''"> and chr = #{chr}</if>
+            <if test="start != null "> and start = #{start}</if>
+            <if test="end != null "> and end = #{end}</if>
+            <if test="qtlUid != null "> and qtl_uid = #{qtlUid}</if>
+            <if test="log != null  and log != ''"> and log = #{log}</if>
+            <if test="dbxrefId != null "> and dbxref_id = #{dbxrefId}</if>
+            <if test="traitId != null "> and trait_id = #{traitId}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportAssociationQtlByAssociationQtlId" parameterType="Long" resultMap="ImportAssociationQtlResult">
+        <include refid="selectImportAssociationQtlVo"/>
+        where association_qtl_id = #{associationQtlId}
+    </select>
+        
+    <insert id="insertImportAssociationQtl" parameterType="ImportAssociationQtl" useGeneratedKeys="true" keyProperty="associationQtlId">
+        insert into association_qtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chr != null">chr,</if>
+            <if test="start != null">start,</if>
+            <if test="end != null">end,</if>
+            <if test="qtlUid != null">qtl_uid,</if>
+            <if test="log != null">log,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+            <if test="traitId != null">trait_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="chr != null">#{chr},</if>
+            <if test="start != null">#{start},</if>
+            <if test="end != null">#{end},</if>
+            <if test="qtlUid != null">#{qtlUid},</if>
+            <if test="log != null">#{log},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+            <if test="traitId != null">#{traitId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportAssociationQtl" parameterType="ImportAssociationQtl">
+        update association_qtl
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chr != null">chr = #{chr},</if>
+            <if test="start != null">start = #{start},</if>
+            <if test="end != null">end = #{end},</if>
+            <if test="qtlUid != null">qtl_uid = #{qtlUid},</if>
+            <if test="log != null">log = #{log},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+            <if test="traitId != null">trait_id = #{traitId},</if>
+        </trim>
+        where association_qtl_id = #{associationQtlId}
+    </update>
+
+    <delete id="deleteImportAssociationQtlByAssociationQtlId" parameterType="Long">
+        delete from association_qtl where association_qtl_id = #{associationQtlId}
+    </delete>
+
+    <delete id="deleteImportAssociationQtlByAssociationQtlIds" parameterType="String">
+        delete from association_qtl where association_qtl_id in 
+        <foreach item="associationQtlId" collection="array" open="(" separator="," close=")">
+            #{associationQtlId}
+        </foreach>
+    </delete>
+</mapper>

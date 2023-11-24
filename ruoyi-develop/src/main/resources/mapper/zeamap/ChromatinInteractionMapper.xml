@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ChromatinInteractionMapper">
+    
+    <resultMap type="ChromatinInteraction" id="ChromatinInteractionResult">
+        <result property="accession" column="accession"/>
+        <result property="version" column="version"/>
+        <result property="description" column="description"/>
+        <result property="chromatinInteractionId"    column="chromatin_interaction_id"    />
+        <result property="chrA"    column="chrA"    />
+        <result property="startA"    column="startA"    />
+        <result property="endA"    column="endA"    />
+        <result property="chrB"    column="chrB"    />
+        <result property="startB"    column="startB"    />
+        <result property="endB"    column="endB"    />
+        <result property="contactCounts"    column="contact_counts"    />
+        <result property="pValue"    column="p_value"    />
+        <result property="fdr1"    column="fdr1"    />
+        <result property="fdr2"    column="fdr2"    />
+        <result property="fdr3"    column="fdr3"    />
+        <result property="fdr4"    column="fdr4"    />
+        <result property="analysisId"    column="analysis_id"    />
+    </resultMap>
+
+    <sql id="selectChromatinInteractionVo">
+        select chromatin_interaction_id, chrA, startA, endA, chrB, startB, endB, contact_counts, p_value, fdr1, fdr2, fdr3, fdr4, analysis_id from chromatin_interaction
+    </sql>
+
+    <select id="selectChromatinInteractionList" parameterType="ChromatinInteraction" resultMap="ChromatinInteractionResult">
+        <include refid="selectChromatinInteractionVo"/>
+        <where>  
+            <if test="chrA != null  and chrA != ''"> and chrA = #{chrA}</if>
+            <if test="startA != null "> and startA = #{startA}</if>
+            <if test="endA != null "> and endA = #{endA}</if>
+            <if test="chrB != null  and chrB != ''"> and chrB = #{chrB}</if>
+            <if test="startB != null "> and startB = #{startB}</if>
+            <if test="endB != null "> and endB = #{endB}</if>
+            <if test="contactCounts != null "> and contact_counts = #{contactCounts}</if>
+            <if test="pValue != null "> and p_value = #{pValue}</if>
+            <if test="fdr1 != null "> and fdr1 = #{fdr1}</if>
+            <if test="fdr2 != null "> and fdr2 = #{fdr2}</if>
+            <if test="fdr3 != null "> and fdr3 = #{fdr3}</if>
+            <if test="fdr4 != null "> and fdr4 = #{fdr4}</if>
+            <if test="analysisId != null "> and analysis_id = #{analysisId}</if>
+        </where>
+    </select>
+    
+    <select id="selectChromatinInteractionByChromatinInteractionId" parameterType="Long" resultMap="ChromatinInteractionResult">
+        <include refid="selectChromatinInteractionVo"/>
+        where chromatin_interaction_id = #{chromatinInteractionId}
+    </select>
+        
+    <insert id="insertChromatinInteraction" parameterType="ChromatinInteraction">
+        insert into chromatin_interaction
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chromatinInteractionId != null">chromatin_interaction_id,</if>
+            <if test="chrA != null">chrA,</if>
+            <if test="startA != null">startA,</if>
+            <if test="endA != null">endA,</if>
+            <if test="chrB != null">chrB,</if>
+            <if test="startB != null">startB,</if>
+            <if test="endB != null">endB,</if>
+            <if test="contactCounts != null">contact_counts,</if>
+            <if test="pValue != null">p_value,</if>
+            <if test="fdr1 != null">fdr1,</if>
+            <if test="fdr2 != null">fdr2,</if>
+            <if test="fdr3 != null">fdr3,</if>
+            <if test="fdr4 != null">fdr4,</if>
+            <if test="analysisId != null">analysis_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="chromatinInteractionId != null">#{chromatinInteractionId},</if>
+            <if test="chrA != null">#{chrA},</if>
+            <if test="startA != null">#{startA},</if>
+            <if test="endA != null">#{endA},</if>
+            <if test="chrB != null">#{chrB},</if>
+            <if test="startB != null">#{startB},</if>
+            <if test="endB != null">#{endB},</if>
+            <if test="contactCounts != null">#{contactCounts},</if>
+            <if test="pValue != null">#{pValue},</if>
+            <if test="fdr1 != null">#{fdr1},</if>
+            <if test="fdr2 != null">#{fdr2},</if>
+            <if test="fdr3 != null">#{fdr3},</if>
+            <if test="fdr4 != null">#{fdr4},</if>
+            <if test="analysisId != null">#{analysisId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateChromatinInteraction" parameterType="ChromatinInteraction">
+        update chromatin_interaction
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chrA != null">chrA = #{chrA},</if>
+            <if test="startA != null">startA = #{startA},</if>
+            <if test="endA != null">endA = #{endA},</if>
+            <if test="chrB != null">chrB = #{chrB},</if>
+            <if test="startB != null">startB = #{startB},</if>
+            <if test="endB != null">endB = #{endB},</if>
+            <if test="contactCounts != null">contact_counts = #{contactCounts},</if>
+            <if test="pValue != null">p_value = #{pValue},</if>
+            <if test="fdr1 != null">fdr1 = #{fdr1},</if>
+            <if test="fdr2 != null">fdr2 = #{fdr2},</if>
+            <if test="fdr3 != null">fdr3 = #{fdr3},</if>
+            <if test="fdr4 != null">fdr4 = #{fdr4},</if>
+            <if test="analysisId != null">analysis_id = #{analysisId},</if>
+        </trim>
+        where chromatin_interaction_id = #{chromatinInteractionId}
+    </update>
+
+    <delete id="deleteChromatinInteractionByChromatinInteractionId" parameterType="Long">
+        delete from chromatin_interaction where chromatin_interaction_id = #{chromatinInteractionId}
+    </delete>
+
+    <delete id="deleteChromatinInteractionByChromatinInteractionIds" parameterType="String">
+        delete from chromatin_interaction where chromatin_interaction_id in 
+        <foreach item="chromatinInteractionId" collection="array" open="(" separator="," close=")">
+            #{chromatinInteractionId}
+        </foreach>
+    </delete>
+
+    <!--@Author 刘洋-->
+    <!--查找dbxref表里面的accession-->
+    <select id="selectaccession" resultType="String">
+        select distinct D.accession FROM dbxref D,db
+        where
+            db.name like '%-GFF' and D.db_id=db.db_id
+    </select>
+    <!--查找dbxref表里面的version,version是reference的下级-->
+    <select id="selectversion" parameterType="String" resultType="String">
+        select distinct version from dbxref where accession=#{accession} and version is not null and version!=''
+    </select>
+    <!--查找Analysis的description,通过前面accession,version过滤,找到dbxref_id,再到analysis表找对应的对应description-->
+    <select id="selectanalysis" resultType="String">
+        select distinct A.description from analysis A where dbxref_id in
+        (select dbxref_id from dbxref D where D.accession=#{accession} and D.version=#{version})
+    </select>
+    <!--查找chrA-->
+    <select id="selectchrA" resultType="String">
+        select distinct chrA from chromatin_interaction
+    </select>
+    <!--查找chrB-->
+    <select id="selectchrB" resultType="String">
+        select distinct chrB from chromatin_interaction
+    </select>
+    <!--大查询-->
+    <select id="selectchromatin_interaction" resultMap="ChromatinInteractionResult">
+        select D.accession,D.version,A.description,C.chrA,C.startA,C.endA,C.chrB,C.startB,C.endB,C.contact_counts,C.p_value,C.fdr1,C.fdr2,C.fdr3,C.fdr4
+        from dbxref D,analysis A,chromatin_interaction C
+        where D.accession=#{accession}
+          and D.version=#{version}
+          and (C.analysis_id=A.analysis_id and A.description=#{description} or #{description}='' or #{description} is null)
+          and (C.chrA=#{chrA} or #{chrA}='' or #{chrA} is null)
+          and startA>#{startA} and #{endA}>endA
+          and (C.chrB=#{chrB} or #{chrB}='' or #{chrB} is null)
+          and startB>#{startB} and #{endB}>chrB
+
+    </select>
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.ImportDbMapper">
+    
+    <resultMap type="ImportDb" id="ImportDbResult">
+        <result property="dbId"    column="db_id"    />
+        <result property="name"    column="name"    />
+        <result property="description"    column="description"    />
+        <result property="urlprefix"    column="urlprefix"    />
+        <result property="url"    column="url"    />
+    </resultMap>
+
+    <sql id="selectImportDbVo">
+        select db_id, name, description, urlprefix, url from db
+    </sql>
+
+    <select id="selectImportDbList" parameterType="ImportDb" resultMap="ImportDbResult">
+        <include refid="selectImportDbVo"/>
+        <where>  
+            <if test="dbId != null "> and db_id = #{dbId}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="urlprefix != null  and urlprefix != ''"> and urlprefix = #{urlprefix}</if>
+            <if test="url != null  and url != ''"> and url = #{url}</if>
+        </where>
+    </select>
+    
+    <select id="selectImportDbByDbId" parameterType="Long" resultMap="ImportDbResult">
+        <include refid="selectImportDbVo"/>
+        where db_id = #{dbId}
+    </select>
+        
+    <insert id="insertImportDb" parameterType="ImportDb">
+        insert into db
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dbId != null">db_id,</if>
+            <if test="name != null">name,</if>
+            <if test="description != null">description,</if>
+            <if test="urlprefix != null">urlprefix,</if>
+            <if test="url != null">url,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dbId != null">#{dbId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="description != null">#{description},</if>
+            <if test="urlprefix != null">#{urlprefix},</if>
+            <if test="url != null">#{url},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImportDb" parameterType="ImportDb">
+        update db
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="urlprefix != null">urlprefix = #{urlprefix},</if>
+            <if test="url != null">url = #{url},</if>
+        </trim>
+        where db_id = #{dbId}
+    </update>
+
+    <delete id="deleteImportDbByDbId" parameterType="Long">
+        delete from db where db_id = #{dbId}
+    </delete>
+
+    <delete id="deleteImportDbByDbIds" parameterType="String">
+        delete from db where db_id in 
+        <foreach item="dbId" collection="array" open="(" separator="," close=")">
+            #{dbId}
+        </foreach>
+    </delete>
+</mapper>

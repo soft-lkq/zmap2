@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.LinkageQtlMapper">
+    
+    <resultMap type="LinkageQtl" id="LinkageQtlResult">
+        <result property="linkageQtlId"    column="linkage_qtl_id"/>
+        <result property="accession" column="accession"/>
+        <result property="version" column="version"/>
+        <result property="chr"    column="chr"/>
+        <result property="start"    column="start"/>
+        <result property="end"    column="end"/>
+        <result property="omics" column="omics"/>
+        <result property="xot_uid" column="xot_uid"/>
+        <result property="qtlUid"    column="qtl_uid"/>
+        <result property="linkagemap"    column="linkagemap"/>
+        <result property="lod"    column="lod"/>
+        <result property="dbxrefId"    column="dbxref_id"/>
+        <result property="traitId"    column="trait_id"/>
+    </resultMap>
+
+    <sql id="selectLinkageQtlVo">
+        select linkage_qtl_id, chr, start, end, qtl_uid, linkagemap, lod, dbxref_id, trait_id from linkage_qtl
+    </sql>
+
+    <select id="selectLinkageQtlList" parameterType="LinkageQtl" resultMap="LinkageQtlResult">
+        <include refid="selectLinkageQtlVo"/>
+        <where>  
+            <if test="chr != null  and chr != ''"> and chr = #{chr}</if>
+            <if test="start != null "> and start = #{start}</if>
+            <if test="end != null "> and end = #{end}</if>
+            <if test="qtlUid != null  and qtlUid != ''"> and qtl_uid = #{qtlUid}</if>
+            <if test="linkagemap != null  and linkagemap != ''"> and linkagemap = #{linkagemap}</if>
+            <if test="lod != null  and lod != ''"> and lod = #{lod}</if>
+            <if test="dbxrefId != null "> and dbxref_id = #{dbxrefId}</if>
+            <if test="traitId != null "> and trait_id = #{traitId}</if>
+        </where>
+    </select>
+    
+    <select id="selectLinkageQtlByLinkageQtlId" parameterType="Long" resultMap="LinkageQtlResult">
+        <include refid="selectLinkageQtlVo"/>
+        where linkage_qtl_id = #{linkageQtlId}
+    </select>
+        
+    <insert id="insertLinkageQtl" parameterType="LinkageQtl" useGeneratedKeys="true" keyProperty="linkageQtlId">
+        insert into linkage_qtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chr != null">chr,</if>
+            <if test="start != null">start,</if>
+            <if test="end != null">end,</if>
+            <if test="qtlUid != null">qtl_uid,</if>
+            <if test="linkagemap != null">linkagemap,</if>
+            <if test="lod != null">lod,</if>
+            <if test="dbxrefId != null">dbxref_id,</if>
+            <if test="traitId != null">trait_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="chr != null">#{chr},</if>
+            <if test="start != null">#{start},</if>
+            <if test="end != null">#{end},</if>
+            <if test="qtlUid != null">#{qtlUid},</if>
+            <if test="linkagemap != null">#{linkagemap},</if>
+            <if test="lod != null">#{lod},</if>
+            <if test="dbxrefId != null">#{dbxrefId},</if>
+            <if test="traitId != null">#{traitId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLinkageQtl" parameterType="LinkageQtl">
+        update linkage_qtl
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chr != null">chr = #{chr},</if>
+            <if test="start != null">start = #{start},</if>
+            <if test="end != null">end = #{end},</if>
+            <if test="qtlUid != null">qtl_uid = #{qtlUid},</if>
+            <if test="linkagemap != null">linkagemap = #{linkagemap},</if>
+            <if test="lod != null">lod = #{lod},</if>
+            <if test="dbxrefId != null">dbxref_id = #{dbxrefId},</if>
+            <if test="traitId != null">trait_id = #{traitId},</if>
+        </trim>
+        where linkage_qtl_id = #{linkageQtlId}
+    </update>
+
+    <delete id="deleteLinkageQtlByLinkageQtlId" parameterType="Long">
+        delete from linkage_qtl where linkage_qtl_id = #{linkageQtlId}
+    </delete>
+
+    <delete id="deleteLinkageQtlByLinkageQtlIds" parameterType="String">
+        delete from linkage_qtl where linkage_qtl_id in
+        <foreach item="linkageQtlId" collection="array" open="(" separator="," close=")">
+            #{linkageQtlId}
+        </foreach>
+    </delete>
+
+    <!--@Author 刘洋-->
+    <!--查找dbxref表里面的accession-->
+    <select id="selectaccession" resultType="String">
+        select distinct D.accession FROM dbxref D,db
+        where
+            db.name like '%-GFF' and D.db_id=db.db_id
+    </select>
+    <!--查找dbxref表里面的version,version是reference的下级-->
+    <select id="selectversion" parameterType="String" resultType="String">
+         select distinct version from dbxref where accession=#{accession} and version is not null and version!=''
+    </select>
+    <!--查找Trait Category -->
+    <select id="selecttraitcategory" resultType="String">
+        select distinct omics from xot
+    </select>
+    <!--查找Trait Id -->
+    <select id="selecttraitid" parameterType="String" resultType="String">
+        select distinct xot_uid
+        from xot
+        where xot_uid like concat('%',#{trait_id},'%') or #{trait_id}='' or #{trait_id} is null or #{trait_id}='null'
+        limit 0,20
+    </select>
+    <!--查找chr-->
+    <select id="selectchr" resultType="String">
+        select distinct chr from linkage_qtl
+    </select>
+    <!--查找linkagemap-->
+    <select id="selectlinkagemap" resultType="String">
+        select distinct linkagemap from linkage_qtl
+    </select>
+
+    <!--大查询-->
+    <select id="selectlinkage_qtl" parameterType="com.ruoyi.zeamap.domain.LinkageQtlSelectCondition" resultMap="LinkageQtlResult">
+     select linkage_qtl_id,qtl_uid,accession,version,chr,start,end ,omics,xot_uid,lod,linkagemap,linkage_qtl.dbxref_id
+     from linkage_qtl ,dbxref ,xot
+     where
+         (linkage_qtl.dbxref_id=dbxref.dbxref_id and accession=#{accession} and version=#{version}
+                 or (#{accession}=''or #{accession} is null))
+       and ( linkage_qtl.trait_id=xot.xot_id and omics=#{omics}
+                 or (#{omics}=''or #{omics} is null))
+       and (linkage_qtl.trait_id=xot.xot_id and xot_uid=#{xot_uid}
+                 or (#{xot_uid}=''or #{xot_uid} is null))
+       and (linkagemap=#{linkagemap} or #{linkagemap}=''or #{linkagemap} is null)
+       and (chr=#{chr} or #{chr}=''or #{chr} is null)
+       and start>#{start} and #{end}>end
+       and lod>#{lod_min} and #{lod_max}>lod
+
+    </select>
+</mapper>
