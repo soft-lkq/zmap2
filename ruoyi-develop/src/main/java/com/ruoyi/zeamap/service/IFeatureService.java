@@ -25,7 +25,8 @@ public interface IFeatureService
      * @return uniqueName的list
      */
     public List<String> selectUniqueName();
-
+    public List<String> selectCommonName();
+    public List<String> selectChrom();
     /**
      * 在cvterm表里查询Name
      *
@@ -72,6 +73,7 @@ public interface IFeatureService
      * @return String
      */
     public String selectSequences(String feature_id);
+    public String selectSeqlen(String feature_id);
 
 /**侯永杰
      * uniquename查找id ,首先判断有没有 然后再连表

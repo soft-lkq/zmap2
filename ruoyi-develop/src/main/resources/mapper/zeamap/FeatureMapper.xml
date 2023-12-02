@@ -9,6 +9,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from feature
     </select>
 
+    <select id="selectCommonName" resultType="String">
+        select distinct commonname
+        from feature
+    </select>
+    <select id="selectChrom" resultType="String">
+        select distinct chrom
+        from featureloc
+    </select>
+
     <select id="selectName" resultType="String">
         select distinct name
         from cvterm
@@ -16,18 +25,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap type="QueryResult" id="QueryResult">
         <result property="featureId"    column="feature_id"    />
-        <result property="name"    column="commonname"    />
-        <result property="description"    column="accession"    />
-        <result property="chromosome"    column="uniquename"    />
+        <result property="accession"    column="accession"    />
+        <result property="version"    column="version"    />
+        <result property="commonname"    column="commonname"    />
+        <result property="uniquename"    column="uniquename"    />
+        <result property="chrom"    column="chrom"    />
         <result property="start"    column="fmin"    />
         <result property="end"    column="fmax"    />
         <result property="strand"    column="strand"    />
+        <result property="name"    column="name"    />
     </resultMap>
 
     <select id="selectQueryResult" parameterType="com.ruoyi.zeamap.domain.QueryCriteria" resultMap="QueryResult">
-        select feature.feature_id,commonname,accession,uniquename,fmin,fmax,strand
-        from feature,dbxref,featureloc
-        where feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.srcfeature_id
+        select feature.feature_id,feature.commonname,feature.uniquename,dbxref.accession,dbxref.version,featureloc.chrom,featureloc.fmin,featureloc.fmax,featureloc.strand,cvterm.name
+        from feature,dbxref,featureloc,cvterm
+        where feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.feature_id and feature.type_id = cvterm.cvterm_id
             and feature.feature_id in(
                 select criterria1.feature_id
                 from
@@ -42,86 +54,58 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 )as criterria1
                 join
                 (
-                    select distinct srcfeature_id feature_id
+                    select distinct feature_id
                     from featureloc
-                    where srcfeature_id in(
-                        select feature_id
-                        from feature
-                        where (uniquename=#{uniquename} or #{uniquename}='' or #{uniquename} is null )
-                    )
-                    and (cast(fmin as signed) >= cast(#{start} as signed) or (#{uniquename}='' or #{uniquename} is null or #{start}='' or #{start} is null) )
-                    and (cast(fmax as signed) &lt;= cast(#{end} as signed) or (#{uniquename}='' or #{uniquename} is null or #{end}='' or #{end} is null) )
-                    <!--  <和<=与<>符号冲突，需要转义或反序  -->
+                    <where>
+                    <if test="chrom != null  and chrom != ''"> and chrom = #{chrom}</if>
+                    and (cast(fmin as signed) >= cast(#{start} as signed) or (#{chrom}='' or #{chrom} is null or #{start}='' or #{start} is null) )
+                    and (cast(fmax as signed) &lt;= cast(#{end} as signed) or (#{chrom}='' or #{chrom} is null or #{end}='' or #{end} is null) )
+                    </where>
                 )as criterria2
                     on criterria1.feature_id = criterria2.feature_id
                 join
                 (
                     select distinct feature_id
-                    from feature_dbxref
-                    where dbxref_id in(
-                        select dbxref_id
-                        from cvterm
-                        where (name=#{name} or (#{name}='' or #{name} is null) )
+                    from feature
+                    where (
+                        commonname like concat('%',#{commonname},'%') or (#{commonname} is null or #{commonname}='')
+                        and uniquename like concat('%',#{uniquename},'%') or (#{uniquename} is null or #{uniquename}='')
+
                     )
                 )as criterria3
                     on criterria2.feature_id = criterria3.feature_id
-                join
-                (
-                    select distinct feature_id
-                    from feature
-                    where (
-<!--        <if test="commonname is not null and commonname != ''">-->
-<!--            <bind name="commonname" value="'%'+commonname+'%'"/>-->
-<!--                and commonname like #{commonname}-->
-<!--        </if>-->
-                        commonname like concat('%',#{commonname},'%') or (#{commonname} is null or #{commonname}='')
-                    )
-                )as criterria4
-                    on criterria3.feature_id = criterria4.feature_id
-                join
-                (
-                    select distinct feature_id
-                    from feature_dbxref
-                    where dbxref_id in(
-                        select dbxref_id
-                        from dbxref
-                        where (
-<!--                        <if test="description is not null and description != ''">-->
-<!--                            <bind name="description" value="'%'+description+'%'"/>-->
-<!--                            and description like #{description}-->
-<!--                        </if>-->
-                            description like concat('%',#{description},'%') or (#{description} is null or #{description}='')
-                        )
-                    )
-                )as criterria5
-                    on criterria4.feature_id = criterria5.feature_id
             )
     </select>
 
     <select id="download" parameterType="String" resultMap="QueryResult">
-        select feature.feature_id,commonname,accession,uniquename,fmin,fmax,strand
-        from feature,dbxref,featureloc
-        where feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.srcfeature_id
+        select feature.feature_id,feature.commonname,feature.uniquename,dbxref.accession,dbxref.version,featureloc.chrom,featureloc.fmin,featureloc.fmax,featureloc.strand,cvterm.name
+        from feature,dbxref,featureloc,cvterm
+        where feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.feature_id and feature.type_id = cvterm.cvterm_id
           and feature.feature_id = #{feature_id}
     </select>
 
     <select id="selectSummary" parameterType="String" resultType="com.ruoyi.zeamap.domain.SkipResult">
         select commonname featureName,name featureType,dbxref.accession germplasm,concat('GFF Version ',version) featureAnnotationVersion,
-               concat(uniquename,':',fmin,'-',fmax) featureLocation,description
+               concat(chrom,':',fmin,'-',fmax) featureLocation
         from feature,cvterm,dbxref,featureloc
-        where feature.feature_id = #{featureId} and feature.dbxref_id = cvterm.dbxref_id
-            and feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.srcfeature_id
+        where feature.feature_id = #{featureId} and feature.type_id = cvterm.cvterm_id
+            and feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.feature_id
     </select>
 
     <select id="selectFunctionAnnotation" parameterType="String" resultType="com.ruoyi.zeamap.domain.FunctionAnnotation">
-        select accession id,cv.name ontology,cvterm.name term,cvterm.definition
-        from feature,feature_dbxref,dbxref,cv,cvterm
-        where feature.feature_id = #{featureId} and feature.feature_id = feature_dbxref.feature_id and feature_dbxref.dbxref_id = dbxref.dbxref_id
-            and dbxref.dbxref_id = cvterm.dbxref_id and cv.cv_id = cvterm.cv_id
+        select accession id,cv.name ontology,cv.definition,cvterm.name term
+        from feature,dbxref,cv,cvterm
+        where feature.feature_id = #{featureId} and feature.dbxref_id = dbxref.dbxref_id
+            and feature.type_id = cvterm.cvterm_id and cv.feature_id = feature.feature_id
     </select>
 
     <select id="selectSequences" parameterType="String" resultType="String">
         select residues sequences
+        from feature
+        where feature.feature_id = #{featureId}
+    </select>
+    <select id="selectSeqlen" parameterType="String" resultType="String">
+        select seqlen
         from feature
         where feature.feature_id = #{featureId}
     </select>

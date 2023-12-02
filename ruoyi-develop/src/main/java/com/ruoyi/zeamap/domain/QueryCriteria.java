@@ -29,23 +29,23 @@ public class QueryCriteria extends BaseEntity
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    private String commonname;
+
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    private String chrom;
+
+    /** $column.columnComment */
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String start;
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String end;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private String name;
+//    /** $column.columnComment */
+//    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+//    private String name;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private String commonname;
-
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private String description;
 
     public String getAccession() {
         return accession;
@@ -68,6 +68,13 @@ public class QueryCriteria extends BaseEntity
     public void setUniquename(String uniquename) {
         this.uniquename = uniquename;
     }
+    public String getChrom() {
+        return chrom;
+    }
+
+    public void setChrom(String chrom) {
+        this.chrom = chrom;
+    }
     public String getStart() {
         return start;
     }
@@ -82,26 +89,13 @@ public class QueryCriteria extends BaseEntity
     public void setEnd(String end) {
         this.end = end;
     }
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
     public String getCommonname() {
         return commonname;
     }
 
     public void setCommonname(String commonname) {
         this.commonname = commonname;
-    }
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
@@ -112,9 +106,8 @@ public class QueryCriteria extends BaseEntity
                 .append("uniquename", getUniquename())
                 .append("start",getStart())
                 .append("end",getEnd())
-                .append("name",getName())
                 .append("commonname",getCommonname())
-                .append("description",getDescription())
+                .append("chrom",getChrom())
                 .toString();
     }
 }

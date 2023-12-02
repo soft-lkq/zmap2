@@ -18,6 +18,8 @@ public interface FeatureMapper
      * @return uniqueName的list
      */
     public List<String> selectUniqueName();
+    public List<String> selectCommonName();
+    public List<String> selectChrom();
 
     /**
      * 在cvterm表里查询Name
@@ -65,6 +67,7 @@ public interface FeatureMapper
      * @return String
      */
     public String selectSequences(String feature_id);
+    public String selectSeqlen(String feature_id);
 //侯永杰
 public int deleteFeatureByFeatureIds(Long[] featureIds);
 

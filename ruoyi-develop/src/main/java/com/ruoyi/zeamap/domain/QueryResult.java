@@ -16,22 +16,65 @@ public class QueryResult
 
     /** $column.columnComment */
     private String featureId;
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    private String accession;
+
+    /** $column.columnComment */
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    private String version;
+
+    /** $column.columnComment */
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    private String uniquename;
+
+    /** $column.columnComment */
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    private String commonname;
 
     /** $column.columnComment */
     @Excel(name = "Name")
     private String name;
 
-    /** $column.columnComment */
-    @Excel(name = "Description")
-    private String description;
 
     /** $column.columnComment */
     @Excel(name = "CHROM")
-    private String chromosome;
+    private String chrom;
 
     /** $column.columnComment */
     @Excel(name = "Start")
     private String start;
+
+    public String getAccession() {
+        return accession;
+    }
+
+    public void setAccession(String accession) {
+        this.accession = accession;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getUniquename() {
+        return uniquename;
+    }
+
+    public void setUniquename(String uniquename) {
+        this.uniquename = uniquename;
+    }
+
+    public String getCommonname() {
+        return commonname;
+    }
+
+    public void setCommonname(String commonname) {
+        this.commonname = commonname;
+    }
 
     /** $column.columnComment */
     @Excel(name = "End")
@@ -55,19 +98,12 @@ public class QueryResult
     public void setName(String name) {
         this.name = name;
     }
-    public String getDescription() {
-        return description;
+    public String getChrom() {
+        return chrom;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public String getChromosome() {
-        return chromosome;
-    }
-
-    public void setChromosome(String chromosome) {
-        this.chromosome = chromosome;
+    public void setChrom(String chrom) {
+        this.chrom = chrom;
     }
     public String getStart() {
         return start;
@@ -96,8 +132,7 @@ public class QueryResult
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
                 .append("featureId", getFeatureId())
                 .append("name", getName())
-                .append("description", getDescription())
-                .append("chromosome", getChromosome())
+                .append("chromosome", getChrom())
                 .append("start", getStart())
                 .append("end", getEnd())
                 .append("strand", getStrand())

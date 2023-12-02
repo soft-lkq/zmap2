@@ -35,9 +35,6 @@ public class SkipResult {
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String featureLocation;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private String description;
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
@@ -46,6 +43,18 @@ public class SkipResult {
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String sequences;
+
+    public String getSeqlen() {
+        return seqlen;
+    }
+
+    public void setSeqlen(String seqlen) {
+        this.seqlen = seqlen;
+    }
+
+    /** $column.columnComment */
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    private String seqlen;
 
     public String getFeatureName() {
         return featureName;
@@ -61,9 +70,6 @@ public class SkipResult {
     }
     public String getFeatureLocation() {
         return featureLocation;
-    }
-    public String getDescription() {
-        return description;
     }
     public List<FunctionAnnotation> getFunctionAnnotations() {
         return functionAnnotations;
@@ -87,9 +93,6 @@ public class SkipResult {
     public void setFeatureLocation(String featureLocation) {
         this.featureLocation = featureLocation;
     }
-    public void setDescription(String description) {
-        this.description = description;
-    }
     public void setFunctionAnnotations(List<FunctionAnnotation> functionAnnotations) {
         this.functionAnnotations = functionAnnotations;
     }
@@ -105,9 +108,9 @@ public class SkipResult {
                 .append("germplasm", getGermplasm())
                 .append("featureAnnotationVersion", getFeatureAnnotationVersion())
                 .append("featureLocation", getFeatureLocation())
-                .append("description", getDescription())
                 .append("functionAnnotation", getFunctionAnnotations())
                 .append("sequences", getSequences())
+                .append("seqlen", getSeqlen())
                 .toString();
     }
 }

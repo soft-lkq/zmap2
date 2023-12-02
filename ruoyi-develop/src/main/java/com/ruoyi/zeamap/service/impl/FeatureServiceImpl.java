@@ -34,7 +34,12 @@ public class FeatureServiceImpl implements IFeatureService
     public List<String> selectUniqueName(){
         return featureMapper.selectUniqueName();
     }
-
+    public List<String> selectCommonName(){
+        return featureMapper.selectCommonName();
+    }
+    public List<String> selectChrom(){
+        return featureMapper.selectChrom();
+    }
     /**
      * 在cvterm表里查询Name
      *
@@ -92,6 +97,9 @@ public class FeatureServiceImpl implements IFeatureService
      */
     public String selectSequences(String feature_id) {
         return featureMapper.selectSequences(feature_id);
+    }
+    public String selectSeqlen(String feature_id) {
+        return featureMapper.selectSeqlen(feature_id);
     }
 
  /**侯永杰

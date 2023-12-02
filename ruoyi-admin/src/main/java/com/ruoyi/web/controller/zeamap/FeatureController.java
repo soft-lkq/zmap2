@@ -33,36 +33,34 @@ public class FeatureController extends BaseController
     private IDbxrefService dbxrefService;
 
 
-    //=====查询条件1的前置需求=====
+
     /**
      * 在dbxref表里查询accession并过滤
      */
-    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
+//    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
     @GetMapping("/selectAccession")
     public TableDataInfo selectAccession()
     {
-        startPage();
+//        startPage();
         List<String> accession = dbxrefService.selectAccession();
         return getDataTable(accession);
     }
     /**
      * 通过accession在dbxref表里查询version
      */
-    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
+//    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
     @GetMapping("/selectVersion")
     public TableDataInfo selectVersion(String accession)
     {
-        startPage();
+//        startPage();
         List<String> list = dbxrefService.selectVersionByAccession(accession);
         return getDataTable(list);
     }
 
 
-    //=====查询条件2的前置需求=====
-    /**
-     * 在feature表里查询uniqueName
-     */
-    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
+//     * 在feature表里查询uniqueName
+
+//    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
     @GetMapping("/selectUniqueName")
     public TableDataInfo selectUniqueName()
     {
@@ -71,11 +69,26 @@ public class FeatureController extends BaseController
         return getDataTable(uniqueNames);
     }
 
+    @GetMapping("/selectCommonName")
+    public AjaxResult selectCommonName()
+    {
+        startPage();
+        List<String> commonNames = featureService.selectCommonName();
+        return AjaxResult.success(commonNames);
+    }
 
-    //=====查询条件3的前置需求=====
-    /**
+    @GetMapping("/selectChrom")
+    public AjaxResult selectChrom()
+    {
+        List<String> chroms = featureService.selectChrom();
+        return AjaxResult.success(chroms);
+    }
+
+
+
+ /*   *//**
      * 在cvterm表里查询name
-     */
+     *//*
     @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
     @GetMapping("/selectName")
     public TableDataInfo selectName()
@@ -83,14 +96,14 @@ public class FeatureController extends BaseController
         startPage();
         List<String> Names = featureService.selectName();
         return getDataTable(Names);
-    }
+    }*/
 
 
     //=====查询=====
     /**
-     * 通过queryCriteria的五个条件查询featureId集合,再通过featureId集合在feature和featureloc和dbxref表里查询queryResult
+     * 通过queryCriteria的筛选条件查询featureId集合,再通过featureId集合在feature和featureloc查询queryResult
      */
-    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
+//    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
     @PostMapping("/enquiry")
     public TableDataInfo selectQueryResult(@RequestBody QueryCriteria queryCriteria)
     {
@@ -104,7 +117,7 @@ public class FeatureController extends BaseController
     /**
      * 通过featureId集合在feature和featureloc和dbxref表里查询queryResult并下载
      */
-    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
+//    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
     @PostMapping("/download")
     public void download(HttpServletResponse response,@RequestBody List<String> featureId)
     {
@@ -121,15 +134,23 @@ public class FeatureController extends BaseController
     /**
      * 通过featureId在feature,cvterm,dbxref,featureloc,feature_dbxref和cv表里查询skipResult
      */
-    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
+//    @PreAuthorize("@ss.hasAnyRoles({'common','admin'})")
     @GetMapping("/skipResult")
     public SkipResult skip(String featureId)
     {
-        SkipResult skipResult = featureService.selectSummary(featureId);
+//        SkipResult skipResult = featureService.selectSummary(featureId);
+//        System.out.println("1: "+skipResult.toString());
+        SkipResult skipResult = new SkipResult();
         skipResult.setFunctionAnnotations(featureService.selectFunctionAnnotation(featureId));
         skipResult.setSequences(featureService.selectSequences(featureId));
+        skipResult.setSeqlen(featureService.selectSeqlen(featureId));
         return skipResult;
     }
+
+
+
+
+
 
  /**侯永杰
      * 5.1的一个请求

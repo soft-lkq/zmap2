@@ -6,8 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectAccession" parameterType="String" resultType="String">
         select distinct accession
-        from dbxref D,db DB
-        where DB.db_id = D.db_id and DB.name like '%GFF'
+        from dbxref
     </select>
 
     <select id="selectVersionByAccession" parameterType="String" resultType="String">
