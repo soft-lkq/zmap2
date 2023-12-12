@@ -34,7 +34,7 @@ public class VariantController extends BaseController {
     /**
      * 查询variant列表
      */
-    @PreAuthorize("@ss.hasPermi('variations:variant:list')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:list')")
     @GetMapping("/list")
     public TableDataInfo list(Variant variant) {
         startPage();
@@ -45,7 +45,7 @@ public class VariantController extends BaseController {
     /**
      * 导出variant列表
      */
-    @PreAuthorize("@ss.hasPermi('variations:variant:export')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:export')")
     @Log(title = "variant", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, Variant variant) {
@@ -57,7 +57,7 @@ public class VariantController extends BaseController {
     /**
      * 获取variant详细信息
      */
-    @PreAuthorize("@ss.hasPermi('variations:variant:query')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:query')")
     @GetMapping(value = "/{variantId}")
     public AjaxResult getInfo(@PathVariable("variantId") String variantId) {
         return AjaxResult.success(variantService.selectVariantByVariantId(variantId));
@@ -66,7 +66,7 @@ public class VariantController extends BaseController {
     /**
      * 新增variant
      */
-    @PreAuthorize("@ss.hasPermi('variations:variant:add')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:add')")
     @Log(title = "variant", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody Variant variant) {
@@ -76,7 +76,7 @@ public class VariantController extends BaseController {
     /**
      * 修改variant
      */
-    @PreAuthorize("@ss.hasPermi('variations:variant:edit')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:edit')")
     @Log(title = "variant", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody Variant variant) {
@@ -86,7 +86,7 @@ public class VariantController extends BaseController {
     /**
      * 删除variant
      */
-    @PreAuthorize("@ss.hasPermi('variations:variant:remove')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:remove')")
     @Log(title = "variant", businessType = BusinessType.DELETE)
     @DeleteMapping("/{variantIds}")
     public AjaxResult remove(@PathVariable String[] variantIds) {
@@ -112,7 +112,7 @@ public class VariantController extends BaseController {
     }
 
     //查询Version
-    @PreAuthorize("@ss.hasPermi('variations:variant:selectVersion')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:selectVersion')")
     @GetMapping("/selectVersion")
     @ResponseBody
     public AjaxResult selectVersion(@RequestParam String accession) {
@@ -121,7 +121,7 @@ public class VariantController extends BaseController {
     }
 
     //查询Population
-    @PreAuthorize("@ss.hasPermi('variations:variant:selectPopulation')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:selectPopulation')")
     @GetMapping("/selectPopulation")
     @ResponseBody
     public AjaxResult selectPopulation() {
@@ -130,7 +130,7 @@ public class VariantController extends BaseController {
     }
 
     //查询Analysis里面的description
-    @PreAuthorize("@ss.hasPermi('variations:variant:selectAnalysis')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:selectAnalysis')")
     @GetMapping("/selectAnalysis")
     @ResponseBody
     public AjaxResult selectAnalysis() {
@@ -139,7 +139,7 @@ public class VariantController extends BaseController {
     }
 
     //查询VariantClass
-    @PreAuthorize("@ss.hasPermi('variations:variant:selectVariantClass')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:selectVariantClass')")
     @GetMapping("/selectVariantClass")
     @ResponseBody
     public AjaxResult selectVariantClass() {
@@ -148,7 +148,7 @@ public class VariantController extends BaseController {
     }
 
     //查询Region下拉框里面的chr
-    @PreAuthorize("@ss.hasPermi('variations:variant:selectChr')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:selectChr')")
     @GetMapping("/selectChr")
     @ResponseBody
     public AjaxResult selectChr() {
@@ -157,25 +157,25 @@ public class VariantController extends BaseController {
     }
 
     //查询Region下拉框里面的Posi
-    @PreAuthorize("@ss.hasPermi('variations:variant:selectPosi')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:selectPosi')")
     @GetMapping("/selectPosi")
     @ResponseBody
     public AjaxResult selectPosi() {
         List<String> list=variantService.selectPosi();
         return AjaxResult.success(list);
     }
-
-    //Annotation 查询 impacts
-    @PreAuthorize("@ss.hasPermi('variations:variant:selectImpacts')")
-    @GetMapping("/selectImpacts")
-    @ResponseBody
-    public AjaxResult selectImpacts() {
-        List<String> list=variantService.selectImpacts();
-        return AjaxResult.success(list);
-    }
+//
+//    //Annotation 查询 impacts
+////    @PreAuthorize("@ss.hasPermi('variations:variant:selectImpacts')")
+//    @GetMapping("/selectImpacts")
+//    @ResponseBody
+//    public AjaxResult selectImpacts() {
+//        List<String> list=variantService.selectImpacts();
+//        return AjaxResult.success(list);
+//    }
 
     //Annotation 查询consequences
-    @PreAuthorize("@ss.hasPermi('variations:variant:selectConsequences')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:selectConsequences')")
     @GetMapping("/selectConsequences")
     @ResponseBody
     public AjaxResult selectConsequences() {
@@ -188,7 +188,7 @@ public class VariantController extends BaseController {
      * 其中VariantSelectCondition是一个实体类，来承接前端返回的参数
      */
 
-    @PreAuthorize("@ss.hasPermi('variations:variant:selectVariant')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:selectVariant')")
     @PostMapping("/selectVariant")
     public TableDataInfo selectVariant(@RequestBody VariantSelectCondition selectCondition) {
         startPage();
@@ -198,7 +198,7 @@ public class VariantController extends BaseController {
     }
 
     //下载表格
-    @PreAuthorize("@ss.hasPermi('variations:variant:download')")
+//    @PreAuthorize("@ss.hasPermi('variations:variant:download')")
     @Log(title = "【下载variant数据】", businessType = BusinessType.EXPORT)
     @PostMapping("/download")
     public void download(HttpServletResponse response,@RequestParam List<String> ids) {

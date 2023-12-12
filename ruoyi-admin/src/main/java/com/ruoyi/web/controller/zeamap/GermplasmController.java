@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * 产品详情Controller
- * 
+ *
  * @author ruoyi
  * @date 2023-03-14
  */
@@ -50,9 +50,9 @@ public class GermplasmController extends BaseController
     /**
      * 查询产品详情列表
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:list')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:list')")
     @GetMapping("/list")
-    public TableDataInfo list(Germplasm germplasm)
+    public TableDataInfo list(@RequestBody Germplasm germplasm)
     {
         startPage();
         List<Germplasm> list = germplasmService.selectGermplasmList(germplasm);
@@ -62,7 +62,7 @@ public class GermplasmController extends BaseController
     /**
      * 导出产品详情列表
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:export')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:export')")
     @Log(title = "产品详情", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, Germplasm germplasm)
@@ -75,7 +75,7 @@ public class GermplasmController extends BaseController
     /**
      * 获取产品详情详细信息
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:query')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:query')")
     @GetMapping(value = "/{germplasmId}")
     public AjaxResult getInfo(@PathVariable("germplasmId") Long germplasmId)
     {
@@ -85,7 +85,7 @@ public class GermplasmController extends BaseController
     /**
      * 新增产品详情
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:add')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:add')")
     @Log(title = "产品详情", businessType = BusinessType.INSERT)
     @GetMapping("/add")
     public AjaxResult add(@RequestBody Germplasm germplasm)
@@ -96,7 +96,7 @@ public class GermplasmController extends BaseController
     /**
      * 修改产品详情
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:edit')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:edit')")
     @Log(title = "产品详情", businessType = BusinessType.UPDATE)
     @PutMapping("/edit")
     public AjaxResult edit(@RequestBody Germplasm germplasm)
@@ -107,7 +107,7 @@ public class GermplasmController extends BaseController
     /**
      * 删除产品详情
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:remove')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:remove')")
     @Log(title = "产品详情", businessType = BusinessType.DELETE)
 	@DeleteMapping("/remove/{germplasmIds}")
     public AjaxResult remove(@PathVariable Long[] germplasmIds)

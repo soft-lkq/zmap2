@@ -10,10 +10,12 @@
         <result property="type" column="type"/>
         <result property="chr" column="chr"/>
         <result property="posi" column="posi"/>
-        <result property="genorate" column="genorate"/>
-        <result property="maf" column="maf"/>
+        <result property="Ref" column="Ref"/>
+        <result property="Allele" column="Allele"/>
+        <result property="AleTypeNum" column="Ale_type_num"/>
+        <result property="refRate" column="ref_rate"/>
+        <result property="alleleRate" column="allele_rate"/>
         <result property="consequences" column="consequences"/>
-        <result property="impacts" column="impacts"/>
         <result property="analysisId" column="analysis_id"/>
     </resultMap>
 
@@ -23,10 +25,12 @@
                type,
                chr,
                posi,
-               genorate,
-               maf,
+               Ref,
+               Allele,
+               Ale_type_num,
+               ref_rate,
+               allele_rate,
                consequences,
-               impacts,
                analysis_id
         from variant
     </sql>
@@ -38,10 +42,7 @@
             <if test="type != null  and type != ''">and type = #{type}</if>
             <if test="chr != null  and chr != ''">and chr = #{chr}</if>
             <if test="posi != null ">and posi = #{posi}</if>
-            <if test="genorate != null ">and genorate = #{genorate}</if>
-            <if test="maf != null ">and maf = #{maf}</if>
             <if test="consequences != null  and consequences != ''">and consequences = #{consequences}</if>
-            <if test="impacts != null  and impacts != ''">and impacts = #{impacts}</if>
             <if test="analysisId != null ">and analysis_id = #{analysisId}</if>
         </where>
     </select>
@@ -59,10 +60,12 @@
             <if test="type != null">type,</if>
             <if test="chr != null">chr,</if>
             <if test="posi != null">posi,</if>
-            <if test="genorate != null">genorate,</if>
-            <if test="maf != null">maf,</if>
+            <if test="Ref != null">Ref,</if>
+            <if test="Allele != null">Allele,</if>
+            <if test="AleTypeNum != null">Ale_type_num,</if>
+            <if test="refRate != null">ref_rate,</if>
+            <if test="alleleRate != null">allele_rate,</if>
             <if test="consequences != null">consequences,</if>
-            <if test="impacts != null">impacts,</if>
             <if test="analysisId != null">analysis_id,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -71,10 +74,12 @@
             <if test="type != null">#{type},</if>
             <if test="chr != null">#{chr},</if>
             <if test="posi != null">#{posi},</if>
-            <if test="genorate != null">#{genorate},</if>
-            <if test="maf != null">#{maf},</if>
+            <if test="Ref != null">#{Ref},</if>
+            <if test="Allele != null">#{Allele},</if>
+            <if test="AleTypeNum != null">#{AleTypeNum},</if>
+            <if test="refRate != null">#{refRate},</if>
+            <if test="alleleRate != null">#{alleleRate},</if>
             <if test="consequences != null">#{consequences},</if>
-            <if test="impacts != null">#{impacts},</if>
             <if test="analysisId != null">#{analysisId},</if>
         </trim>
     </insert>
@@ -86,10 +91,12 @@
             <if test="type != null">type = #{type},</if>
             <if test="chr != null">chr = #{chr},</if>
             <if test="posi != null">posi = #{posi},</if>
-            <if test="genorate != null">genorate = #{genorate},</if>
-            <if test="maf != null">maf = #{maf},</if>
+            <if test="Ref != null">Ref = #{Ref},</if>
+            <if test="Allele != null">Allele = #{Allele},</if>
+            <if test="AleTypeNum != null">Ale_type_num = #{AleTypeNum},</if>
+            <if test="refRate != null">ref_rate = #{refRate},</if>
+            <if test="alleleRate != null">allele_rate = #{alleleRate},</if>
             <if test="consequences != null">consequences = #{consequences},</if>
-            <if test="impacts != null">impacts = #{impacts},</if>
             <if test="analysisId != null">analysis_id = #{analysisId},</if>
         </trim>
         where variant_id = #{variantId}
@@ -111,9 +118,7 @@
     <!--@Author 邵雯，刘洋-->
     <!--reference下拉框-->
     <select id="selectReference" resultType="String">
-        select distinct D.accession FROM dbxref D,db
-        where
-            db.name like '%-GFF' and D.db_id=db.db_id
+        select distinct accession FROM dbxref
     </select>
     <!--version下拉框-->
     <select id="selectVersion" resultType="String">
@@ -143,11 +148,11 @@
         select distinct posi
         from variant
     </select>
-    <!--Annotation下拉框-->
-    <select id="selectImpacts" resultType="String">
-        select distinct impacts
-        from variant
-    </select>
+<!--    &lt;!&ndash;Annotation下拉框&ndash;&gt;-->
+<!--    <select id="selectImpacts" resultType="String">-->
+<!--        select distinct impacts-->
+<!--        from variant-->
+<!--    </select>-->
     <select id="selectConsequences" resultType="String">
         select distinct consequences
         from variant
@@ -161,9 +166,11 @@
         VID,
         chr,
         posi,
-        maf,
-        genorate,
-        impacts,
+        Ref,
+        Allele,
+        Ale_type_num,
+        ref_rate,
+        allele_rate,
         consequences,
         variant_id,
         variant.analysis_id
@@ -173,10 +180,6 @@
         and (chr = #{chr} or #{chr} = '' or #{chr} is null)
 
         and (posi>#{posi_min} and #{posi_max}>posi)
-
-        and (maf>#{maf_min} and #{maf_max}>maf)
-
-        and (impacts = #{impacts} or #{impacts} = '' or #{impacts} is null)
 
         and (consequences = #{consequences} or #{consequences} = '' or #{consequences} is null)
 

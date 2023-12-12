@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * 产品Controller
- * 
+ *
  * @author ruoyi
  * @date 2023-03-14
  */
@@ -31,7 +31,7 @@ public class PopulationController extends BaseController
     /**
      * 查询产品列表
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:population:list')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:population:list')")
     @GetMapping("/list")
     public TableDataInfo list(Population population)
     {
@@ -43,7 +43,7 @@ public class PopulationController extends BaseController
     /**
      * 导出产品列表
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:population:export')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:population:export')")
     @Log(title = "产品", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, Population population)
@@ -56,7 +56,7 @@ public class PopulationController extends BaseController
     /**
      * 获取产品详细信息
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:population:query')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:population:query')")
     @GetMapping(value = "/{populationId}")
     public AjaxResult getInfo(@PathVariable("populationId") Long populationId)
     {
@@ -66,7 +66,7 @@ public class PopulationController extends BaseController
     /**
      * 新增产品
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:population:add')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:population:add')")
     @Log(title = "产品", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     public AjaxResult add(@RequestBody Population population)
@@ -88,7 +88,7 @@ public class PopulationController extends BaseController
     /**
      * 删除产品
      */
-    @PreAuthorize("@ss.hasPermi('zeamap:population:remove')")
+//    @PreAuthorize("@ss.hasPermi('zeamap:population:remove')")
     @Log(title = "产品", businessType = BusinessType.DELETE)
 	@DeleteMapping("/remove/{populationIds}")
     public AjaxResult remove(@PathVariable Long[] populationIds)

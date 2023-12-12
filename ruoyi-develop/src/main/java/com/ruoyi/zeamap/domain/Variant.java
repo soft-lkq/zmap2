@@ -7,7 +7,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * variant对象 variant
- * 
+ *
  * @author ruoyi
  * @date 2022-10-30
  */
@@ -35,63 +35,69 @@ public class Variant extends BaseEntity
     private Long posi;
 
     /** $column.columnComment */
-    @Excel(name = "GenoRate")
-    private Double genorate;
+    @Excel(name = "Ref")
+    private String Ref;
 
-    /** $column.columnComment */
-    @Excel(name = "MAF")
-    private Double maf;
+    @Excel(name = "Allele")
+    private String Allele;
+
+    @Excel(name = "AleTypeNum")
+    private String AleTypeNum;
+
+    @Excel(name = "refRate")
+    private String refRate;
+
+    @Excel(name = "alleleRate")
+    private String alleleRate;
+
 
     /** $column.columnComment */
     @Excel(name = "Consequences")
     private String consequences;
 
-    /** $column.columnComment */
-    @Excel(name = "Impacts")
-    private String impacts;
 
     /** $column.columnComment */
     //暂时不需要导出
     // @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private Long analysisId;
 
-    public void setVariantId(String variantId) 
+    public void setVariantId(String variantId)
     {
         this.variantId = variantId;
     }
 
-    public String getVariantId() 
+    public String getVariantId()
     {
         return variantId;
     }
-    public void setVid(String vid) 
+    public void setVid(String vid)
     {
         this.vid = vid;
     }
 
-    public String getVid() 
+    public String getVid()
     {
         return vid;
     }
-    public void setType(String type) 
+    public void setType(String type)
     {
         this.type = type;
     }
 
-    public String getType() 
+    public String getType()
     {
         return type;
     }
-    public void setChr(String chr) 
+    public void setChr(String chr)
     {
         this.chr = chr;
     }
 
-    public String getChr() 
+    public String getChr()
     {
         return chr;
     }
-    public void setPosi(Long posi) 
+    public void setPosi(Long posi)
     {
         this.posi = posi;
     }
@@ -100,48 +106,22 @@ public class Variant extends BaseEntity
     {
         return posi;
     }
-    public void setGenorate(Double genorate)
-    {
-        this.genorate = genorate;
-    }
 
-    public Double getGenorate()
-    {
-        return genorate;
-    }
-    public void setMaf(Double maf)
-    {
-        this.maf = maf;
-    }
-
-    public Double getMaf()
-    {
-        return maf;
-    }
-    public void setConsequences(String consequences) 
+    public void setConsequences(String consequences)
     {
         this.consequences = consequences;
     }
 
-    public String getConsequences() 
+    public String getConsequences()
     {
         return consequences;
     }
-    public void setImpacts(String impacts) 
-    {
-        this.impacts = impacts;
-    }
-
-    public String getImpacts() 
-    {
-        return impacts;
-    }
-    public void setAnalysisId(Long analysisId) 
+    public void setAnalysisId(Long analysisId)
     {
         this.analysisId = analysisId;
     }
 
-    public Long getAnalysisId() 
+    public Long getAnalysisId()
     {
         return analysisId;
     }
@@ -154,10 +134,7 @@ public class Variant extends BaseEntity
             .append("type", getType())
             .append("chr", getChr())
             .append("posi", getPosi())
-            .append("genorate", getGenorate())
-            .append("maf", getMaf())
             .append("consequences", getConsequences())
-            .append("impacts", getImpacts())
             .append("analysisId", getAnalysisId())
             .toString();
     }
