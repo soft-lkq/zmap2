@@ -51,9 +51,21 @@ public class Variant extends BaseEntity
     private String alleleRate;
 
 
+    public String getImpacts() {
+        return impacts;
+    }
+
+    public void setImpacts(String impacts) {
+        this.impacts = impacts;
+    }
+
     /** $column.columnComment */
     @Excel(name = "Consequences")
     private String consequences;
+
+    /** $column.columnComment */
+    @Excel(name = "impacts")
+    private String impacts;
 
 
     /** $column.columnComment */
@@ -82,6 +94,46 @@ public class Variant extends BaseEntity
     public void setType(String type)
     {
         this.type = type;
+    }
+
+    public String getRef() {
+        return Ref;
+    }
+
+    public void setRef(String ref) {
+        Ref = ref;
+    }
+
+    public String getAllele() {
+        return Allele;
+    }
+
+    public void setAllele(String allele) {
+        Allele = allele;
+    }
+
+    public String getAleTypeNum() {
+        return AleTypeNum;
+    }
+
+    public void setAleTypeNum(String aleTypeNum) {
+        AleTypeNum = aleTypeNum;
+    }
+
+    public String getRefRate() {
+        return refRate;
+    }
+
+    public void setRefRate(String refRate) {
+        this.refRate = refRate;
+    }
+
+    public String getAlleleRate() {
+        return alleleRate;
+    }
+
+    public void setAlleleRate(String alleleRate) {
+        this.alleleRate = alleleRate;
     }
 
     public String getType()

@@ -111,7 +111,7 @@ public class Breed2Controller extends BaseController
         Integer count = breed2Mapper.selectMaxId();
         Integer id = null;
         if(StringUtils.isNull(count)) id = 1;
-        else  id = count+1;
+        else  id = count + 1;
         Breed2 breed2 = new Breed2();
         breed2.setId(Long.valueOf(id));
         breed2.setStatus(0);//正在运行
@@ -122,7 +122,6 @@ public class Breed2Controller extends BaseController
         if(param.length() != 0){//param不为空
             breed2.setMaterialName(param);
         }
-//        breed2Mapper.insertBreed2(breed2);//先把该任务插进数据库
 
         //接收文件
         File gf =null;

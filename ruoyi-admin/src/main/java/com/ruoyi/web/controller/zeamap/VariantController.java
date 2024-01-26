@@ -167,12 +167,12 @@ public class VariantController extends BaseController {
 //
 //    //Annotation 查询 impacts
 ////    @PreAuthorize("@ss.hasPermi('variations:variant:selectImpacts')")
-//    @GetMapping("/selectImpacts")
-//    @ResponseBody
-//    public AjaxResult selectImpacts() {
-//        List<String> list=variantService.selectImpacts();
-//        return AjaxResult.success(list);
-//    }
+    @GetMapping("/selectImpacts")
+    @ResponseBody
+    public AjaxResult selectImpacts() {
+        List<String> list=variantService.selectImpacts();
+        return AjaxResult.success(list);
+    }
 
     //Annotation 查询consequences
 //    @PreAuthorize("@ss.hasPermi('variations:variant:selectConsequences')")

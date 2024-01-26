@@ -399,16 +399,6 @@ public class PythonUse {
         Runnable task = new Runnable() {
             @Override
             public void run() {
-                /* Integer count = breed2Mapper.selectMaxId();
-                Integer id = null;
-                if(StringUtils.isNull(count)) id = 1;
-                else  id = count+1;
-
-                Breed2 breed2 = new Breed2();
-                breed2.setId(Long.valueOf(id));
-                breed2.setStatus(0);
-                breed2.setCreateBy(username);
-                breed2.setCreateTime(new Date());*/
                 long id = breed2.getId();
                 String savepath = "C:\\Users\\Administrator\\Desktop\\sdxx\\xm_2_1\\6210\\jieguo\\csv\\" + id + ".csv";
                 //-------------------------------------predict.py------------------------------------------------

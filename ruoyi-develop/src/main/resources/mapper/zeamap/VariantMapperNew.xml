@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="genorate"    column="genorate"    />
         <result property="maf"    column="maf"    />
         <result property="consequences"    column="consequences"    />
-        <result property="impacts"    column="impacts"    />
+        <result property="impacts"    column="impact"    />
         <result property="analysisId"    column="analysis_id"    />
     </resultMap>
 

@@ -39,7 +39,7 @@ public class UseParam {
 
     //-------------服务器参数-----------
     public final static String GENOPATH = "C:/Users/Administrator/Desktop/sdxx/uploadData/";//python环境
-    public final static String PHENOPATH = "C:/Users/Administrator/Desktop/sdxx/uploadData/";//python环境
+    public final static String PHENOPATH = "C:/Users/Administrator/Desktop/zmap2/uploadData/";//python环境
     public final static String pythonEvn="python";
     public final static String pythonCodeDict="C:/SeedlinManagement/pythonCode";
 

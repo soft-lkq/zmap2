@@ -16,6 +16,7 @@
         <result property="refRate" column="ref_rate"/>
         <result property="alleleRate" column="allele_rate"/>
         <result property="consequences" column="consequences"/>
+        <result property="impacts" column="impact"/>
         <result property="analysisId" column="analysis_id"/>
     </resultMap>
 
@@ -31,6 +32,7 @@
                ref_rate,
                allele_rate,
                consequences,
+               impact,
                analysis_id
         from variant
     </sql>
@@ -43,6 +45,7 @@
             <if test="chr != null  and chr != ''">and chr = #{chr}</if>
             <if test="posi != null ">and posi = #{posi}</if>
             <if test="consequences != null  and consequences != ''">and consequences = #{consequences}</if>
+            <if test="impacts != null  and impacts != ''">and impact = #{impacts}</if>
             <if test="analysisId != null ">and analysis_id = #{analysisId}</if>
         </where>
     </select>
@@ -66,6 +69,7 @@
             <if test="refRate != null">ref_rate,</if>
             <if test="alleleRate != null">allele_rate,</if>
             <if test="consequences != null">consequences,</if>
+            <if test="impacts != null">impact,</if>
             <if test="analysisId != null">analysis_id,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -80,6 +84,7 @@
             <if test="refRate != null">#{refRate},</if>
             <if test="alleleRate != null">#{alleleRate},</if>
             <if test="consequences != null">#{consequences},</if>
+            <if test="impacts != null">#{impacts},</if>
             <if test="analysisId != null">#{analysisId},</if>
         </trim>
     </insert>
@@ -97,6 +102,7 @@
             <if test="refRate != null">ref_rate = #{refRate},</if>
             <if test="alleleRate != null">allele_rate = #{alleleRate},</if>
             <if test="consequences != null">consequences = #{consequences},</if>
+            <if test="impacts != null">impact = #{impacts},</if>
             <if test="analysisId != null">analysis_id = #{analysisId},</if>
         </trim>
         where variant_id = #{variantId}
@@ -148,11 +154,11 @@
         select distinct posi
         from variant
     </select>
-<!--    &lt;!&ndash;Annotation下拉框&ndash;&gt;-->
-<!--    <select id="selectImpacts" resultType="String">-->
-<!--        select distinct impacts-->
-<!--        from variant-->
-<!--    </select>-->
+    <!--Annotation下拉框-->
+    <select id="selectImpacts" resultType="String">
+        select distinct impact
+        from variant
+    </select>
     <select id="selectConsequences" resultType="String">
         select distinct consequences
         from variant
@@ -172,6 +178,7 @@
         ref_rate,
         allele_rate,
         consequences,
+        impact,
         variant_id,
         variant.analysis_id
             from variant,analysis,dbxref,population
@@ -182,6 +189,7 @@
         and (posi>#{posi_min} and #{posi_max}>posi)
 
         and (consequences = #{consequences} or #{consequences} = '' or #{consequences} is null)
+        and (impact = #{impacts} or #{impacts} = '' or #{impacts} is null)
 
         and  ( variant.analysis_id=analysis.analysis_id  and analysis.dbxref_id = dbxref.dbxref_id and dbxref.accession = #{accession} and dbxref.version = #{version}
                   or  #{accession}=''or #{accession} is null)

@@ -42,8 +42,8 @@ public class GermplasmController extends BaseController
     }
 
     @ResponseBody
-    @RequestMapping("/choose")
-    public AjaxResult choose(String name){
+    @GetMapping("/choose")
+    public AjaxResult choose(@RequestParam String name){
         return AjaxResult.success(germplasmService.selectGermplasmByName(name));
     }
 
@@ -51,7 +51,7 @@ public class GermplasmController extends BaseController
      * 查询产品详情列表
      */
 //    @PreAuthorize("@ss.hasPermi('zeamap:germplasm:list')")
-    @GetMapping("/list")
+    @PostMapping("/list")
     public TableDataInfo list(@RequestBody Germplasm germplasm)
     {
         startPage();
