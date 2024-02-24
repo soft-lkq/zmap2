@@ -24,7 +24,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 基因表达量查询Controller
- * 
+ *
  * @author ruoyi
  * @date 2022-11-19
  */
@@ -145,16 +145,20 @@ public class ExpressionController extends BaseController
     @GetMapping("/tissue")
     @ResponseBody
     public AjaxResult selectByTissue(String reference, String version,String analysis,String environment,String germplasm,String[] geneIds,String[] selects){
-        Long db_id = expressionService.selectDbid(reference);
-        Long dbxref_id = expressionService.selectDbxrefId(reference,version,db_id);
-        if(dbxref_id==null){
-            return AjaxResult.success("数据错误");
-        }
-        Long analysis_id = expressionService.selectAnalysisId(analysis);
-        Long environment_id = expressionService.selectEnvironmentId(environment);
+//        Long db_id = expressionService.selectDbid(reference);
+        Long dbxref_id = expressionService.selectDbxrefId(reference,version);
+//        if(dbxref_id==null){
+//            return AjaxResult.success("数据错误");
+//        }
+        Long[] analysis_id = expressionService.selectAnalysisId(analysis);
+        Long[] environment_id = expressionService.selectEnvironmentId(environment);
         Long[] tissue_id = expressionService.selectTissueIdByDesc(selects);
-        Long germplasm_id = expressionService.selectGermplasmId(germplasm);
+        Long[] germplasm_id = expressionService.selectGermplasmId(germplasm);
+        if(geneIds.length==0){
+            return AjaxResult.success("Gene ID is null");
+        }
         Long[] featureIds = expressionService.selectFeatureIdsByGene(geneIds);
+
         List<Expression> e = expressionService.selectAllFromTissue(dbxref_id,analysis_id,environment_id,germplasm_id,featureIds,tissue_id);
         return AjaxResult.success(e);
     }
@@ -163,17 +167,20 @@ public class ExpressionController extends BaseController
     @ResponseBody
     public AjaxResult selectByGermplasm(String reference,String version,String analysis,String environment,String tissue,String population,String[] selects,String[] geneIds){
         Long population_id = expressionService.selectPopulationId(population);
-        Long db_id = expressionService.selectDbid(reference);
-        Long dbxref_id = expressionService.selectDbxrefId(reference,version,db_id);
-        if(dbxref_id==null){
-            return AjaxResult.success("数据错误");
-        }
+//        Long db_id = expressionService.selectDbid(reference);
+        Long dbxref_id = expressionService.selectDbxrefId(reference,version);
+//        if(dbxref_id==null){
+//            return AjaxResult.success("数据错误");
+//        }
         Long[] g = expressionService.selectFeatureIdByPopulation(population_id);
+        if(geneIds.length==0){
+            return AjaxResult.success("Gene ID is null");
+        }
         Long[] gene = expressionService.selectFeatureIdsByGene(geneIds);
         Long[] geneId = expressionService.selectGeneId(g,gene);
-        Long analysis_id = expressionService.selectAnalysisId(analysis);
-        Long tissue_id = expressionService.selectTissueIdByPosition(tissue);
-        Long environment_id = expressionService.selectEnvironmentId(environment);
+        Long[] analysis_id = expressionService.selectAnalysisId(analysis);
+        Long[] tissue_id = expressionService.selectTissueIdByPosition(tissue);
+        Long[] environment_id = expressionService.selectEnvironmentId(environment);
         Long[] germplasmIds = expressionService.selectGermplasmIds(selects);
         List<Expression> e = expressionService.selectAllFromGermplasm(dbxref_id,analysis_id,environment_id,tissue_id,germplasmIds,geneId);
         return AjaxResult.success(e);
@@ -183,17 +190,20 @@ public class ExpressionController extends BaseController
     @ResponseBody
     public AjaxResult selectByEnvironment(String reference,String version,String analysis,String germplasm,String tissue,String population,String[] selects,String[] geneIds){
         Long population_id = expressionService.selectPopulationId(population);
-        Long db_id = expressionService.selectDbid(reference);
-        Long dbxref_id = expressionService.selectDbxrefId(reference,version,db_id);
-        if(dbxref_id==null){
-            return AjaxResult.success("数据错误");
-        }
+//        Long db_id = expressionService.selectDbid(reference);
+        Long dbxref_id = expressionService.selectDbxrefId(reference,version);
+//        if(dbxref_id==null){
+//            return AjaxResult.success("数据错误");
+//        }
         Long[] g = expressionService.selectFeatureIdByPopulation(population_id);
+        if(geneIds.length==0){
+            return AjaxResult.success("Gene ID is null");
+        }
         Long[] g2 = expressionService.selectFeatureIdsByGene(geneIds);
         Long[] geneId = expressionService.selectGeneId(g,g2);
-        Long analysis_id = expressionService.selectAnalysisId(analysis);
-        Long tissue_id = expressionService.selectTissueIdByPosition(tissue);
-        Long germplasm_id = expressionService.selectGermplasmId(germplasm);
+        Long[] analysis_id = expressionService.selectAnalysisId(analysis);
+        Long[] tissue_id = expressionService.selectTissueIdByPosition(tissue);
+        Long[] germplasm_id = expressionService.selectGermplasmId(germplasm);
         Long[] environmentIds = expressionService.selectEnvironmentIds(selects);
         List<Expression> e = expressionService.selectAllFromEnvironment(dbxref_id,analysis_id,tissue_id,germplasm_id,environmentIds,geneId);
         return AjaxResult.success(e);

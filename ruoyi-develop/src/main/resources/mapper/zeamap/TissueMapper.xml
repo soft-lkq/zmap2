@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.zeamap.mapper.TissueMapper">
-    
+
     <resultMap type="Tissue" id="TissueResult">
         <result property="tissueId"    column="tissue_id"    />
         <result property="tissueClass"    column="tissue_class"    />
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectTissueList" parameterType="Tissue" resultMap="TissueResult">
         <include refid="selectTissueVo"/>
-        <where>  
+        <where>
             <if test="tissueClass != null  and tissueClass != ''"> and tissue_class = #{tissueClass}</if>
             <if test="tissueStage != null  and tissueStage != ''"> and tissue_stage = #{tissueStage}</if>
             <if test="tissuePosition != null  and tissuePosition != ''"> and tissue_position = #{tissuePosition}</if>
@@ -36,12 +36,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
     </select>
-    
+
     <select id="selectTissueByTissueId" parameterType="Long" resultMap="TissueResult">
         <include refid="selectTissueVo"/>
         where tissue_id = #{tissueId}
     </select>
-        
+
     <insert id="insertTissue" parameterType="Tissue">
         insert into tissue
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -100,14 +100,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteTissueByTissueIds" parameterType="String">
-        delete from tissue where tissue_id in 
+        delete from tissue where tissue_id in
         <foreach item="tissueId" collection="array" open="(" separator="," close=")">
             #{tissueId}
         </foreach>
     </delete>
 
     <select id="selectMapTissue" parameterType="Long" resultMap="TissueResult">
-        select tissue_desc,tissue_svgclass from tissue where tissue_id in (select tissue_id from expression where feature_id = #{feature_id})
+        select distinct tissue_desc,tissue_svgclass from tissue where tissue_id in (select distinct tissue_id from expression where feature_id = #{feature_id})
     </select>
 
     <select id="selectMultiSelectorClassDesc" resultMap="TissueResult">

@@ -12,12 +12,12 @@ import com.ruoyi.zeamap.service.IExpressionService;
 
 /**
  * 基因表达量查询Service业务层处理
- * 
+ *
  * @author ruoyi
  * @date 2022-11-19
  */
 @Service
-public class ExpressionServiceImpl implements IExpressionService 
+public class ExpressionServiceImpl implements IExpressionService
 {
     @Autowired
     private ExpressionMapper expressionMapper;
@@ -25,7 +25,7 @@ public class ExpressionServiceImpl implements IExpressionService
 
     /**
      * 查询基因表达量查询
-     * 
+     *
      * @param expressionId 基因表达量查询主键
      * @return 基因表达量查询
      */
@@ -37,7 +37,7 @@ public class ExpressionServiceImpl implements IExpressionService
 
     /**
      * 查询基因表达量查询列表
-     * 
+     *
      * @param expression 基因表达量查询
      * @return 基因表达量查询
      */
@@ -49,7 +49,7 @@ public class ExpressionServiceImpl implements IExpressionService
 
     /**
      * 新增基因表达量查询
-     * 
+     *
      * @param expression 基因表达量查询
      * @return 结果
      */
@@ -62,7 +62,7 @@ public class ExpressionServiceImpl implements IExpressionService
 
     /**
      * 修改基因表达量查询
-     * 
+     *
      * @param expression 基因表达量查询
      * @return 结果
      */
@@ -75,7 +75,7 @@ public class ExpressionServiceImpl implements IExpressionService
 
     /**
      * 批量删除基因表达量查询
-     * 
+     *
      * @param expressionIds 需要删除的基因表达量查询主键
      * @return 结果
      */
@@ -87,7 +87,7 @@ public class ExpressionServiceImpl implements IExpressionService
 
     /**
      * 删除基因表达量查询信息
-     * 
+     *
      * @param expressionId 基因表达量查询主键
      * @return 结果
      */
@@ -156,22 +156,22 @@ public class ExpressionServiceImpl implements IExpressionService
     }
 
     @Override
-    public Long selectDbxrefId(String reference, String version,Long db_id) {
-        return expressionMapper.selectDbxrefId(reference,version,db_id);
+    public Long selectDbxrefId(String reference, String version) {
+        return expressionMapper.selectDbxrefId(reference,version);
     }
 
     @Override
-    public Long selectAnalysisId(String description) {
+    public Long[] selectAnalysisId(String description) {
         return expressionMapper.selectAnalysisId(description);
     }
 
     @Override
-    public Long selectEnvironmentId(String condition) {
+    public Long[] selectEnvironmentId(String condition) {
         return expressionMapper.selectEnvironmentId(condition);
     }
 
     @Override
-    public Long selectGermplasmId(String name) {
+    public Long[] selectGermplasmId(String name) {
         return expressionMapper.selectGermplasmId(name);
     }
 
@@ -181,17 +181,17 @@ public class ExpressionServiceImpl implements IExpressionService
     }
 
     @Override
-    public List<Expression> selectAllFromTissue(Long dbxref_id, Long analysis_id, Long environment_id,Long germplasm_id, Long[] geneId, Long[] tissue_id) {
+    public List<Expression> selectAllFromTissue(Long dbxref_id, Long[] analysis_id, Long[] environment_id,Long[] germplasm_id, Long[] geneId, Long[] tissue_id) {
         return expressionMapper.selectAllFromTissue(dbxref_id,analysis_id,environment_id,germplasm_id,geneId,tissue_id);
     }
 
     @Override
-    public List<Expression> selectAllFromGermplasm(Long dbxref_id, Long analysis_id, Long environment_id,Long tissue_id, Long[] germplasm_id, Long[] geneId) {
+    public List<Expression> selectAllFromGermplasm(Long dbxref_id, Long[] analysis_id, Long[] environment_id,Long[] tissue_id, Long[] germplasm_id, Long[] geneId) {
         return expressionMapper.selectAllFromGermplasm(dbxref_id,analysis_id,environment_id,tissue_id,germplasm_id,geneId);
     }
 
     @Override
-    public List<Expression> selectAllFromEnvironment(Long dbxref_id, Long analysis_id, Long tissue_id, Long germplasm_id, Long[] environment_id, Long[] geneId) {
+    public List<Expression> selectAllFromEnvironment(Long dbxref_id, Long[] analysis_id, Long[] tissue_id, Long[] germplasm_id, Long[] environment_id, Long[] geneId) {
         return expressionMapper.selectAllFromEnvironment(dbxref_id,analysis_id,tissue_id,germplasm_id,environment_id,geneId);
     }
 
@@ -201,7 +201,7 @@ public class ExpressionServiceImpl implements IExpressionService
     }
 
     @Override
-    public Long selectTissueIdByPosition(String position) {
+    public Long[] selectTissueIdByPosition(String position) {
         return expressionMapper.selectTissueIdByPosition(position);
     }
 
@@ -240,9 +240,9 @@ public class ExpressionServiceImpl implements IExpressionService
         return expressionMapper.selectFeatureIdsByGene(geneIds);
     }
 
-    @Override
-    public Long selectDbid(String accession) {
-        return expressionMapper.selectDbid(accession);
-    }
+//    @Override
+//    public Long selectDbid(String accession) {
+//        return expressionMapper.selectDbid(accession);
+//    }
 
 }

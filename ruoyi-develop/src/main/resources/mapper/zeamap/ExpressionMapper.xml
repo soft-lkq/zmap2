@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.zeamap.mapper.ExpressionMapper">
-    
+
     <resultMap type="Expression" id="ExpressionResult">
         <result property="expressionId"    column="expression_id"    />
         <result property="expressionValue"    column="expression_value"    />
@@ -72,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectExpressionList" parameterType="Expression" resultMap="ExpressionResult">
         <include refid="selectExpressionVo"/>
-        <where>  
+        <where>
             <if test="expressionValue != null"> and e.expression_value = #{expressionValue}</if>
             <if test="expressionUnit != null  and expressionUnit != ''"> and e.expression_unit = #{expressionUnit}</if>
             <if test="analysisId != null "> and e.analysis_id = #{analysisId}</if>
@@ -83,12 +83,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="status != null  and status != ''"> and e.status = #{status}</if>
         </where>
     </select>
-    
+
     <select id="selectExpressionByExpressionId" parameterType="Long" resultMap="ExpressionResult">
         <include refid="selectExpressionVo"/>
         where e.expression_id = #{expressionId}
     </select>
-        
+
     <insert id="insertExpression" parameterType="Expression">
         insert into expression
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -150,7 +150,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteExpressionByExpressionIds" parameterType="String">
-        delete from expression where expression_id in 
+        delete from expression where expression_id in
         <foreach item="expressionId" collection="array" open="(" separator="," close=")">
             #{expressionId}
         </foreach>
@@ -268,11 +268,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </where>
         </select>
     <select id="selectExpressionReference" resultType="java.lang.String">
-        select distinct D.accession FROM dbxref D
-        where accession in (
-            select replace( name, '-GFF', '' )
-            FROM db
-            where name like '%-GFF')
+        select distinct accession FROM dbxref
     </select>
 
     <select id="selectExpressionVersion" resultType="java.lang.String">
@@ -357,60 +353,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectFeatureIdsByGene" resultType="Long">
-        select feature_id from feature where uniquename in <foreach collection="geneIds" index="index" item="ge" open="(" separator="," close=")">
-        #{ge}
-    </foreach>
+        select feature_id from feature
+        where
+      uniquename in <foreach collection="geneIds" index="index" item="ge" open="(" separator="," close=")"> #{ge} </foreach>
     </select>
 
-    <select id="selectDbid" resultType="Long">
-        select distinct db_id from db where name like '%${accession}%' and name like "%-GFF"
-    </select>
+<!--    <select id="selectDbid" resultType="Long">-->
+<!--        select distinct db_id from db where name like '%${accession}%' and name like "%-GFF"-->
+<!--    </select>-->
 
     <select id="selectAllFromTissue" resultMap="ExpressionResult">
         select * from expression e
-        inner join environment en on en.environment_id=#{environment_id}
-        inner join analysis a on a.analysis_id=#{analysis_id}
-        inner join germplasm g on g.germplasm_id=#{germplasm_id}
+        inner join environment en on en.environment_id=e.environment_id
+        inner join analysis a on a.analysis_id=e.analysis_id
+        inner join germplasm g on g.germplasm_id=e.germplasm_id
         inner join tissue t on t.tissue_id=e.tissue_id
         inner join dbxref d on d.dbxref_id = #{dbxref_id}
         inner join feature f on f.feature_id=e.feature_id
-        where f.feature_id in <foreach collection="geneId" index="index" open="(" close=")" item="g" separator=",">
-        #{g}
-    </foreach>
-        and t.tissue_id in <foreach collection="selects" index="index" item="te" open="(" separator="," close=")">
-        #{te}
-    </foreach>
+        where
+        <if test="analysis_id != null and analysis_id.length>0"> a.analysis_id in <foreach collection="analysis_id" item="an" open="(" close=")" separator="," >#{an}</foreach></if>
+        <if test="environment_id != null and environment_id.length>0"> and en.environment_id in <foreach collection="environment_id" item="env" open="(" close=")" separator=",">#{env}</foreach></if>
+        <if test="germplasm_id != null and germplasm_id.length>0"> and g.germplasm_id in <foreach collection="germplasm_id" item="gm" open="(" close=")" separator=",">#{gm}</foreach></if>
+        <if test="geneId != null and geneId.length>0"> and f.feature_id in <foreach collection="geneId" item="gene" open="(" close=")" separator=",">#{gene}</foreach></if>
+        <if test="selects != null and selects.length>0"> and t.tissue_id in <foreach collection="selects" item="te" open="(" close=")" separator=",">#{te}</foreach></if>
     </select>
 
     <select id="selectAllFromGermplasm" resultMap="ExpressionResult">
         select * from expression e
-            inner join environment en on en.environment_id=#{environment_id}
-            inner join analysis a on a.analysis_id=#{analysis_id}
+            inner join environment en on en.environment_id=e.environment_id
+            inner join analysis a on a.analysis_id=e.analysis_id
             inner join germplasm g on g.germplasm_id=e.germplasm_id
-            inner join tissue t on t.tissue_id=#{tissue_id}
+            inner join tissue t on t.tissue_id=e.tissue_id
             inner join dbxref d on d.dbxref_id = #{dbxref_id}
             inner join feature f on f.feature_id=e.feature_id
-        where f.feature_id in <foreach collection="geneId" index="index" open="(" close=")" item="g" separator=",">
-              #{g}
-          </foreach>
-          and g.germplasm_id in <foreach collection="germplasmIds" index="index" item="gid" open="(" close=")" separator=",">
-              #{gid}
-</foreach>
+        where
+        <if test="geneId != null and geneId.length>0"> f.feature_id in <foreach collection="geneId" index="index" open="(" close=")" item="g" separator=","> #{g}</foreach></if>
+        <if test="germplasmIds != null and germplasmIds.length>0"> and g.germplasm_id in <foreach collection="germplasmIds" index="index" item="gid" open="(" close=")" separator=",">#{gid}</foreach></if>
+        <if test="analysis_id != null and analysis_id.length>0"> and a.analysis_id in <foreach collection="analysis_id" item="an" open="(" close=")" separator="," >#{an}</foreach></if>
+        <if test="environment_id != null and environment_id.length>0"> and en.environment_id in <foreach collection="environment_id" item="env" open="(" close=")" separator=",">#{env}</foreach></if>
+        <if test="tissue_id != null and tissue_id.length>0">  and t.tissue_id in <foreach collection="tissue_id" item="te" open="(" close=")" separator=",">#{te}</foreach></if>
     </select>
 
     <select id="selectAllFromEnvironment" resultMap="ExpressionResult">
         select * from expression e
         inner join environment en on en.environment_id= e.environment_id
-        inner join analysis a on a.analysis_id=#{analysis_id}
-        inner join tissue t on t.tissue_id=#{tissue_id}
+        inner join analysis a on a.analysis_id=e.analysis_id
+        inner join tissue t on t.tissue_id=e.tissue_id
         inner join dbxref d on d.dbxref_id = #{dbxref_id}
         inner join feature f on f.feature_id=e.feature_id
-        where f.feature_id in <foreach collection="geneId" index="index" open="(" close=")" item="g" separator=",">
-        #{g}
-    </foreach>
-        and en.environment_id in <foreach collection="environmentIds" index="index" item="env" open="(" separator="," close=")">
-        #{env}
-    </foreach>
+        inner join germplasm g on g.germplasm_id=e.germplasm_id
+        where
+        <if test="geneId != null and geneId.length>0"> f.feature_id in <foreach collection="geneId" index="index" open="(" close=")" item="g" separator=","> #{g}</foreach></if>
+        <if test="environmentIds != null and environmentIds.length>0"> and en.environment_id in <foreach collection="environmentIds" index="index" item="env" open="(" separator="," close=")">#{env}</foreach></if>
+        <if test="germplasm_id != null and germplasm_id.length>0"> and g.germplasm_id in <foreach collection="germplasm_id" index="index" item="gid" open="(" close=")" separator=",">#{gid}</foreach></if>
+        <if test="analysis_id != null and analysis_id.length>0"> and a.analysis_id in <foreach collection="analysis_id" item="an" open="(" close=")" separator="," >#{an}</foreach></if>
+        <if test="tissue_id != null and tissue_id.length>0"> and t.tissue_id in <foreach collection="tissue_id" item="te" open="(" close=")" separator=",">#{te}</foreach></if>
     </select>
 
 

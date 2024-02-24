@@ -8,15 +8,15 @@ import org.springframework.security.core.parameters.P;
 
 /**
  * 基因表达量查询Mapper接口
- * 
+ *
  * @author ruoyi
  * @date 2022-11-19
  */
-public interface ExpressionMapper 
+public interface ExpressionMapper
 {
     /**
      * 查询基因表达量查询
-     * 
+     *
      * @param expressionId 基因表达量查询主键
      * @return 基因表达量查询
      */
@@ -24,7 +24,7 @@ public interface ExpressionMapper
 
     /**
      * 查询基因表达量查询列表
-     * 
+     *
      * @param expression 基因表达量查询
      * @return 基因表达量查询集合
      */
@@ -32,7 +32,7 @@ public interface ExpressionMapper
 
     /**
      * 新增基因表达量查询
-     * 
+     *
      * @param expression 基因表达量查询
      * @return 结果
      */
@@ -40,7 +40,7 @@ public interface ExpressionMapper
 
     /**
      * 修改基因表达量查询
-     * 
+     *
      * @param expression 基因表达量查询
      * @return 结果
      */
@@ -48,7 +48,7 @@ public interface ExpressionMapper
 
     /**
      * 删除基因表达量查询
-     * 
+     *
      * @param expressionId 基因表达量查询主键
      * @return 结果
      */
@@ -56,7 +56,7 @@ public interface ExpressionMapper
 
     /**
      * 批量删除基因表达量查询
-     * 
+     *
      * @param expressionIds 需要删除的数据主键集合
      * @return 结果
      */
@@ -90,19 +90,19 @@ public interface ExpressionMapper
 
     List<String> selectExpressionVersion(String reference);
 
-    public List<Expression> selectAllFromTissue(@Param("dbxref_id") Long dbxref_id, @Param("analysis_id") Long analysis_id, @Param("environment_id") Long environment_id,@Param("germplasm_id")Long germplasm_id,@Param("geneId") Long[] geneId, @Param("selects")Long[] tissue_id);
+    public List<Expression> selectAllFromTissue(@Param("dbxref_id") Long dbxref_id, @Param("analysis_id") Long[] analysis_id, @Param("environment_id") Long[] environment_id,@Param("germplasm_id")Long[] germplasm_id,@Param("geneId") Long[] geneId, @Param("selects")Long[] tissue_id);
 
-    public List<Expression> selectAllFromGermplasm(@Param("dbxref_id") Long dbxref_id, @Param("analysis_id") Long analysis_id, @Param("environment_id") Long environment_id,@Param("tissue_id") Long tissue_id,@Param("germplasmIds")Long[] germplasm_id,@Param("geneId") Long[] geneId);
+    public List<Expression> selectAllFromGermplasm(@Param("dbxref_id") Long dbxref_id, @Param("analysis_id") Long[] analysis_id, @Param("environment_id") Long[] environment_id,@Param("tissue_id") Long[] tissue_id,@Param("germplasmIds")Long[] germplasm_id,@Param("geneId") Long[] geneId);
 
-    public List<Expression> selectAllFromEnvironment(@Param("dbxref_id") Long dbxref_id, @Param("analysis_id") Long analysis_id,@Param("tissue_id") Long tissue_id,@Param("germplasm_id")Long germplasm_id,@Param("environmentIds") Long[] environment_id,@Param("geneId") Long[] geneId);
+    public List<Expression> selectAllFromEnvironment(@Param("dbxref_id") Long dbxref_id, @Param("analysis_id") Long[] analysis_id,@Param("tissue_id") Long[] tissue_id,@Param("germplasm_id")Long[] germplasm_id,@Param("environmentIds") Long[] environment_id,@Param("geneId") Long[] geneId);
 
-    public Long selectDbxrefId(@Param("reference") String reference,@Param("version") String version,@Param("db_id")Long db_id);
+    public Long selectDbxrefId(@Param("reference") String reference,@Param("version") String version);
 
-    public Long selectAnalysisId(String description);
+    public Long[] selectAnalysisId(String description);
 
-    public Long selectEnvironmentId(String condition);
+    public Long[] selectEnvironmentId(String condition);
 
-    public Long selectGermplasmId(String name);
+    public Long[] selectGermplasmId(String name);
 
     public Long[] selectTissueIdByDesc(@Param("selects") String[] selects);
 
@@ -110,7 +110,7 @@ public interface ExpressionMapper
 
     public Long[] selectGermplasmIds(@Param("names") String[] names);
 
-    public Long selectTissueIdByPosition(String position);
+    public Long[] selectTissueIdByPosition(String position);
 
     public Long selectPopulationId(String alias);
 
@@ -118,7 +118,7 @@ public interface ExpressionMapper
 
     public Long[] selectFeatureIdsByGene(@Param("geneIds")String[] geneIds);
 
-    public Long selectDbid(String accession);
+//    public Long selectDbid(String accession);
 
 
 }

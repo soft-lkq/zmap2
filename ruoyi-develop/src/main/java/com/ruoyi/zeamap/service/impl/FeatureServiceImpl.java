@@ -23,7 +23,9 @@ public class FeatureServiceImpl implements IFeatureService
 {
     @Autowired
     private FeatureMapper featureMapper;
+    @Autowired
     private TissueMapper tissueMapper;
+    @Autowired
     private ExpressionMapper expressionMapper;
 
     /**
