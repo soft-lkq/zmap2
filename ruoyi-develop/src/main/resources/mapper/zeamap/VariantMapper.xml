@@ -167,38 +167,35 @@
 
     <!--大查询-->
     <select id="selectVariant" resultMap="VariantResult">
-        select
-        type,
-        VID,
-        chr,
-        posi,
-        Ref,
-        Allele,
-        Ale_type_num,
-        ref_rate,
-        allele_rate,
-        consequences,
-        impact,
-        variant_id,
-        variant.analysis_id
-            from variant,analysis,dbxref,population
-        where (type = #{type} or #{type} = '' or #{type} is null or #{type}='all')
 
-        and (chr = #{chr} or #{chr} = '' or #{chr} is null)
+        select distinct
+               variant_id,
+               type,
+               VID,
+               chr,
+               posi,
+               Ref,
+               Allele,
+               Ale_type_num,
+               ref_rate,
+               allele_rate,
+               consequences,
+               impact,
+               variant.analysis_id
+        from variant
+        where (type = #{type} or #{type} = '' or #{type} is null or #{type} = 'all')
+          and (chr = #{chr} or #{chr} = '' or #{chr} is null)
+          and (posi >= #{posi_min} and #{posi_max} >= posi)
+          and (consequences = #{consequences} or #{consequences} = '' or #{consequences} is null)
+          and (impact = #{impacts} or #{impacts} = '' or #{impacts} is null)
 
-        and (posi>#{posi_min} and #{posi_max}>posi)
-
-        and (consequences = #{consequences} or #{consequences} = '' or #{consequences} is null)
-        and (impact = #{impacts} or #{impacts} = '' or #{impacts} is null)
-
-        and  ( variant.analysis_id=analysis.analysis_id  and analysis.dbxref_id = dbxref.dbxref_id and dbxref.accession = #{accession} and dbxref.version = #{version}
-                  or  #{accession}=''or #{accession} is null)
-
-        and (variant.analysis_id = analysis.analysis_id and population.population_id = analysis.population_id and population.alias = #{alias}
-                 or #{alias}='' or #{alias} is null)
-
-        and (analysis.analysis_id = variant.analysis_id and analysis.description = #{description}
-                 or #{description}='' or #{description} is null)
+          and (variant.analysis_id in (
+            select DISTINCT analysis_id
+            from analysis,dbxref, population
+            where (analysis.dbxref_id = dbxref.dbxref_id and dbxref.accession = #{accession} and dbxref.version = #{version} or #{accession} = '' or #{accession} is null)
+                and (population.population_id = analysis.population_id and population.alias = #{alias} or #{alias} = ''or #{alias} is null)
+                and (analysis.description = #{description} or #{description} = '' or #{description} is null)
+        ))
     </select>
 
 </mapper>

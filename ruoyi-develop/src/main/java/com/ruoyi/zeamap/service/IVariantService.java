@@ -95,5 +95,5 @@ public interface IVariantService {
     public List<String> selectConsequences();
 
     //大查询
-    public List<Variant> selectVariant(String type, String chr, Long posi_min,Long posi_max, Double maf_min, Double maf_max, String impacts, String consequences, String accession, String version, String alias, String description);
+    public List<Variant> selectVariant(String type, String chr, String posi_min,String posi_max, Double maf_min, Double maf_max, String impacts, String consequences, String accession, String version, String alias, String description);
 }

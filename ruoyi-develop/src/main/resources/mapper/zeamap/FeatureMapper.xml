@@ -40,41 +40,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select feature.feature_id,feature.commonname,feature.uniquename,dbxref.accession,dbxref.version,featureloc.chrom,featureloc.fmin,featureloc.fmax,featureloc.strand,cvterm.name
         from feature,dbxref,featureloc,cvterm
         where feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.feature_id and feature.type_id = cvterm.cvterm_id
-            and feature.feature_id in(
-                select criterria1.feature_id
-                from
-                (
-                    select distinct feature_id
-                    from feature
-                    where dbxref_id in(
-                        select dbxref_id
-                        from dbxref
-                        where ( ( accession=#{accession} or #{accession}='' or #{accession} is null ) and ( version=#{version} or #{version}='' or #{version} is null) )
-                    )
-                )as criterria1
-                join
-                (
-                    select distinct feature_id
-                    from featureloc
-                    <where>
-                    <if test="chrom != null  and chrom != ''"> and chrom = #{chrom}</if>
-                    and (cast(fmin as signed) >= cast(#{start} as signed) or (#{chrom}='' or #{chrom} is null or #{start}='' or #{start} is null) )
-                    and (cast(fmax as signed) &lt;= cast(#{end} as signed) or (#{chrom}='' or #{chrom} is null or #{end}='' or #{end} is null) )
-                    </where>
-                )as criterria2
-                    on criterria1.feature_id = criterria2.feature_id
-                join
-                (
-                    select distinct feature_id
-                    from feature
-                    where (
-                        commonname like concat('%',#{commonname},'%') or (#{commonname} is null or #{commonname}='')
-                        and uniquename like concat('%',#{uniquename},'%') or (#{uniquename} is null or #{uniquename}='')
-
-                    )
-                )as criterria3
-                    on criterria2.feature_id = criterria3.feature_id
-            )
+            and (accession=#{accession} or #{accession}='' or #{accession} is null )
+            and ( version=#{version} or #{version}='' or #{version} is null)
+          <if test="chrom != null  and chrom != ''"> and chrom = #{chrom}</if>
+            and (cast(fmin as signed) >= cast(#{start} as signed) or (#{chrom}='' or #{chrom} is null or #{start}='' or #{start} is null) )
+            and (cast(fmax as signed) &lt;= cast(#{end} as signed) or (#{chrom}='' or #{chrom} is null or #{end}='' or #{end} is null) )
+            and (commonname = #{commonname} or #{commonname} is null or #{commonname}='')
+            and (uniquename = #{uniquename} or #{uniquename} is null or #{uniquename}='')
     </select>
 
     <select id="download" parameterType="String" resultMap="QueryResult">

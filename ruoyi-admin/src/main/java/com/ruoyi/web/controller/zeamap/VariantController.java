@@ -191,9 +191,9 @@ public class VariantController extends BaseController {
 //    @PreAuthorize("@ss.hasPermi('variations:variant:selectVariant')")
     @PostMapping("/selectVariant")
     public TableDataInfo selectVariant(@RequestBody VariantSelectCondition selectCondition) {
+        System.out.println(selectCondition);
         startPage();
-        //System.out.println(selectCondition);
-        List<Variant> list = variantService.selectVariant(selectCondition.getType(), selectCondition.getChr(), selectCondition.getPosi_min(), selectCondition.getPosi_max(), selectCondition.getMaf_min(), selectCondition.getMaf_max(), selectCondition.getImpacts(), selectCondition.getConsequences(), selectCondition.getAccession(), selectCondition.getVersion(), selectCondition.getAlias(), selectCondition.getDescription());
+        List<Variant> list = variantService.selectVariant(selectCondition.getType(), selectCondition.getChr(), String.valueOf(selectCondition.getPosi_min()), String.valueOf(selectCondition.getPosi_max()), selectCondition.getMaf_min(), selectCondition.getMaf_max(), selectCondition.getImpacts(), selectCondition.getConsequences(), selectCondition.getAccession(), selectCondition.getVersion(), selectCondition.getAlias(), selectCondition.getDescription());
         return getDataTable(list);
     }
 

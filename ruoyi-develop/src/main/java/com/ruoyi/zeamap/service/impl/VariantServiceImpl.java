@@ -5,6 +5,7 @@ import java.util.List;
 import com.ruoyi.zeamap.mapper.VariantMapper;
 import com.ruoyi.zeamap.service.IVariantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.ruoyi.zeamap.domain.Variant;
 
@@ -147,7 +148,8 @@ public class VariantServiceImpl implements IVariantService {
 
     //大查询
     @Override
-    public List<Variant> selectVariant(String type, String chr, Long posi_min,Long posi_max, Double maf_min, Double maf_max, String impacts, String consequences, String accession, String version, String alias, String description) {
+    @Cacheable(value = "selectVariant")
+    public List<Variant> selectVariant(String type, String chr, String posi_min,String posi_max, Double maf_min, Double maf_max, String impacts, String consequences, String accession, String version, String alias, String description) {
         return variantMapper.selectVariant(type, chr, posi_min,posi_max, maf_min, maf_max, impacts, consequences, accession, version, alias, description);
     }
 

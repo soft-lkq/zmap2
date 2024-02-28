@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"    column="remark"    />
         <association property="analysis" javaType="analysis">
             <result property="analysisId"    column="analysis_id"    />
-            <result property="name"    column="name"    />
+            <result property="name"    column="analysisName"    />
             <result property="description"    column="description"    />
             <result property="dbxrefId"    column="dbxref_id"    />
             <result property="populationId"    column="population_id"    />
@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </association>
         <association property="environment" javaType="environment">
             <result property="environmentId"    column="environment_id"    />
-            <result property="name"    column="name"    />
+            <result property="name"    column="environmentName"    />
             <result property="environmentClass"    column="environment_class"    />
             <result property="environmentCondition"    column="environment_condition"    />
             <result property="environmentDesc"    column="environment_desc"    />
@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <association property="feature" javaType="feature" resultMap="com.ruoyi.zeamap.mapper.FeatureMapper.FeatureResult"></association>
         <association property="germplasm" javaType="germplasm">
             <result property="germplasmId"    column="germplasm_id"    />
-            <result property="name"    column="name"    />
+            <result property="name"    column="germplasmName"    />
             <result property="genus"    column="genus"    />
             <result property="species"    column="species"    />
             <result property="commonName"    column="common_name"    />
@@ -161,7 +161,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </select>
 
         <select id="selectmultiExpressionListTissue" parameterType="com.ruoyi.zeamap.vo.ExpressionVo" resultMap="ExpressionResult">
-           select * from expression e
+           select *
+           from expression e
             inner join environment env on env.environment_id = e.environment_id
             inner join analysis a on a.analysis_id = e.analysis_id
             inner join germplasm g on g.germplasm_id =e.germplasm_id
@@ -363,7 +364,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!--    </select>-->
 
     <select id="selectAllFromTissue" resultMap="ExpressionResult">
-        select * from expression e
+        select e.* ,en.environment_id,en.name as environmentName,en.environment_class,environment_condition,environment_desc,a.analysis_id,a.name as analysisName,a.population_id, a.description,a.detailed,a.methods,a.omics,
+        g.germplasm_id,g.name as germplasmName,g.genus,g.species,g.common_name,g.comment,g.group_id,g.population_id,g.latitude,g.longtitude,g.ngb_id,g.origin,t.*,d.*,f.*
+        from expression e
         inner join environment en on en.environment_id=e.environment_id
         inner join analysis a on a.analysis_id=e.analysis_id
         inner join germplasm g on g.germplasm_id=e.germplasm_id
@@ -379,7 +382,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectAllFromGermplasm" resultMap="ExpressionResult">
-        select * from expression e
+        select e.* ,en.environment_id,en.name as environmentName,en.environment_class,environment_condition,environment_desc,a.analysis_id,a.name as analysisName,a.population_id, a.description,a.detailed,a.methods,a.omics,
+        g.germplasm_id,g.name as germplasmName,g.genus,g.species,g.common_name,g.comment,g.group_id,g.population_id,g.latitude,g.longtitude,g.ngb_id,g.origin,t.*,d.*,f.*
+        from expression e
             inner join environment en on en.environment_id=e.environment_id
             inner join analysis a on a.analysis_id=e.analysis_id
             inner join germplasm g on g.germplasm_id=e.germplasm_id
@@ -395,7 +400,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectAllFromEnvironment" resultMap="ExpressionResult">
-        select * from expression e
+        select e.* ,en.environment_id,en.name as environmentName,en.environment_class,environment_condition,environment_desc,a.analysis_id,a.name as analysisName,a.population_id, a.description,a.detailed,a.methods,a.omics,
+        g.germplasm_id,g.name as germplasmName,g.genus,g.species,g.common_name,g.comment,g.group_id,g.population_id,g.latitude,g.longtitude,g.ngb_id,g.origin,t.*,d.*,f.*
+        from expression e
         inner join environment en on en.environment_id= e.environment_id
         inner join analysis a on a.analysis_id=e.analysis_id
         inner join tissue t on t.tissue_id=e.tissue_id

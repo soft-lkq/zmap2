@@ -157,7 +157,7 @@ public class VariantSelectCondition {
                 .append("consequences", getConsequences())
                 .append("accession", getAccession())
                 .append("version", getVersion())
-                .append("alisa", getAlias())
+                .append("alias", getAlias())
                 .append("description", getDescription()).toString();
     }
 }

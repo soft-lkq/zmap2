@@ -97,5 +97,5 @@ public interface VariantMapper {
     public List<String> selectConsequences();
 
     //大查询
-    public List<Variant> selectVariant(@Param("type") String type, @Param("chr") String chr, @Param("posi_min") Long posi_min, @Param("posi_max") Long posi_max,@Param("maf_min") Double maf_min, @Param("maf_max") Double maf_max, @Param("impacts") String impacts, @Param("consequences") String consequences, @Param("accession") String accession, @Param("version") String version, @Param("alias") String alias, @Param("description") String description);
+    public List<Variant> selectVariant(@Param("type") String type, @Param("chr") String chr, @Param("posi_min") String posi_min, @Param("posi_max") String posi_max,@Param("maf_min") Double maf_min, @Param("maf_max") Double maf_max, @Param("impacts") String impacts, @Param("consequences") String consequences, @Param("accession") String accession, @Param("version") String version, @Param("alias") String alias, @Param("description") String description);
 }
