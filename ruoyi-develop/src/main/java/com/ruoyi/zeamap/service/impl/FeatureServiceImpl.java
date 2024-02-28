@@ -6,6 +6,7 @@ import com.ruoyi.zeamap.mapper.FeatureMapper;
 import com.ruoyi.zeamap.mapper.TissueMapper;
 import com.ruoyi.zeamap.service.IFeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,9 +34,11 @@ public class FeatureServiceImpl implements IFeatureService
      *
      * @return uniqueName的list
      */
+    @Cacheable(value = "selectUniqueName")
     public List<String> selectUniqueName(){
         return featureMapper.selectUniqueName();
     }
+    @Cacheable(value = "selectCommonName")
     public List<String> selectCommonName(){
         return featureMapper.selectCommonName();
     }
@@ -57,6 +60,7 @@ public class FeatureServiceImpl implements IFeatureService
      * @param queryCriteria
      * @return queryResult的list
      */
+    @Cacheable(value = "selectQueryResult")
     public List<QueryResult> selectQueryResult(QueryCriteria queryCriteria){
         return featureMapper.selectQueryResult(queryCriteria);
     }

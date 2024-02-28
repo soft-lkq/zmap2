@@ -38,15 +38,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectQueryResult" parameterType="com.ruoyi.zeamap.domain.QueryCriteria" resultMap="QueryResult">
         select feature.feature_id,feature.commonname,feature.uniquename,dbxref.accession,dbxref.version,featureloc.chrom,featureloc.fmin,featureloc.fmax,featureloc.strand,cvterm.name
-        from feature,dbxref,featureloc,cvterm
-        where feature.dbxref_id = dbxref.dbxref_id and feature.feature_id = featureloc.feature_id and feature.type_id = cvterm.cvterm_id
-            and (accession=#{accession} or #{accession}='' or #{accession} is null )
-            and ( version=#{version} or #{version}='' or #{version} is null)
-          <if test="chrom != null  and chrom != ''"> and chrom = #{chrom}</if>
-            and (cast(fmin as signed) >= cast(#{start} as signed) or (#{chrom}='' or #{chrom} is null or #{start}='' or #{start} is null) )
-            and (cast(fmax as signed) &lt;= cast(#{end} as signed) or (#{chrom}='' or #{chrom} is null or #{end}='' or #{end} is null) )
-            and (commonname = #{commonname} or #{commonname} is null or #{commonname}='')
-            and (uniquename = #{uniquename} or #{uniquename} is null or #{uniquename}='')
+        from feature
+        INNER JOIN dbxref ON feature.dbxref_id = dbxref.dbxref_id
+        INNER JOIN featureloc  ON feature.feature_id = featureloc.feature_id
+        INNER JOIN cvterm ON feature.type_id = cvterm.cvterm_id
+        where
+            (dbxref.accession=#{accession} or #{accession}='' or #{accession} is null )
+            and ( dbxref.version=#{version} or #{version}='' or #{version} is null)
+          <if test="chrom != null  and chrom != ''"> and featureloc.chrom = #{chrom}</if>
+            and (featureloc.fmin >= #{start} or (#{chrom}='' or #{chrom} is null or #{start}='' or #{start} is null) )
+            and (featureloc.fmax &lt;= #{end} or (#{chrom}='' or #{chrom} is null or #{end}='' or #{end} is null) )
+            and (feature.commonname = #{commonname} or #{commonname} is null or #{commonname}='')
+            and (feature.uniquename = #{uniquename} or #{uniquename} is null or #{uniquename}='')
     </select>
 
     <select id="download" parameterType="String" resultMap="QueryResult">

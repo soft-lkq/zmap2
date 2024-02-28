@@ -4,13 +4,15 @@ import com.ruoyi.common.annotation.Excel;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.io.Serializable;
+
 /**
  * 【请填写功能名称】对象 queryResult
  *
  * @author 温镜蓉
  * @date 2023-03-15
  */
-public class QueryResult
+public class QueryResult implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
