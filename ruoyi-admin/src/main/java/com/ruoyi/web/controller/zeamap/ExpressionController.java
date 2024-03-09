@@ -144,7 +144,7 @@ public class ExpressionController extends BaseController
 
     @GetMapping("/tissue")
     @ResponseBody
-    public AjaxResult selectByTissue(String reference, String version,String analysis,String environment,String germplasm,String[] geneIds,String[] selects){
+    public TableDataInfo selectByTissue(String reference, String version,String analysis,String environment,String germplasm,String strGeneIds,String strSelects){
 //        Long db_id = expressionService.selectDbid(reference);
         Long dbxref_id = expressionService.selectDbxrefId(reference,version);
 //        if(dbxref_id==null){
@@ -152,57 +152,67 @@ public class ExpressionController extends BaseController
 //        }
         Long[] analysis_id = expressionService.selectAnalysisId(analysis);
         Long[] environment_id = expressionService.selectEnvironmentId(environment);
+        String[] selects = strSelects.split(",");
         Long[] tissue_id = expressionService.selectTissueIdByDesc(selects);
         Long[] germplasm_id = expressionService.selectGermplasmId(germplasm);
+
+        //处理输入字符串拆分为数组
+        String[] geneIds = strGeneIds.split(",");
         if(geneIds.length==0){
-            return AjaxResult.success("Gene ID is null");
+            return getDataTable(null);
         }
         Long[] featureIds = expressionService.selectFeatureIdsByGene(geneIds);
-
+        startPage();
         List<Expression> e = expressionService.selectAllFromTissue(dbxref_id,analysis_id,environment_id,germplasm_id,featureIds,tissue_id);
-        return AjaxResult.success(e);
+        return getDataTable(e);
     }
 
     @GetMapping("/germplasm")
     @ResponseBody
-    public AjaxResult selectByGermplasm(String reference,String version,String analysis,String environment,String tissue,String[] selects,String[] geneIds){
+    public TableDataInfo selectByGermplasm(String reference,String version,String analysis,String environment,String tissue,String strSelects,String strGeneIds){
 
 //        Long db_id = expressionService.selectDbid(reference);
         Long dbxref_id = expressionService.selectDbxrefId(reference,version);
 //        if(dbxref_id==null){
 //            return AjaxResult.success("数据错误");
 //        }
+        String[] geneIds = strGeneIds.split(",");
         if(geneIds.length==0){
-            return AjaxResult.success("Gene ID is null");
+            return getDataTable(null);
         }
         Long[] geneId = expressionService.selectFeatureIdsByGene(geneIds);
         Long[] analysis_id = expressionService.selectAnalysisId(analysis);
         Long[] tissue_id = expressionService.selectTissueIdByPosition(tissue);
         Long[] environment_id = expressionService.selectEnvironmentId(environment);
+        String[] selects = strSelects.split(",");
         Long[] germplasmIds = expressionService.selectGermplasmIds(selects);
+        startPage();
         List<Expression> e = expressionService.selectAllFromGermplasm(dbxref_id,analysis_id,environment_id,tissue_id,germplasmIds,geneId);
-        return AjaxResult.success(e);
+        return getDataTable(e);
     }
 
     @GetMapping("/environment")
     @ResponseBody
-    public AjaxResult selectByEnvironment(String reference,String version,String analysis,String germplasm,String tissue,String[] selects,String[] geneIds){
+    public TableDataInfo selectByEnvironment(String reference,String version,String analysis,String germplasm,String tissue,String strSelects,String strGeneIds){
 
 //        Long db_id = expressionService.selectDbid(reference);
         Long dbxref_id = expressionService.selectDbxrefId(reference,version);
 //        if(dbxref_id==null){
 //            return AjaxResult.success("数据错误");
 //        }
+        String[] geneIds = strGeneIds.split(",");
         if(geneIds.length==0){
-            return AjaxResult.success("Gene ID is null");
+            return getDataTable(null);
         }
         Long[] geneId = expressionService.selectFeatureIdsByGene(geneIds);
         Long[] analysis_id = expressionService.selectAnalysisId(analysis);
         Long[] tissue_id = expressionService.selectTissueIdByPosition(tissue);
         Long[] germplasm_id = expressionService.selectGermplasmId(germplasm);
+        String[] selects = strSelects.split(",");
         Long[] environmentIds = expressionService.selectEnvironmentIds(selects);
+        startPage();
         List<Expression> e = expressionService.selectAllFromEnvironment(dbxref_id,analysis_id,tissue_id,germplasm_id,environmentIds,geneId);
-        return AjaxResult.success(e);
+        return getDataTable(e);
     }
 
 

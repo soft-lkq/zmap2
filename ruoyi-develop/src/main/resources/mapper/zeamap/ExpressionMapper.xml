@@ -156,8 +156,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-        <select id="selectMapExpression" parameterType="int" resultMap="ExpressionResult">
-            select t.tissue_desc,e.expression_value from tissue t,expression e where t.tissue_id = e.tissue_id AND e.feature_id = #{feature_id}
+        <select id="selectMapExpression" parameterType="Long" resultMap="ExpressionResult">
+            select distinct t.tissue_desc,e.expression_value from tissue t,expression e where t.tissue_id = e.tissue_id AND e.feature_id = #{feature_id}
         </select>
 
         <select id="selectmultiExpressionListTissue" parameterType="com.ruoyi.zeamap.vo.ExpressionVo" resultMap="ExpressionResult">

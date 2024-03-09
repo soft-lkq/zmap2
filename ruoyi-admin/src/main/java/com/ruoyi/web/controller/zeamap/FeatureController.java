@@ -64,7 +64,7 @@ public class FeatureController extends BaseController
     @GetMapping("/selectUniqueName")
     public TableDataInfo selectUniqueName()
     {
-        startPage();
+//        startPage();
         List<String> uniqueNames = featureService.selectUniqueName();
         return getDataTable(uniqueNames);
     }
@@ -72,7 +72,7 @@ public class FeatureController extends BaseController
     @GetMapping("/selectCommonName")
     public AjaxResult selectCommonName()
     {
-        startPage();
+//        startPage();
         List<String> commonNames = featureService.selectCommonName();
         return AjaxResult.success(commonNames);
     }
@@ -169,7 +169,7 @@ public class FeatureController extends BaseController
     @GetMapping("/uniquename2")
     public AjaxResult ExpressionTissue(@RequestParam String uniquename) {
         //这两个接口没有问题但是数据造起来太麻烦了,看以后数据咋样把,目前写死了
-        Map<String, String> DataMap = featureService.selectByUniquenameToExpression(uniquename);
+        Map<String, Double> DataMap = featureService.selectByUniquenameToTissue(uniquename);
         if (DataMap == null){//查询不到
             return AjaxResult.error("此基因在库中不存在");
         }

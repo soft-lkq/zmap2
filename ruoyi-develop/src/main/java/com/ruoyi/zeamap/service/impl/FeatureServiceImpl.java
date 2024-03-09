@@ -140,7 +140,7 @@ public class FeatureServiceImpl implements IFeatureService
         }
         List<Expression> res = expressionMapper.selectMapExpression(featureId);
 
-        Map<String, Double> expressMap = res.stream().collect(Collectors.toMap(item -> (item.getTissue().getTissueDesc()), item -> item.getExpressionValue()));
+        Map<String, Double> expressMap = res.stream().collect(Collectors.toMap(item -> (item.getTissue().getTissueDesc()), item -> item.getExpressionValue(),(oldValue, newValue) -> newValue));
 
         return expressMap;
     }

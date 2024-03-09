@@ -136,12 +136,14 @@ public class VariantServiceImpl implements IVariantService {
 
     //Annotation 查询 impacts + consequences
     @Override
+    @Cacheable(value = "selectImpacts")
     public List<String> selectImpacts() {
         return variantMapper.selectImpacts();
     }
 
     //Annotation 查询 consequences
     @Override
+    @Cacheable(value = "selectConsequences")
     public List<String> selectConsequences() {
         return variantMapper.selectConsequences();
     }
