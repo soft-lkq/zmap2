@@ -1,9 +1,18 @@
 package com.ruoyi.zeamap.domain;
 
 public class GeVo {
+    private String pedigree;
     private Long year;
     private String location;
-    private String trait;
+    private String traits;
+
+    public GeVo(String pedigree, Long year, String location, String traits) {
+        this.pedigree = pedigree;
+        this.year = year;
+        this.location = location;
+        this.traits = traits;
+    }
+
 
     public Long getYear() {
         return year;
@@ -22,19 +31,21 @@ public class GeVo {
     }
 
     public String getTrait() {
-        return trait;
+        return traits;
     }
 
     public void setTrait(String trait) {
-        this.trait = trait;
+        this.traits = trait;
     }
 
     public GeVo() {
     }
 
-    public GeVo(Long year, String location, String trait) {
-        this.year = year;
-        this.location = location;
-        this.trait = trait;
+    public String getPedigree() {
+        return pedigree;
+    }
+
+    public void setPedigree(String pedigree) {
+        this.pedigree = pedigree;
     }
 }

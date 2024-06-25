@@ -1,0 +1,2178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.zeamap.mapper.WphenotypeMapper">
+
+    <resultMap id="YearYieldResult" type="YearYield">
+        <result property="year" column="year"      />
+        <result property="grainLength"    column="grain_length"    />
+        <result property="grainWidth"    column="grain_width"    />
+        <result property="earLength"    column="ear_length"    />
+        <result property="earDiameter"    column="ear_diameter"    />
+        <result property="earNumber"    column="ear_number"    />
+        <result property="kernelRowNumber"    column="kernel_row_number"    />
+        <result property="kernelNumbersPerRow"    column="kernel_numbers_per_row"    />
+        <result property="grainWeight"    column="grain_weight"    />
+        <result property="yield"    column="yield"    />
+        <result property="kernelNumbersPerEar"    column="kernel_numbers_per_ear"    />
+        <result property="earKernelWeight"    column="ear_kernel_weight"    />
+        <result property="grainWaterContent"    column="grain_water_content"    />
+        <result property="kernelPercentage"    column="kernel_percentage"    />
+    </resultMap>
+
+    <resultMap id="YearBiResult" type="YearBiotic">
+        <result property="year" column="year"      />
+        <result property="ustilagoMaydis"    column="ustilago_maydis"    />
+        <result property="maizeEarRot"    column="maize_ear_rot"    />
+        <result property="maizeSheathBlight"    column="maize_sheath_blight"    />
+        <result property="southernCornRust"    column="southern_corn_rust"    />
+        <result property="leafSpotDisease"    column="leaf_spot_disease"    />
+        <result property="maizeBorer"    column="maize_borer"    />
+        <result property="maizeStalkRot"    column="maize_stalk_rot"    />
+        <result property="maizeRoughDwarfDisease"    column="maize_rough_dwarf_disease"    />
+        <result property="southernCornRustTxt"    column="southern_corn_rust_txt"    />
+        <result property="northernLeafBlight"    column="northern_leaf_blight"    />
+        <result property="maizeDwarfMosaicDisease"    column="maize_dwarf_mosaic_disease"    />
+        <result property="maizeAlbinism"    column="maize_albinism"    />
+        <result property="physodermaMaydis"    column="physoderma_maydis"    />
+        <result property="grayLeafSpot"    column="gray_leaf_spot"    />
+        <result property="earKernelRot"    column="ear_kernel_rot"    />
+        <result property="southernLeafBlight"    column="southern_leaf_blight"    />
+        <result property="graminearumStalkRot"    column="graminearum_stalk_rot"    />
+        <result property="pythiumStalkRot"    column="pythium_stalk_rot"    />
+        <result property="fGraminearum"    column="F_graminEarum"    />
+        <result property="fVerticillioides"    column="F_verticillioides"    />
+        <result property="aphis"    column="aphis"    />
+        <result property="borerResistance"    column="borer_resistance"    />
+        <result property="treatmentsApplied"    column="treatments_applied"    />
+        <result property="resistanceCharacters1"    column="resistance_characters1"    />
+        <result property="resistanceCharacters2"    column="resistance_characters2"    />
+        <result property="resistanceCharacters3"    column="resistance_characters3"    />
+        <result property="comprehensiveResistance"    column="comprehensive_resistance"    />
+    </resultMap>
+
+    <resultMap id="YearAbResult" type="YearAbiotic">
+        <result property="year" column="year"      />
+        <result property="rootLodging"    column="root_lodging"    />
+        <result property="lodgingResistance"    column="lodging_resistance"    />
+        <result property="stemLodging"    column="stem_lodging"    />
+        <result property="seedlingDeathPercent1"    column="seedling_death_percent1"    />
+        <result property="deadSeedlingNumber1"    column="dead_seedling_number1"    />
+        <result property="seedlingDeathPercent2"    column="seedling_death_percent2"    />
+        <result property="deadSeedlingNumber2"    column="dead_seedling_number2"    />
+        <result property="seedlingDeathPercent3"    column="seedling_death_percent3"    />
+        <result property="deadSeedlingNumber3"    column="dead_seedling_number3"    />
+        <result property="treatName"    column="treat_name"    />
+        <result property="deformedSeedlingPercent"    column="deformed_seedling_percent"    />
+        <result property="deformedSeedlingNumber"    column="deformed_seedling_number"    />
+    </resultMap>
+
+    <resultMap id="YearAgrResult" type="YearAgr">
+        <result property="year" column="year"      />
+        <result property="fieldEvaluation"    column="field_evaluation"    />
+        <result property="fieldEvaluation2"    column="field_evaluation2"    />
+        <result property="laboratoryEvaluation"    column="laboratory_evaluation"    />
+        <result property="laboratoryEvaluation2"    column="laboratory_evaluation2"    />
+        <result property="benefitial"    column="benefitial"    />
+        <result property="emptyStalkNumber"    column="empty_stalk_number"    />
+        <result property="selectedPlantNumber"    column="selected_plant_number"    />
+        <result property="plantNumber"    column="plant_number"    />
+        <result property="leafStayGreen"    column="leaf_stay_green"    />
+        <result property="pollinationPlan1"    column="pollination_plan1"    />
+        <result property="pollinationPlan2"    column="pollination_plan2"    />
+        <result property="doubleEarNumber"    column="double_ear_number"    />
+        <result property="decisionStrip"    column="decision_strip"    />
+        <result property="decisionSource"    column="decision_source"    />
+        <result property="siteDiscrepancy"    column="site_discrepancy"    />
+        <result property="tests1"    column="tests1"    />
+        <result property="tests2"    column="tests2"    />
+        <result property="daysToTassel"    column="days_to_tassel"    />
+        <result property="daysToSeedling"    column="days_to_seedling"    />
+        <result property="daysToMaturity"    column="days_to_maturity"    />
+        <result property="datePlanted"    column="date_planted"    />
+        <result property="growthPeriod"    column="growth_period"    />
+        <result property="daysToAnther"    column="days_to_anther"    />
+        <result property="daysToSilk"    column="days_to_silk"    />
+        <result property="dateHarvested"    column="date_harvested"    />
+        <result property="daysToAnther2"    column="days_to_anther2"    />
+        <result property="daysToSilk2"    column="days_to_silk2"    />
+        <result property="antherTasselInterval"    column="anther_tassel_interval"    />
+    </resultMap>
+
+    <resultMap id="YearMorResult" type="YearMorVo">
+        <result property="year" column="year"      />
+        <result property="leafLength"    column="leaf_length"    />
+        <result property="leafWidth"    column="leaf_width"    />
+        <result property="plantHeight"    column="plant_height"    />
+        <result property="earHeight"    column="ear_height"    />
+        <result property="tasselLengthTop"    column="tassel_length_top"    />
+        <result property="tasselBranchNumber1"    column="tassel_branch_number1"    />
+        <result property="expression"    column="expression"    />
+        <result property="tasselBranchNumber"    column="tassel_branch_number"    />
+        <result property="rates"    column="rates"    />
+        <result property="leafNumberAboveEar"    column="leaf_number_above_ear"    />
+        <result property="seedlingPotential"    column="seedling_potential"    />
+        <result property="tasselLength2"    column="tassel_length_2"    />
+        <result property="tasselPosture2"    column="tassel_posture_2"    />
+        <result property="tasselAngle2"    column="tassel_angle_2"    />
+        <result property="tasselLength3"    column="tassel_length_3"    />
+        <result property="tasselLength4"    column="tassel_length_4"    />
+        <result property="tasselDensity"    column="tassel_density"    />
+        <result property="tasselWeight1"    column="tassel_weight1"    />
+        <result property="tasselWeight2"    column="tassel_weight2"    />
+        <result property="tasselFloretNumber"    column="tassel_floret_number"    />
+        <result property="pollenQuantity"    column="pollen_quantity"    />
+        <result property="rootDistribution"    column="root_distribution"    />
+        <result property="rootLayer"    column="root_layer"    />
+        <result property="rootThickness"    column="root_thickness"    />
+        <result property="rootAngle"    column="root_angle"    />
+        <result property="femaleRootDistribution"    column="female_root_distribution"    />
+        <result property="maleRootDistribution"    column="male_root_distribution"    />
+        <result property="leafShape1"    column="leaf_shape_1"    />
+        <result property="leafPosture1"    column="leaf_posture1"    />
+        <result property="leafAngle"    column="leaf_angle"    />
+        <result property="leafPosture2"    column="leaf_posture2"    />
+        <result property="leafNumber1"    column="leaf_number1"    />
+        <result property="stemDiameter"    column="stem_diameter"    />
+        <result property="earBearingPosture"    column="ear_bearing_posture"    />
+        <result property="huskTier"    column="husk_tier"    />
+        <result property="huskThickness1"    column="husk_thickness1"    />
+        <result property="huskTierAll"    column="husk_tier_all"    />
+        <result property="huskThickness2"    column="husk_thickness2"    />
+        <result property="silkColor"    column="silk_color"    />
+        <result property="antherColor"    column="anther_color"    />
+        <result property="stemRootColor"    column="stem_root_color"    />
+        <result property="rachisColor"    column="rachis_color"    />
+        <result property="sheathColor1"    column="sheath_color1"    />
+        <result property="glumeColor"    column="glume_color"    />
+        <result property="leafColor1"    column="leaf_color1"    />
+        <result property="grainColor2"    column="grain_color2"    />
+        <result property="grainColor"    column="grain_color"    />
+        <result property="sheathColor2"    column="sheath_color2"    />
+        <result property="leafColor2"    column="leaf_color2"    />
+    </resultMap>
+
+    <resultMap id="AbResult" type="AbioticStressVo">
+        <result property="pedigree"    column="pedigree"    />
+        <result property="pedigreeSource1"    column="pedigreeSource1"    />
+        <result property="pedigreeSource2"    column="pedigreeSource2"    />
+        <result property="year"    column="year"    />
+        <result property="location"    column="location"    />
+        <result property="rootLodging"    column="root_lodging"    />
+        <result property="lodgingResistance"    column="lodging_resistance"    />
+        <result property="stemLodging"    column="stem_lodging"    />
+        <result property="seedlingDeathPercent1"    column="seedling_death_percent1"    />
+        <result property="deadSeedlingNumber1"    column="dead_seedling_number1"    />
+        <result property="seedlingDeathPercent2"    column="seedling_death_percent2"    />
+        <result property="deadSeedlingNumber2"    column="dead_seedling_number2"    />
+        <result property="seedlingDeathPercent3"    column="seedling_death_percent3"    />
+        <result property="deadSeedlingNumber3"    column="dead_seedling_number3"    />
+        <result property="treatName"    column="treat_name"    />
+        <result property="deformedSeedlingPercent"    column="deformed_seedling_percent"    />
+        <result property="deformedSeedlingNumber"    column="deformed_seedling_number"    />
+    </resultMap>
+
+    <resultMap id="BiResult" type="BioticStressVo">
+        <result property="pedigree"    column="pedigree"    />
+        <result property="pedigreeSource1"    column="pedigreeSource1"    />
+        <result property="pedigreeSource2"    column="pedigreeSource2"    />
+        <result property="year"    column="year"    />
+        <result property="location"    column="location"    />
+        <result property="ustilagoMaydis"    column="ustilago_maydis"    />
+        <result property="maizeEarRot"    column="maize_ear_rot"    />
+        <result property="maizeSheathBlight"    column="maize_sheath_blight"    />
+        <result property="southernCornRust"    column="southern_corn_rust"    />
+        <result property="leafSpotDisease"    column="leaf_spot_disease"    />
+        <result property="maizeBorer"    column="maize_borer"    />
+        <result property="maizeStalkRot"    column="maize_stalk_rot"    />
+        <result property="maizeRoughDwarfDisease"    column="maize_rough_dwarf_disease"    />
+        <result property="southernCornRustTxt"    column="southern_corn_rust_txt"    />
+        <result property="northernLeafBlight"    column="northern_leaf_blight"    />
+        <result property="maizeDwarfMosaicDisease"    column="maize_dwarf_mosaic_disease"    />
+        <result property="maizeAlbinism"    column="maize_albinism"    />
+        <result property="physodermaMaydis"    column="physoderma_maydis"    />
+        <result property="grayLeafSpot"    column="gray_leaf_spot"    />
+        <result property="earKernelRot"    column="ear_kernel_rot"    />
+        <result property="southernLeafBlight"    column="southern_leaf_blight"    />
+        <result property="graminearumStalkRot"    column="graminearum_stalk_rot"    />
+        <result property="pythiumStalkRot"    column="pythium_stalk_rot"    />
+        <result property="fGraminearum"    column="F_graminEarum"    />
+        <result property="fVerticillioides"    column="F_verticillioides"    />
+        <result property="aphis"    column="aphis"    />
+        <result property="borerResistance"    column="borer_resistance"    />
+        <result property="treatmentsApplied"    column="treatments_applied"    />
+        <result property="resistanceCharacters1"    column="resistance_characters1"    />
+        <result property="resistanceCharacters2"    column="resistance_characters2"    />
+        <result property="resistanceCharacters3"    column="resistance_characters3"    />
+        <result property="comprehensiveResistance"    column="comprehensive_resistance"    />
+    </resultMap>
+
+    <resultMap id="BxRateResult" type="BxRateVo">
+        <result property="ustilagoMaydis"    column="ustilago_maydis"    />
+        <result property="maizeEarRot"    column="maize_ear_rot"    />
+        <result property="maizeSheathBlight"    column="maize_sheath_blight"    />
+        <result property="southernCornRust"    column="southern_corn_rust"    />
+        <result property="leafSpotDisease"    column="leaf_spot_disease"    />
+        <result property="maizeBorer"    column="maize_borer"    />
+        <result property="comprehensiveResistance"    column="comprehensive_resistance"    />
+        <result property="northernLeafBlight"    column="northern_leaf_blight"    />
+    </resultMap>
+
+    <resultMap id="MorResult" type="MorphologicalVo">
+        <result property="year"    column="year"    />
+        <result property="location"    column="location"    />
+        <result property="pedid"    column="pedId"    />
+        <result property="pedigree"    column="pedigree"    />
+        <result property="pedigreeSource1"    column="pedigreeSource1"    />
+        <result property="pedigreeSource2"    column="pedigreeSource2"    />
+        <result property="leafLength"    column="leaf_length"    />
+        <result property="leafWidth"    column="leaf_width"    />
+        <result property="plantHeight"    column="plant_height"    />
+        <result property="earHeight"    column="ear_height"    />
+        <result property="tasselBranchNumber"    column="tassel_branch_number"    />
+        <result property="rootLayer"    column="root_layer"    />
+        <result property="leafNumber1"    column="leaf_number1"    />
+        <result property="stemDiameter"    column="stem_diameter"    />
+        <result property="silkColor"    column="silk_color"    />
+        <result property="antherColor"    column="anther_color"    />
+        <result property="rachisColor"    column="rachis_color"    />
+        <result property="grainColor"    column="grain_color"    />
+    </resultMap>
+
+    <resultMap id="AgrResult" type="AgronomicalVo">
+        <result property="year"    column="year"    />
+        <result property="location"    column="location"    />
+        <result property="pedigree"    column="pedigree"    />
+        <result property="pedigreeSource1"    column="pedigreeSource1"    />
+        <result property="pedigreeSource2"    column="pedigreeSource2"    />
+        <result property="fieldEvaluation"    column="field_evaluation"    />
+        <result property="fieldEvaluation2"    column="field_evaluation2"    />
+        <result property="laboratoryEvaluation"    column="laboratory_evaluation"    />
+        <result property="laboratoryEvaluation2"    column="laboratory_evaluation2"    />
+        <result property="benefitial"    column="benefitial"    />
+        <result property="emptyStalkNumber"    column="empty_stalk_number"    />
+        <result property="selectedPlantNumber"    column="selected_plant_number"    />
+        <result property="plantNumber"    column="plant_number"    />
+        <result property="leafStayGreen"    column="leaf_stay_green"    />
+        <result property="pollinationPlan1"    column="pollination_plan1"    />
+        <result property="pollinationPlan2"    column="pollination_plan2"    />
+        <result property="doubleEarNumber"    column="double_ear_number"    />
+        <result property="decisionStrip"    column="decision_strip"    />
+        <result property="decisionSource"    column="decision_source"    />
+        <result property="siteDiscrepancy"    column="site_discrepancy"    />
+        <result property="tests1"    column="tests1"    />
+        <result property="tests2"    column="tests2"    />
+        <result property="daysToTassel"    column="days_to_tassel"    />
+        <result property="daysToSeedling"    column="days_to_seedling"    />
+        <result property="daysToMaturity"    column="days_to_maturity"    />
+        <result property="datePlanted"    column="date_planted"    />
+        <result property="growthPeriod"    column="growth_period"    />
+        <result property="daysToAnther"    column="days_to_anther"    />
+        <result property="daysToSilk"    column="days_to_silk"    />
+        <result property="dateHarvested"    column="date_harvested"    />
+        <result property="daysToAnther2"    column="days_to_anther2"    />
+        <result property="daysToSilk2"    column="days_to_silk2"    />
+        <result property="antherTasselInterval"    column="anther_tassel_interval"    />
+    </resultMap>
+
+    <resultMap id="BxDateResult" type="BxDateVo">
+        <result property="daysToTassel"    column="days_to_tassel"    />
+        <result property="daysToSeedling"    column="days_to_seedling"    />
+        <result property="daysToMaturity"    column="days_to_maturity"    />
+        <result property="datePlanted"    column="date_planted"    />
+        <result property="growthPeriod"    column="growth_period"    />
+        <result property="daysToAnther"    column="days_to_anther"    />
+        <result property="daysToSilk"    column="days_to_silk"    />
+        <result property="dateHarvested"    column="date_harvested"    />
+    </resultMap>
+
+    <resultMap id="YieldResult" type="Yield">
+        <result property="grainLength"    column="grain_length"    />
+        <result property="grainWidth"    column="grain_width"    />
+        <result property="earLength"    column="ear_length"    />
+        <result property="earDiameter"    column="ear_diameter"    />
+        <result property="earNumber"    column="ear_number"    />
+        <result property="kernelRowNumber"    column="kernel_row_number"    />
+        <result property="kernelNumbersPerRow"    column="kernel_numbers_per_row"    />
+        <result property="grainWeight"    column="grain_weight"    />
+        <result property="yield"    column="yield"    />
+        <result property="kernelNumbersPerEar"    column="kernel_numbers_per_ear"    />
+        <result property="earKernelWeight"    column="ear_kernel_weight"    />
+        <result property="grainWaterContent"    column="grain_water_content"    />
+        <result property="kernelPercentage"    column="kernel_percentage"    />
+    </resultMap>
+
+    <resultMap type="Wphenotype" id="WphenotypeResult">
+        <result property="colDescription"    column="col_description"    />
+        <result property="bookName"    column="book_name"    />
+        <result property="project"    column="project"    />
+        <result property="year"    column="year"    />
+        <result property="location"    column="location"    />
+        <result property="seq"    column="seq"    />
+        <result property="plotNumber"    column="plot_number"    />
+        <result property="plotNumberName"    column="plot_number_name"    />
+        <result property="pedid"    column="pedId"    />
+        <result property="pedigree"    column="pedigree"    />
+        <result property="pedigree2"    column="pedigree2"    />
+        <result property="pedigreeSource1"    column="pedigreeSource1"    />
+        <result property="pedigreeSource2"    column="pedigreeSource2"    />
+        <result property="femalePedid"    column="female_pedId"    />
+        <result property="femalePlot"    column="female_plot"    />
+        <result property="femalePedigree"    column="female_pedigree"    />
+        <result property="malePedid"    column="male_pedId"    />
+        <result property="malePlot"    column="male_plot"    />
+        <result property="malePedigree"    column="male_pedigree"    />
+        <result property="repNumber"    column="rep_number"    />
+        <result property="population"    column="population"    />
+        <result property="density"    column="density"    />
+        <result property="rowLength"    column="row_length"    />
+        <result property="rowNumber"    column="row_number"    />
+        <result property="seedingMethod"    column="seeding_method"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="planterSowNumber"    column="planter_sow_number"    />
+        <result property="decisionNursery"    column="decision_nursery"    />
+        <result property="inventoryState"    column="inventory_state"    />
+        <result property="harvestNumber"    column="harvest_number"    />
+        <result property="generations"    column="generations"    />
+        <result property="invertoryState"    column="invertory_state"    />
+        <result property="previewErrorMessage"    column="preview_error_message"    />
+        <result property="sourceId"    column="source_id"    />
+        <result property="leafLength"    column="leaf_length"    />
+        <result property="leafWidth"    column="leaf_width"    />
+        <result property="plantHeight"    column="plant_height"    />
+        <result property="earHeight"    column="ear_height"    />
+        <result property="tasselLengthTop"    column="tassel_length_top"    />
+        <result property="tasselBranchNumber1"    column="tassel_branch_number1"    />
+        <result property="expression"    column="expression"    />
+        <result property="tasselBranchNumber"    column="tassel_branch_number"    />
+        <result property="rates"    column="rates"    />
+        <result property="leafNumberAboveEar"    column="leaf_number_above_ear"    />
+        <result property="seedlingPotential"    column="seedling_potential"    />
+        <result property="tasselLength2"    column="tassel_length_2"    />
+        <result property="tasselPosture2"    column="tassel_posture_2"    />
+        <result property="tasselAngle2"    column="tassel_angle_2"    />
+        <result property="tasselLength3"    column="tassel_length_3"    />
+        <result property="tasselLength4"    column="tassel_length_4"    />
+        <result property="tasselDensity"    column="tassel_density"    />
+        <result property="tasselWeight1"    column="tassel_weight1"    />
+        <result property="tasselWeight2"    column="tassel_weight2"    />
+        <result property="tasselFloretNumber"    column="tassel_floret_number"    />
+        <result property="pollenQuantity"    column="pollen_quantity"    />
+        <result property="rootDistribution"    column="root_distribution"    />
+        <result property="rootLayer"    column="root_layer"    />
+        <result property="rootThickness"    column="root_thickness"    />
+        <result property="rootAngle"    column="root_angle"    />
+        <result property="femaleRootDistribution"    column="female_root_distribution"    />
+        <result property="maleRootDistribution"    column="male_root_distribution"    />
+        <result property="leafShape1"    column="leaf_shape_1"    />
+        <result property="leafPosture1"    column="leaf_posture1"    />
+        <result property="leafAngle"    column="leaf_angle"    />
+        <result property="leafPosture2"    column="leaf_posture2"    />
+        <result property="leafNumber1"    column="leaf_number1"    />
+        <result property="stemDiameter"    column="stem_diameter"    />
+        <result property="earBearingPosture"    column="ear_bearing_posture"    />
+        <result property="huskTier"    column="husk_tier"    />
+        <result property="huskThickness1"    column="husk_thickness1"    />
+        <result property="huskTierAll"    column="husk_tier_all"    />
+        <result property="huskThickness2"    column="husk_thickness2"    />
+        <result property="silkColor"    column="silk_color"    />
+        <result property="antherColor"    column="anther_color"    />
+        <result property="stemRootColor"    column="stem_root_color"    />
+        <result property="rachisColor"    column="rachis_color"    />
+        <result property="sheathColor1"    column="sheath_color1"    />
+        <result property="glumeColor"    column="glume_color"    />
+        <result property="leafColor1"    column="leaf_color1"    />
+        <result property="grainColor2"    column="grain_color2"    />
+        <result property="grainColor"    column="grain_color"    />
+        <result property="sheathColor2"    column="sheath_color2"    />
+        <result property="leafColor2"    column="leaf_color2"    />
+        <result property="fieldEvaluation"    column="field_evaluation"    />
+        <result property="fieldEvaluation2"    column="field_evaluation2"    />
+        <result property="laboratoryEvaluation"    column="laboratory_evaluation"    />
+        <result property="laboratoryEvaluation2"    column="laboratory_evaluation2"    />
+        <result property="benefitial"    column="benefitial"    />
+        <result property="emptyStalkNumber"    column="empty_stalk_number"    />
+        <result property="selectedPlantNumber"    column="selected_plant_number"    />
+        <result property="plantNumber"    column="plant_number"    />
+        <result property="leafStayGreen"    column="leaf_stay_green"    />
+        <result property="pollinationPlan1"    column="pollination_plan1"    />
+        <result property="pollinationPlan2"    column="pollination_plan2"    />
+        <result property="doubleEarNumber"    column="double_ear_number"    />
+        <result property="decisionStrip"    column="decision_strip"    />
+        <result property="decisionSource"    column="decision_source"    />
+        <result property="siteDiscrepancy"    column="site_discrepancy"    />
+        <result property="tests1"    column="tests1"    />
+        <result property="tests2"    column="tests2"    />
+        <result property="daysToTassel"    column="days_to_tassel"    />
+        <result property="daysToSeedling"    column="days_to_seedling"    />
+        <result property="daysToMaturity"    column="days_to_maturity"    />
+        <result property="datePlanted"    column="date_planted"    />
+        <result property="growthPeriod"    column="growth_period"    />
+        <result property="daysToAnther"    column="days_to_anther"    />
+        <result property="daysToSilk"    column="days_to_silk"    />
+        <result property="dateHarvested"    column="date_harvested"    />
+        <result property="daysToAnther2"    column="days_to_anther2"    />
+        <result property="daysToSilk2"    column="days_to_silk2"    />
+        <result property="antherTasselInterval"    column="anther_tassel_interval"    />
+        <result property="grainLength"    column="grain_length"    />
+        <result property="grainLengthSd"    column="grain_length_sd"    />
+        <result property="grainWidth"    column="grain_width"    />
+        <result property="grainWidthSd"    column="grain_width_sd"    />
+        <result property="earLength"    column="ear_length"    />
+        <result property="earDiameter"    column="ear_diameter"    />
+        <result property="earNumber"    column="ear_number"    />
+        <result property="kernelRowNumber"    column="kernel_row_number"    />
+        <result property="kernelNumbersPerRow"    column="kernel_numbers_per_row"    />
+        <result property="grainShape"    column="grain_shape"    />
+        <result property="grainType"    column="grain_type"    />
+        <result property="grainWeight"    column="grain_weight"    />
+        <result property="yield"    column="yield"    />
+        <result property="earShape"    column="ear_shape"    />
+        <result property="earStalkLength"    column="ear_stalk_length"    />
+        <result property="earDryWeight"    column="ear_dry_weight"    />
+        <result property="kernelDryWeight"    column="kernel_dry_weight"    />
+        <result property="kernelWetWeight"    column="kernel_wet_weight"    />
+        <result property="kernelNumbersPerEar"    column="kernel_numbers_per_ear"    />
+        <result property="earKernelWeight"    column="ear_kernel_weight"    />
+        <result property="earWetWeight"    column="ear_wet_weight"    />
+        <result property="earWeight"    column="ear_weight"    />
+        <result property="kernelLengthWidthRatio"    column="kernel_length_width_ratio"    />
+        <result property="grainWaterContent"    column="grain_water_content"    />
+        <result property="kernelPercentage"    column="kernel_percentage"    />
+        <result property="volumeWeight"    column="volume_weight"    />
+        <result property="fecundity"    column="fecundity"    />
+        <result property="ck1"    column="CK1"    />
+        <result property="ck2"    column="CK2"    />
+        <result property="ck3"    column="CK3"    />
+        <result property="ck4"    column="CK4"    />
+        <result property="ck5"    column="CK5"    />
+        <result property="ck6"    column="CK6"    />
+        <result property="biomass"    column="biomass"    />
+        <result property="grainDiameter"    column="grain_diameter"    />
+        <result property="barrenEarTip"    column="barren_ear_tip"    />
+        <result property="sampleWeight"    column="sample_weight"    />
+        <result property="sampleWeightDate"    column="sample_weight_date"    />
+        <result property="grainRedMeanValue"    column="grain_red_mean_value"    />
+        <result property="grainBlueMeanValue"    column="grain_blue_mean_value"    />
+        <result property="grainGreenMeanValue"    column="grain_green_mean_value"    />
+        <result property="grainAreaRatio"    column="grain_area_ratio"    />
+        <result property="grainAreaSd"    column="grain_area_sd"    />
+        <result property="grainAreaMeanValue"    column="grain_area_mean_value"    />
+        <result property="grainMeanRoundness"    column="grain_mean_roundness"    />
+        <result property="grainMeanCircumferenceSd"    column="grain_mean_circumference_sd"    />
+        <result property="grainMeanCircumference"    column="grain_mean_circumference"    />
+        <result property="totalKernelArea"    column="total_kernel_area"    />
+        <result property="ck1Yield"    column="CK1_yield"    />
+        <result property="ck2Yield"    column="CK2_yield"    />
+        <result property="ck3Yield"    column="CK3_yield"    />
+        <result property="cobDryWeight"    column="cob_dry_weight"    />
+        <result property="cobWetWeight"    column="cob_wet_weight"    />
+        <result property="cobDiameter"    column="cob_diameter"    />
+        <result property="rm"    column="RM"    />
+        <result property="grainThickness"    column="grain_thickness"    />
+        <result property="grainQuality"    column="grain_quality"    />
+        <result property="rank"    column="rank"    />
+        <result property="seedcaseThickness"    column="seedcase_thickness"    />
+        <result property="scent"    column="scent"    />
+        <result property="tenderness"    column="tenderness"    />
+        <result property="cookingScore"    column="cooking_score"    />
+        <result property="sweetness"    column="sweetness"    />
+        <result property="flavor"    column="flavor"    />
+        <result property="freshEarLevel"    column="fresh_ear_level"    />
+        <result property="freshEarYield"    column="fresh_ear_yield"    />
+        <result property="earEvenness"    column="ear_evenness"    />
+        <result property="ustilagoMaydis"    column="ustilago_maydis"    />
+        <result property="maizeEarRot"    column="maize_ear_rot"    />
+        <result property="maizeSheathBlight"    column="maize_sheath_blight"    />
+        <result property="southernCornRust"    column="southern_corn_rust"    />
+        <result property="leafSpotDisease"    column="leaf_spot_disease"    />
+        <result property="maizeBorer"    column="maize_borer"    />
+        <result property="maizeStalkRot"    column="maize_stalk_rot"    />
+        <result property="maizeRoughDwarfDisease"    column="maize_rough_dwarf_disease"    />
+        <result property="southernCornRustTxt"    column="southern_corn_rust_txt"    />
+        <result property="northernLeafBlight"    column="northern_leaf_blight"    />
+        <result property="maizeDwarfMosaicDisease"    column="maize_dwarf_mosaic_disease"    />
+        <result property="maizeAlbinism"    column="maize_albinism"    />
+        <result property="physodermaMaydis"    column="physoderma_maydis"    />
+        <result property="grayLeafSpot"    column="gray_leaf_spot"    />
+        <result property="earKernelRot"    column="ear_kernel_rot"    />
+        <result property="southernLeafBlight"    column="southern_leaf_blight"    />
+        <result property="graminearumStalkRot"    column="graminearum_stalk_rot"    />
+        <result property="pythiumStalkRot"    column="pythium_stalk_rot"    />
+        <result property="fGraminearum"    column="F_graminEarum"    />
+        <result property="fVerticillioides"    column="F_verticillioides"    />
+        <result property="aphis"    column="aphis"    />
+        <result property="borerResistance"    column="borer_resistance"    />
+        <result property="treatmentsApplied"    column="treatments_applied"    />
+        <result property="resistanceCharacters1"    column="resistance_characters1"    />
+        <result property="resistanceCharacters2"    column="resistance_characters2"    />
+        <result property="resistanceCharacters3"    column="resistance_characters3"    />
+        <result property="comprehensiveResistance"    column="comprehensive_resistance"    />
+        <result property="rootLodging"    column="root_lodging"    />
+        <result property="lodgingResistance"    column="lodging_resistance"    />
+        <result property="stemLodging"    column="stem_lodging"    />
+        <result property="seedlingDeathPercent1"    column="seedling_death_percent1"    />
+        <result property="deadSeedlingNumber1"    column="dead_seedling_number1"    />
+        <result property="seedlingDeathPercent2"    column="seedling_death_percent2"    />
+        <result property="deadSeedlingNumber2"    column="dead_seedling_number2"    />
+        <result property="seedlingDeathPercent3"    column="seedling_death_percent3"    />
+        <result property="deadSeedlingNumber3"    column="dead_seedling_number3"    />
+        <result property="treatName"    column="treat_name"    />
+        <result property="deformedSeedlingPercent"    column="deformed_seedling_percent"    />
+        <result property="deformedSeedlingNumber"    column="deformed_seedling_number"    />
+        <result property="comment1"    column="comment1"    />
+        <result property="comment2"    column="comment2"    />
+        <result property="comment3"    column="comment3"    />
+    </resultMap>
+
+    <sql id="selectWphenotypeVo">
+        select col_description, book_name, project, year, location, seq, plot_number, plot_number_name, pedId, pedigree, pedigree2, pedigreeSource1, pedigreeSource2, female_pedId, female_plot, female_pedigree, male_pedId, male_plot, male_pedigree, rep_number, population, density, row_length, row_number, seeding_method, quantity, planter_sow_number, decision_nursery, inventory_state, harvest_number, generations, invertory_state, preview_error_message, source_id, leaf_length, leaf_width, plant_height, ear_height, tassel_length_top, tassel_branch_number1, expression, tassel_branch_number, rates, leaf_number_above_ear, seedling_potential, tassel_length_2, tassel_posture_2, tassel_angle_2, tassel_length_3, tassel_length_4, tassel_density, tassel_weight1, tassel_weight2, tassel_floret_number, pollen_quantity, root_distribution, root_layer, root_thickness, root_angle, female_root_distribution, male_root_distribution, leaf_shape_1, leaf_posture1, leaf_angle, leaf_posture2, leaf_number1, stem_diameter, ear_bearing_posture, husk_tier, husk_thickness1, husk_tier_all, husk_thickness2, silk_color, anther_color, stem_root_color, rachis_color, sheath_color1, glume_color, leaf_color1, grain_color2, grain_color, sheath_color2, leaf_color2, field_evaluation, field_evaluation2, laboratory_evaluation, laboratory_evaluation2, benefitial, empty_stalk_number, selected_plant_number, plant_number, leaf_stay_green, pollination_plan1, pollination_plan2, double_ear_number, decision_strip, decision_source, site_discrepancy, tests1, tests2, days_to_tassel, days_to_seedling, days_to_maturity, date_planted, growth_period, days_to_anther, days_to_silk, date_harvested, days_to_anther2, days_to_silk2, anther_tassel_interval, grain_length, grain_length_sd, grain_width, grain_width_sd, ear_length, ear_diameter, ear_number, kernel_row_number, kernel_numbers_per_row, grain_shape, grain_type, grain_weight, yield, ear_shape, ear_stalk_length, ear_dry_weight, kernel_dry_weight, kernel_wet_weight, kernel_numbers_per_ear, ear_kernel_weight, ear_wet_weight, ear_weight, kernel_length_width_ratio, grain_water_content, kernel_percentage, volume_weight, fecundity, CK1, CK2, CK3, CK4, CK5, CK6, biomass, grain_diameter, barren_ear_tip, sample_weight, sample_weight_date, grain_red_mean_value, grain_blue_mean_value, grain_green_mean_value, grain_area_ratio, grain_area_sd, grain_area_mean_value, grain_mean_roundness, grain_mean_circumference_sd, grain_mean_circumference, total_kernel_area, CK1_yield, CK2_yield, CK3_yield, cob_dry_weight, cob_wet_weight, cob_diameter, RM, grain_thickness, grain_quality, rank, seedcase_thickness, scent, tenderness, cooking_score, sweetness, flavor, fresh_ear_level, fresh_ear_yield, ear_evenness, ustilago_maydis, maize_ear_rot, maize_sheath_blight, southern_corn_rust, leaf_spot_disease, maize_borer, maize_stalk_rot, maize_rough_dwarf_disease, southern_corn_rust_txt, northern_leaf_blight, maize_dwarf_mosaic_disease, maize_albinism, physoderma_maydis, gray_leaf_spot, ear_kernel_rot, southern_leaf_blight, graminearum_stalk_rot, pythium_stalk_rot, F_graminEarum, F_verticillioides, aphis, borer_resistance, treatments_applied, resistance_characters1, resistance_characters2, resistance_characters3, comprehensive_resistance, root_lodging, lodging_resistance, stem_lodging, seedling_death_percent1, dead_seedling_number1, seedling_death_percent2, dead_seedling_number2, seedling_death_percent3, dead_seedling_number3, treat_name, deformed_seedling_percent, deformed_seedling_number, comment1, comment2, comment3 from phenotype
+    </sql>
+
+    <select id="selectWphenotypeList" parameterType="Wphenotype" resultMap="WphenotypeResult">
+        <include refid="selectWphenotypeVo"/>
+        <where>  
+            <if test="colDescription != null  and colDescription != ''"> and col_description = #{colDescription}</if>
+            <if test="bookName != null  and bookName != ''"> and book_name like concat('%', #{bookName}, '%')</if>
+            <if test="project != null  and project != ''"> and project = #{project}</if>
+            <if test="year != null "> and year = #{year}</if>
+            <if test="location != null  and location != ''"> and location = #{location}</if>
+            <if test="seq != null "> and seq = #{seq}</if>
+            <if test="plotNumber != null "> and plot_number = #{plotNumber}</if>
+            <if test="plotNumberName != null  and plotNumberName != ''"> and plot_number_name like concat('%', #{plotNumberName}, '%')</if>
+            <if test="pedigree != null  and pedigree != ''"> and pedigree = #{pedigree}</if>
+            <if test="pedigree2 != null  and pedigree2 != ''"> and pedigree2 = #{pedigree2}</if>
+            <if test="pedigreesource1 != null  and pedigreesource1 != ''"> and pedigreeSource1 = #{pedigreesource1}</if>
+            <if test="pedigreesource2 != null  and pedigreesource2 != ''"> and pedigreeSource2 = #{pedigreesource2}</if>
+            <if test="femalePedid != null "> and female_pedId = #{femalePedid}</if>
+            <if test="femalePlot != null  and femalePlot != ''"> and female_plot = #{femalePlot}</if>
+            <if test="femalePedigree != null  and femalePedigree != ''"> and female_pedigree = #{femalePedigree}</if>
+            <if test="malePedid != null "> and male_pedId = #{malePedid}</if>
+            <if test="malePlot != null  and malePlot != ''"> and male_plot = #{malePlot}</if>
+            <if test="malePedigree != null  and malePedigree != ''"> and male_pedigree = #{malePedigree}</if>
+            <if test="repNumber != null "> and rep_number = #{repNumber}</if>
+            <if test="population != null  and population != ''"> and population = #{population}</if>
+            <if test="density != null "> and density = #{density}</if>
+            <if test="rowLength != null "> and row_length = #{rowLength}</if>
+            <if test="rowNumber != null "> and row_number = #{rowNumber}</if>
+            <if test="seedingMethod != null  and seedingMethod != ''"> and seeding_method = #{seedingMethod}</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="planterSowNumber != null "> and planter_sow_number = #{planterSowNumber}</if>
+            <if test="decisionNursery != null  and decisionNursery != ''"> and decision_nursery = #{decisionNursery}</if>
+            <if test="inventoryState != null  and inventoryState != ''"> and inventory_state = #{inventoryState}</if>
+            <if test="harvestNumber != null "> and harvest_number = #{harvestNumber}</if>
+            <if test="generations != null  and generations != ''"> and generations = #{generations}</if>
+            <if test="invertoryState != null  and invertoryState != ''"> and invertory_state = #{invertoryState}</if>
+            <if test="previewErrorMessage != null  and previewErrorMessage != ''"> and preview_error_message = #{previewErrorMessage}</if>
+            <if test="sourceId != null "> and source_id = #{sourceId}</if>
+            <if test="leafLength != null "> and leaf_length = #{leafLength}</if>
+            <if test="leafWidth != null "> and leaf_width = #{leafWidth}</if>
+            <if test="plantHeight != null "> and plant_height = #{plantHeight}</if>
+            <if test="earHeight != null "> and ear_height = #{earHeight}</if>
+            <if test="tasselLengthTop != null "> and tassel_length_top = #{tasselLengthTop}</if>
+            <if test="tasselBranchNumber1 != null "> and tassel_branch_number1 = #{tasselBranchNumber1}</if>
+            <if test="expression != null  and expression != ''"> and expression = #{expression}</if>
+            <if test="tasselBranchNumber != null "> and tassel_branch_number = #{tasselBranchNumber}</if>
+            <if test="rates != null "> and rates = #{rates}</if>
+            <if test="leafNumberAboveEar != null "> and leaf_number_above_ear = #{leafNumberAboveEar}</if>
+            <if test="seedlingPotential != null  and seedlingPotential != ''"> and seedling_potential = #{seedlingPotential}</if>
+            <if test="tasselLength2 != null "> and tassel_length_2 = #{tasselLength2}</if>
+            <if test="tasselPosture2 != null "> and tassel_posture_2 = #{tasselPosture2}</if>
+            <if test="tasselAngle2 != null "> and tassel_angle_2 = #{tasselAngle2}</if>
+            <if test="tasselLength3 != null "> and tassel_length_3 = #{tasselLength3}</if>
+            <if test="tasselLength4 != null "> and tassel_length_4 = #{tasselLength4}</if>
+            <if test="tasselDensity != null "> and tassel_density = #{tasselDensity}</if>
+            <if test="tasselWeight1 != null "> and tassel_weight1 = #{tasselWeight1}</if>
+            <if test="tasselWeight2 != null "> and tassel_weight2 = #{tasselWeight2}</if>
+            <if test="tasselFloretNumber != null "> and tassel_floret_number = #{tasselFloretNumber}</if>
+            <if test="pollenQuantity != null  and pollenQuantity != ''"> and pollen_quantity = #{pollenQuantity}</if>
+            <if test="rootDistribution != null  and rootDistribution != ''"> and root_distribution = #{rootDistribution}</if>
+            <if test="rootLayer != null  and rootLayer != ''"> and root_layer = #{rootLayer}</if>
+            <if test="rootThickness != null  and rootThickness != ''"> and root_thickness = #{rootThickness}</if>
+            <if test="rootAngle != null  and rootAngle != ''"> and root_angle = #{rootAngle}</if>
+            <if test="femaleRootDistribution != null  and femaleRootDistribution != ''"> and female_root_distribution = #{femaleRootDistribution}</if>
+            <if test="maleRootDistribution != null  and maleRootDistribution != ''"> and male_root_distribution = #{maleRootDistribution}</if>
+            <if test="leafShape1 != null  and leafShape1 != ''"> and leaf_shape_1 = #{leafShape1}</if>
+            <if test="leafPosture1 != null  and leafPosture1 != ''"> and leaf_posture1 = #{leafPosture1}</if>
+            <if test="leafAngle != null  and leafAngle != ''"> and leaf_angle = #{leafAngle}</if>
+            <if test="leafPosture2 != null  and leafPosture2 != ''"> and leaf_posture2 = #{leafPosture2}</if>
+            <if test="leafNumber1 != null "> and leaf_number1 = #{leafNumber1}</if>
+            <if test="stemDiameter != null "> and stem_diameter = #{stemDiameter}</if>
+            <if test="earBearingPosture != null  and earBearingPosture != ''"> and ear_bearing_posture = #{earBearingPosture}</if>
+            <if test="huskTier != null "> and husk_tier = #{huskTier}</if>
+            <if test="huskThickness1 != null "> and husk_thickness1 = #{huskThickness1}</if>
+            <if test="huskTierAll != null "> and husk_tier_all = #{huskTierAll}</if>
+            <if test="huskThickness2 != null "> and husk_thickness2 = #{huskThickness2}</if>
+            <if test="silkColor != null  and silkColor != ''"> and silk_color = #{silkColor}</if>
+            <if test="antherColor != null  and antherColor != ''"> and anther_color = #{antherColor}</if>
+            <if test="stemRootColor != null  and stemRootColor != ''"> and stem_root_color = #{stemRootColor}</if>
+            <if test="rachisColor != null  and rachisColor != ''"> and rachis_color = #{rachisColor}</if>
+            <if test="sheathColor1 != null  and sheathColor1 != ''"> and sheath_color1 = #{sheathColor1}</if>
+            <if test="glumeColor != null  and glumeColor != ''"> and glume_color = #{glumeColor}</if>
+            <if test="leafColor1 != null  and leafColor1 != ''"> and leaf_color1 = #{leafColor1}</if>
+            <if test="grainColor2 != null  and grainColor2 != ''"> and grain_color2 = #{grainColor2}</if>
+            <if test="grainColor != null  and grainColor != ''"> and grain_color = #{grainColor}</if>
+            <if test="sheathColor2 != null  and sheathColor2 != ''"> and sheath_color2 = #{sheathColor2}</if>
+            <if test="leafColor2 != null  and leafColor2 != ''"> and leaf_color2 = #{leafColor2}</if>
+            <if test="fieldEvaluation != null  and fieldEvaluation != ''"> and field_evaluation = #{fieldEvaluation}</if>
+            <if test="fieldEvaluation2 != null  and fieldEvaluation2 != ''"> and field_evaluation2 = #{fieldEvaluation2}</if>
+            <if test="laboratoryEvaluation != null  and laboratoryEvaluation != ''"> and laboratory_evaluation = #{laboratoryEvaluation}</if>
+            <if test="laboratoryEvaluation2 != null  and laboratoryEvaluation2 != ''"> and laboratory_evaluation2 = #{laboratoryEvaluation2}</if>
+            <if test="benefitial != null  and benefitial != ''"> and benefitial = #{benefitial}</if>
+            <if test="emptyStalkNumber != null "> and empty_stalk_number = #{emptyStalkNumber}</if>
+            <if test="selectedPlantNumber != null "> and selected_plant_number = #{selectedPlantNumber}</if>
+            <if test="plantNumber != null "> and plant_number = #{plantNumber}</if>
+            <if test="leafStayGreen != null  and leafStayGreen != ''"> and leaf_stay_green = #{leafStayGreen}</if>
+            <if test="pollinationPlan1 != null  and pollinationPlan1 != ''"> and pollination_plan1 = #{pollinationPlan1}</if>
+            <if test="pollinationPlan2 != null  and pollinationPlan2 != ''"> and pollination_plan2 = #{pollinationPlan2}</if>
+            <if test="doubleEarNumber != null "> and double_ear_number = #{doubleEarNumber}</if>
+            <if test="decisionStrip != null  and decisionStrip != ''"> and decision_strip = #{decisionStrip}</if>
+            <if test="decisionSource != null  and decisionSource != ''"> and decision_source = #{decisionSource}</if>
+            <if test="siteDiscrepancy != null  and siteDiscrepancy != ''"> and site_discrepancy = #{siteDiscrepancy}</if>
+            <if test="tests1 != null  and tests1 != ''"> and tests1 = #{tests1}</if>
+            <if test="tests2 != null  and tests2 != ''"> and tests2 = #{tests2}</if>
+            <if test="daysToTassel != null "> and days_to_tassel = #{daysToTassel}</if>
+            <if test="daysToSeedling != null "> and days_to_seedling = #{daysToSeedling}</if>
+            <if test="daysToMaturity != null "> and days_to_maturity = #{daysToMaturity}</if>
+            <if test="datePlanted != null "> and date_Planted = #{datePlanted}</if>
+            <if test="growthPeriod != null "> and growth_period = #{growthPeriod}</if>
+            <if test="daysToAnther != null "> and days_to_anther = #{daysToAnther}</if>
+            <if test="daysToSilk != null "> and days_to_silk = #{daysToSilk}</if>
+            <if test="dateHarvested != null "> and date_harvested = #{dateHarvested}</if>
+            <if test="daysToAnther2 != null "> and days_to_anther2 = #{daysToAnther2}</if>
+            <if test="daysToSilk2 != null "> and days_to_silk2 = #{daysToSilk2}</if>
+            <if test="antherTasselInterval != null "> and anther_tassel_interval = #{antherTasselInterval}</if>
+            <if test="grainLength != null "> and grain_length = #{grainLength}</if>
+            <if test="grainLengthSd != null "> and grain_length_sd = #{grainLengthSd}</if>
+            <if test="grainWidth != null "> and grain_width = #{grainWidth}</if>
+            <if test="grainWidthSd != null "> and grain_width_sd = #{grainWidthSd}</if>
+            <if test="earLength != null "> and ear_length = #{earLength}</if>
+            <if test="earDiameter != null "> and ear_diameter = #{earDiameter}</if>
+            <if test="earNumber != null "> and ear_number = #{earNumber}</if>
+            <if test="kernelRowNumber != null "> and kernel_row_number = #{kernelRowNumber}</if>
+            <if test="kernelNumbersPerRow != null "> and kernel_numbers_per_row = #{kernelNumbersPerRow}</if>
+            <if test="grainShape != null  and grainShape != ''"> and grain_shape = #{grainShape}</if>
+            <if test="grainType != null  and grainType != ''"> and grain_type = #{grainType}</if>
+            <if test="grainWeight != null "> and grain_weight = #{grainWeight}</if>
+            <if test="yield != null "> and yield = #{yield}</if>
+            <if test="earShape != null  and earShape != ''"> and ear_shape = #{earShape}</if>
+            <if test="earStalkLength != null "> and ear_stalk_length = #{earStalkLength}</if>
+            <if test="earDryWeight != null "> and ear_dry_weight = #{earDryWeight}</if>
+            <if test="kernelDryWeight != null "> and kernel_dry_weight = #{kernelDryWeight}</if>
+            <if test="kernelWetWeight != null "> and kernel_wet_weight = #{kernelWetWeight}</if>
+            <if test="kernelNumbersPerEar != null "> and kernel_numbers_per_ear = #{kernelNumbersPerEar}</if>
+            <if test="earKernelWeight != null "> and ear_kernel_weight = #{earKernelWeight}</if>
+            <if test="earWetWeight != null "> and ear_wet_weight = #{earWetWeight}</if>
+            <if test="earWeight != null "> and ear_weight = #{earWeight}</if>
+            <if test="kernelLengthWidthRatio != null "> and kernel_length_width_ratio = #{kernelLengthWidthRatio}</if>
+            <if test="grainWaterContent != null "> and grain_water_content = #{grainWaterContent}</if>
+            <if test="kernelPercentage != null "> and kernel_percentage = #{kernelPercentage}</if>
+            <if test="volumeWeight != null "> and volume_weight = #{volumeWeight}</if>
+            <if test="fecundity != null  and fecundity != ''"> and fecundity = #{fecundity}</if>
+            <if test="ck1 != null  and ck1 != ''"> and CK1 = #{ck1}</if>
+            <if test="ck2 != null  and ck2 != ''"> and CK2 = #{ck2}</if>
+            <if test="ck3 != null  and ck3 != ''"> and CK3 = #{ck3}</if>
+            <if test="ck4 != null  and ck4 != ''"> and CK4 = #{ck4}</if>
+            <if test="ck5 != null  and ck5 != ''"> and CK5 = #{ck5}</if>
+            <if test="ck6 != null  and ck6 != ''"> and CK6 = #{ck6}</if>
+            <if test="biomass != null "> and biomass = #{biomass}</if>
+            <if test="grainDiameter != null "> and grain_diameter = #{grainDiameter}</if>
+            <if test="barrenEarTip != null "> and barren_ear_tip = #{barrenEarTip}</if>
+            <if test="sampleWeight != null "> and sample_weight = #{sampleWeight}</if>
+            <if test="sampleWeightDate != null "> and sample_weight_date = #{sampleWeightDate}</if>
+            <if test="grainRedMeanValue != null "> and grain_red_mean_value = #{grainRedMeanValue}</if>
+            <if test="grainBlueMeanValue != null "> and grain_blue_mean_value = #{grainBlueMeanValue}</if>
+            <if test="grainGreenMeanValue != null "> and grain_green_mean_value = #{grainGreenMeanValue}</if>
+            <if test="grainAreaRatio != null "> and grain_area_ratio = #{grainAreaRatio}</if>
+            <if test="grainAreaSd != null "> and grain_area_sd = #{grainAreaSd}</if>
+            <if test="grainAreaMeanValue != null "> and grain_area_mean_value = #{grainAreaMeanValue}</if>
+            <if test="grainMeanRoundness != null "> and grain_mean_roundness = #{grainMeanRoundness}</if>
+            <if test="grainMeanCircumferenceSd != null "> and grain_mean_circumference_sd = #{grainMeanCircumferenceSd}</if>
+            <if test="grainMeanCircumference != null "> and grain_mean_circumference = #{grainMeanCircumference}</if>
+            <if test="totalKernelArea != null "> and total_kernel_area = #{totalKernelArea}</if>
+            <if test="ck1Yield != null  and ck1Yield != ''"> and CK1_yield = #{ck1Yield}</if>
+            <if test="ck2Yield != null  and ck2Yield != ''"> and CK2_yield = #{ck2Yield}</if>
+            <if test="ck3Yield != null  and ck3Yield != ''"> and CK3_yield = #{ck3Yield}</if>
+            <if test="cobDryWeight != null "> and cob_dry_weight = #{cobDryWeight}</if>
+            <if test="cobWetWeight != null "> and cob_wet_weight = #{cobWetWeight}</if>
+            <if test="cobDiameter != null "> and cob_diameter = #{cobDiameter}</if>
+            <if test="rm != null  and rm != ''"> and RM = #{rm}</if>
+            <if test="grainThickness != null "> and grain_thickness = #{grainThickness}</if>
+            <if test="grainQuality != null "> and grain_quality = #{grainQuality}</if>
+            <if test="rank != null  and rank != ''"> and rank = #{rank}</if>
+            <if test="seedcaseThickness != null "> and seedcase_thickness = #{seedcaseThickness}</if>
+            <if test="scent != null "> and scent = #{scent}</if>
+            <if test="tenderness != null "> and tenderness = #{tenderness}</if>
+            <if test="cookingScore != null "> and cooking_score = #{cookingScore}</if>
+            <if test="sweetness != null "> and sweetness = #{sweetness}</if>
+            <if test="flavor != null  and flavor != ''"> and flavor = #{flavor}</if>
+            <if test="freshEarLevel != null  and freshEarLevel != ''"> and fresh_ear_level = #{freshEarLevel}</if>
+            <if test="freshEarYield != null "> and fresh_ear_yield = #{freshEarYield}</if>
+            <if test="earEvenness != null  and earEvenness != ''"> and ear_evenness = #{earEvenness}</if>
+            <if test="ustilagoMaydis != null "> and ustilago_maydis = #{ustilagoMaydis}</if>
+            <if test="maizeEarRot != null "> and maize_ear_rot = #{maizeEarRot}</if>
+            <if test="maizeSheathBlight != null "> and maize_sheath_blight = #{maizeSheathBlight}</if>
+            <if test="southernCornRust != null "> and southern_corn_rust = #{southernCornRust}</if>
+            <if test="leafSpotDisease != null "> and leaf_spot_disease = #{leafSpotDisease}</if>
+            <if test="maizeBorer != null "> and maize_borer = #{maizeBorer}</if>
+            <if test="maizeStalkRot != null  and maizeStalkRot != ''"> and maize_stalk_rot = #{maizeStalkRot}</if>
+            <if test="maizeRoughDwarfDisease != null  and maizeRoughDwarfDisease != ''"> and maize_rough_dwarf_disease = #{maizeRoughDwarfDisease}</if>
+            <if test="southernCornRustTxt != null  and southernCornRustTxt != ''"> and southern_corn_rust_txt = #{southernCornRustTxt}</if>
+            <if test="northernLeafBlight != null  and northernLeafBlight != ''"> and northern_leaf_blight = #{northernLeafBlight}</if>
+            <if test="maizeDwarfMosaicDisease != null  and maizeDwarfMosaicDisease != ''"> and maize_dwarf_mosaic_disease = #{maizeDwarfMosaicDisease}</if>
+            <if test="maizeAlbinism != null  and maizeAlbinism != ''"> and maize_albinism = #{maizeAlbinism}</if>
+            <if test="physodermaMaydis != null  and physodermaMaydis != ''"> and physoderma_maydis = #{physodermaMaydis}</if>
+            <if test="grayLeafSpot != null  and grayLeafSpot != ''"> and gray_leaf_spot = #{grayLeafSpot}</if>
+            <if test="earKernelRot != null  and earKernelRot != ''"> and ear_kernel_rot = #{earKernelRot}</if>
+            <if test="southernLeafBlight != null  and southernLeafBlight != ''"> and southern_leaf_blight = #{southernLeafBlight}</if>
+            <if test="graminearumStalkRot != null  and graminearumStalkRot != ''"> and graminearum_stalk_rot = #{graminearumStalkRot}</if>
+            <if test="pythiumStalkRot != null  and pythiumStalkRot != ''"> and pythium_stalk_rot = #{pythiumStalkRot}</if>
+            <if test="fGraminearum != null  and fGraminearum != ''"> and F_graminEarum = #{fGraminearum}</if>
+            <if test="fVerticillioides != null  and fVerticillioides != ''"> and F_verticillioides = #{fVerticillioides}</if>
+            <if test="aphis != null  and aphis != ''"> and aphis = #{aphis}</if>
+            <if test="borerResistance != null  and borerResistance != ''"> and borer_resistance = #{borerResistance}</if>
+            <if test="treatmentsApplied != null  and treatmentsApplied != ''"> and treatments_applied = #{treatmentsApplied}</if>
+            <if test="resistanceCharacters1 != null  and resistanceCharacters1 != ''"> and resistance_characters1 = #{resistanceCharacters1}</if>
+            <if test="resistanceCharacters2 != null  and resistanceCharacters2 != ''"> and resistance_characters2 = #{resistanceCharacters2}</if>
+            <if test="resistanceCharacters3 != null  and resistanceCharacters3 != ''"> and resistance_characters3 = #{resistanceCharacters3}</if>
+            <if test="comprehensiveResistance != null  and comprehensiveResistance != ''"> and comprehensive_resistance = #{comprehensiveResistance}</if>
+            <if test="rootLodging != null  and rootLodging != ''"> and root_lodging = #{rootLodging}</if>
+            <if test="lodgingResistance != null  and lodgingResistance != ''"> and lodging_resistance = #{lodgingResistance}</if>
+            <if test="stemLodging != null "> and stem_lodging = #{stemLodging}</if>
+            <if test="seedlingDeathPercent1 != null "> and seedling_death_percent1 = #{seedlingDeathPercent1}</if>
+            <if test="deadSeedlingNumber1 != null "> and dead_seedling_number1 = #{deadSeedlingNumber1}</if>
+            <if test="seedlingDeathPercent2 != null "> and seedling_death_percent2 = #{seedlingDeathPercent2}</if>
+            <if test="deadSeedlingNumber2 != null "> and dead_seedling_number2 = #{deadSeedlingNumber2}</if>
+            <if test="seedlingDeathPercent3 != null "> and seedling_death_percent3 = #{seedlingDeathPercent3}</if>
+            <if test="deadSeedlingNumber3 != null "> and dead_seedling_number3 = #{deadSeedlingNumber3}</if>
+            <if test="treatName != null  and treatName != ''"> and treat_name like concat('%', #{treatName}, '%')</if>
+            <if test="deformedSeedlingPercent != null "> and deformed_seedling_percent = #{deformedSeedlingPercent}</if>
+            <if test="deformedSeedlingNumber != null "> and deformed_seedling_number = #{deformedSeedlingNumber}</if>
+            <if test="comment1 != null  and comment1 != ''"> and comment1 = #{comment1}</if>
+            <if test="comment2 != null  and comment2 != ''"> and comment2 = #{comment2}</if>
+            <if test="comment3 != null  and comment3 != ''"> and comment3 = #{comment3}</if>
+        </where>
+    </select>
+    
+    <select id="selectWphenotypeByPedid" parameterType="Long" resultMap="WphenotypeResult">
+        <include refid="selectWphenotypeVo"/>
+        where pedId = #{pedid}
+    </select>
+        
+    <insert id="insertWphenotype" parameterType="Wphenotype">
+        insert into phenotype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="colDescription != null">col_description,</if>
+            <if test="bookName != null">book_name,</if>
+            <if test="project != null">project,</if>
+            <if test="year != null">year,</if>
+            <if test="location != null">location,</if>
+            <if test="seq != null">seq,</if>
+            <if test="plotNumber != null">plot_number,</if>
+            <if test="plotNumberName != null">plot_number_name,</if>
+            <if test="pedid != null">pedId,</if>
+            <if test="pedigree != null">pedigree,</if>
+            <if test="pedigree2 != null">pedigree2,</if>
+            <if test="pedigreesource1 != null">pedigreeSource1,</if>
+            <if test="pedigreesource2 != null">pedigreeSource2,</if>
+            <if test="femalePedid != null">female_pedId,</if>
+            <if test="femalePlot != null">female_plot,</if>
+            <if test="femalePedigree != null">female_pedigree,</if>
+            <if test="malePedid != null">male_pedId,</if>
+            <if test="malePlot != null">male_plot,</if>
+            <if test="malePedigree != null">male_pedigree,</if>
+            <if test="repNumber != null">rep_number,</if>
+            <if test="population != null">population,</if>
+            <if test="density != null">density,</if>
+            <if test="rowLength != null">row_length,</if>
+            <if test="rowNumber != null">row_number,</if>
+            <if test="seedingMethod != null">seeding_method,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="planterSowNumber != null">planter_sow_number,</if>
+            <if test="decisionNursery != null">decision_nursery,</if>
+            <if test="inventoryState != null">inventory_state,</if>
+            <if test="harvestNumber != null">harvest_number,</if>
+            <if test="generations != null">generations,</if>
+            <if test="invertoryState != null">invertory_state,</if>
+            <if test="previewErrorMessage != null">preview_error_message,</if>
+            <if test="sourceId != null">source_id,</if>
+            <if test="leafLength != null">leaf_length,</if>
+            <if test="leafWidth != null">leaf_width,</if>
+            <if test="plantHeight != null">plant_height,</if>
+            <if test="earHeight != null">ear_height,</if>
+            <if test="tasselLengthTop != null">tassel_length_top,</if>
+            <if test="tasselBranchNumber1 != null">tassel_branch_number1,</if>
+            <if test="expression != null">expression,</if>
+            <if test="tasselBranchNumber != null">tassel_branch_number,</if>
+            <if test="rates != null">rates,</if>
+            <if test="leafNumberAboveEar != null">leaf_number_above_ear,</if>
+            <if test="seedlingPotential != null">seedling_potential,</if>
+            <if test="tasselLength2 != null">tassel_length_2,</if>
+            <if test="tasselPosture2 != null">tassel_posture_2,</if>
+            <if test="tasselAngle2 != null">tassel_angle_2,</if>
+            <if test="tasselLength3 != null">tassel_length_3,</if>
+            <if test="tasselLength4 != null">tassel_length_4,</if>
+            <if test="tasselDensity != null">tassel_density,</if>
+            <if test="tasselWeight1 != null">tassel_weight1,</if>
+            <if test="tasselWeight2 != null">tassel_weight2,</if>
+            <if test="tasselFloretNumber != null">tassel_floret_number,</if>
+            <if test="pollenQuantity != null">pollen_quantity,</if>
+            <if test="rootDistribution != null">root_distribution,</if>
+            <if test="rootLayer != null">root_layer,</if>
+            <if test="rootThickness != null">root_thickness,</if>
+            <if test="rootAngle != null">root_angle,</if>
+            <if test="femaleRootDistribution != null">female_root_distribution,</if>
+            <if test="maleRootDistribution != null">male_root_distribution,</if>
+            <if test="leafShape1 != null">leaf_shape_1,</if>
+            <if test="leafPosture1 != null">leaf_posture1,</if>
+            <if test="leafAngle != null">leaf_angle,</if>
+            <if test="leafPosture2 != null">leaf_posture2,</if>
+            <if test="leafNumber1 != null">leaf_number1,</if>
+            <if test="stemDiameter != null">stem_diameter,</if>
+            <if test="earBearingPosture != null">ear_bearing_posture,</if>
+            <if test="huskTier != null">husk_tier,</if>
+            <if test="huskThickness1 != null">husk_thickness1,</if>
+            <if test="huskTierAll != null">husk_tier_all,</if>
+            <if test="huskThickness2 != null">husk_thickness2,</if>
+            <if test="silkColor != null">silk_color,</if>
+            <if test="antherColor != null">anther_color,</if>
+            <if test="stemRootColor != null">stem_root_color,</if>
+            <if test="rachisColor != null">rachis_color,</if>
+            <if test="sheathColor1 != null">sheath_color1,</if>
+            <if test="glumeColor != null">glume_color,</if>
+            <if test="leafColor1 != null">leaf_color1,</if>
+            <if test="grainColor2 != null">grain_color2,</if>
+            <if test="grainColor != null">grain_color,</if>
+            <if test="sheathColor2 != null">sheath_color2,</if>
+            <if test="leafColor2 != null">leaf_color2,</if>
+            <if test="fieldEvaluation != null">field_evaluation,</if>
+            <if test="fieldEvaluation2 != null">field_evaluation2,</if>
+            <if test="laboratoryEvaluation != null">laboratory_evaluation,</if>
+            <if test="laboratoryEvaluation2 != null">laboratory_evaluation2,</if>
+            <if test="benefitial != null">benefitial,</if>
+            <if test="emptyStalkNumber != null">empty_stalk_number,</if>
+            <if test="selectedPlantNumber != null">selected_plant_number,</if>
+            <if test="plantNumber != null">plant_number,</if>
+            <if test="leafStayGreen != null">leaf_stay_green,</if>
+            <if test="pollinationPlan1 != null">pollination_plan1,</if>
+            <if test="pollinationPlan2 != null">pollination_plan2,</if>
+            <if test="doubleEarNumber != null">double_ear_number,</if>
+            <if test="decisionStrip != null">decision_strip,</if>
+            <if test="decisionSource != null">decision_source,</if>
+            <if test="siteDiscrepancy != null">site_discrepancy,</if>
+            <if test="tests1 != null">tests1,</if>
+            <if test="tests2 != null">tests2,</if>
+            <if test="daysToTassel != null">days_to_tassel,</if>
+            <if test="daysToSeedling != null">days_to_seedling,</if>
+            <if test="daysToMaturity != null">days_to_maturity,</if>
+            <if test="datePlanted != null">date_Planted,</if>
+            <if test="growthPeriod != null">growth_period,</if>
+            <if test="daysToAnther != null">days_to_anther,</if>
+            <if test="daysToSilk != null">days_to_silk,</if>
+            <if test="dateHarvested != null">date_harvested,</if>
+            <if test="daysToAnther2 != null">days_to_anther2,</if>
+            <if test="daysToSilk2 != null">days_to_silk2,</if>
+            <if test="antherTasselInterval != null">anther_tassel_interval,</if>
+            <if test="grainLength != null">grain_length,</if>
+            <if test="grainLengthSd != null">grain_length_sd,</if>
+            <if test="grainWidth != null">grain_width,</if>
+            <if test="grainWidthSd != null">grain_width_sd,</if>
+            <if test="earLength != null">ear_length,</if>
+            <if test="earDiameter != null">ear_diameter,</if>
+            <if test="earNumber != null">ear_number,</if>
+            <if test="kernelRowNumber != null">kernel_row_number,</if>
+            <if test="kernelNumbersPerRow != null">kernel_numbers_per_row,</if>
+            <if test="grainShape != null">grain_shape,</if>
+            <if test="grainType != null">grain_type,</if>
+            <if test="grainWeight != null">grain_weight,</if>
+            <if test="yield != null">yield,</if>
+            <if test="earShape != null">ear_shape,</if>
+            <if test="earStalkLength != null">ear_stalk_length,</if>
+            <if test="earDryWeight != null">ear_dry_weight,</if>
+            <if test="kernelDryWeight != null">kernel_dry_weight,</if>
+            <if test="kernelWetWeight != null">kernel_wet_weight,</if>
+            <if test="kernelNumbersPerEar != null">kernel_numbers_per_ear,</if>
+            <if test="earKernelWeight != null">ear_kernel_weight,</if>
+            <if test="earWetWeight != null">ear_wet_weight,</if>
+            <if test="earWeight != null">ear_weight,</if>
+            <if test="kernelLengthWidthRatio != null">kernel_length_width_ratio,</if>
+            <if test="grainWaterContent != null">grain_water_content,</if>
+            <if test="kernelPercentage != null">kernel_percentage,</if>
+            <if test="volumeWeight != null">volume_weight,</if>
+            <if test="fecundity != null">fecundity,</if>
+            <if test="ck1 != null">CK1,</if>
+            <if test="ck2 != null">CK2,</if>
+            <if test="ck3 != null">CK3,</if>
+            <if test="ck4 != null">CK4,</if>
+            <if test="ck5 != null">CK5,</if>
+            <if test="ck6 != null">CK6,</if>
+            <if test="biomass != null">biomass,</if>
+            <if test="grainDiameter != null">grain_diameter,</if>
+            <if test="barrenEarTip != null">barren_ear_tip,</if>
+            <if test="sampleWeight != null">sample_weight,</if>
+            <if test="sampleWeightDate != null">sample_weight_date,</if>
+            <if test="grainRedMeanValue != null">grain_red_mean_value,</if>
+            <if test="grainBlueMeanValue != null">grain_blue_mean_value,</if>
+            <if test="grainGreenMeanValue != null">grain_green_mean_value,</if>
+            <if test="grainAreaRatio != null">grain_area_ratio,</if>
+            <if test="grainAreaSd != null">grain_area_sd,</if>
+            <if test="grainAreaMeanValue != null">grain_area_mean_value,</if>
+            <if test="grainMeanRoundness != null">grain_mean_roundness,</if>
+            <if test="grainMeanCircumferenceSd != null">grain_mean_circumference_sd,</if>
+            <if test="grainMeanCircumference != null">grain_mean_circumference,</if>
+            <if test="totalKernelArea != null">total_kernel_area,</if>
+            <if test="ck1Yield != null">CK1_yield,</if>
+            <if test="ck2Yield != null">CK2_yield,</if>
+            <if test="ck3Yield != null">CK3_yield,</if>
+            <if test="cobDryWeight != null">cob_dry_weight,</if>
+            <if test="cobWetWeight != null">cob_wet_weight,</if>
+            <if test="cobDiameter != null">cob_diameter,</if>
+            <if test="rm != null">RM,</if>
+            <if test="grainThickness != null">grain_thickness,</if>
+            <if test="grainQuality != null">grain_quality,</if>
+            <if test="rank != null">rank,</if>
+            <if test="seedcaseThickness != null">seedcase_thickness,</if>
+            <if test="scent != null">scent,</if>
+            <if test="tenderness != null">tenderness,</if>
+            <if test="cookingScore != null">cooking_score,</if>
+            <if test="sweetness != null">sweetness,</if>
+            <if test="flavor != null">flavor,</if>
+            <if test="freshEarLevel != null">fresh_ear_level,</if>
+            <if test="freshEarYield != null">fresh_ear_yield,</if>
+            <if test="earEvenness != null">ear_evenness,</if>
+            <if test="ustilagoMaydis != null">ustilago_maydis,</if>
+            <if test="maizeEarRot != null">maize_ear_rot,</if>
+            <if test="maizeSheathBlight != null">maize_sheath_blight,</if>
+            <if test="southernCornRust != null">southern_corn_rust,</if>
+            <if test="leafSpotDisease != null">leaf_spot_disease,</if>
+            <if test="maizeBorer != null">maize_borer,</if>
+            <if test="maizeStalkRot != null">maize_stalk_rot,</if>
+            <if test="maizeRoughDwarfDisease != null">maize_rough_dwarf_disease,</if>
+            <if test="southernCornRustTxt != null">southern_corn_rust_txt,</if>
+            <if test="northernLeafBlight != null">northern_leaf_blight,</if>
+            <if test="maizeDwarfMosaicDisease != null">maize_dwarf_mosaic_disease,</if>
+            <if test="maizeAlbinism != null">maize_albinism,</if>
+            <if test="physodermaMaydis != null">physoderma_maydis,</if>
+            <if test="grayLeafSpot != null">gray_leaf_spot,</if>
+            <if test="earKernelRot != null">ear_kernel_rot,</if>
+            <if test="southernLeafBlight != null">southern_leaf_blight,</if>
+            <if test="graminearumStalkRot != null">graminearum_stalk_rot,</if>
+            <if test="pythiumStalkRot != null">pythium_stalk_rot,</if>
+            <if test="fGraminearum != null">F_graminEarum,</if>
+            <if test="fVerticillioides != null">F_verticillioides,</if>
+            <if test="aphis != null">aphis,</if>
+            <if test="borerResistance != null">borer_resistance,</if>
+            <if test="treatmentsApplied != null">treatments_applied,</if>
+            <if test="resistanceCharacters1 != null">resistance_characters1,</if>
+            <if test="resistanceCharacters2 != null">resistance_characters2,</if>
+            <if test="resistanceCharacters3 != null">resistance_characters3,</if>
+            <if test="comprehensiveResistance != null">comprehensive_resistance,</if>
+            <if test="rootLodging != null">root_lodging,</if>
+            <if test="lodgingResistance != null">lodging_resistance,</if>
+            <if test="stemLodging != null">stem_lodging,</if>
+            <if test="seedlingDeathPercent1 != null">seedling_death_percent1,</if>
+            <if test="deadSeedlingNumber1 != null">dead_seedling_number1,</if>
+            <if test="seedlingDeathPercent2 != null">seedling_death_percent2,</if>
+            <if test="deadSeedlingNumber2 != null">dead_seedling_number2,</if>
+            <if test="seedlingDeathPercent3 != null">seedling_death_percent3,</if>
+            <if test="deadSeedlingNumber3 != null">dead_seedling_number3,</if>
+            <if test="treatName != null">treat_name,</if>
+            <if test="deformedSeedlingPercent != null">deformed_seedling_percent,</if>
+            <if test="deformedSeedlingNumber != null">deformed_seedling_number,</if>
+            <if test="comment1 != null">comment1,</if>
+            <if test="comment2 != null">comment2,</if>
+            <if test="comment3 != null">comment3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="colDescription != null">#{colDescription},</if>
+            <if test="bookName != null">#{bookName},</if>
+            <if test="project != null">#{project},</if>
+            <if test="year != null">#{year},</if>
+            <if test="location != null">#{location},</if>
+            <if test="seq != null">#{seq},</if>
+            <if test="plotNumber != null">#{plotNumber},</if>
+            <if test="plotNumberName != null">#{plotNumberName},</if>
+            <if test="pedid != null">#{pedid},</if>
+            <if test="pedigree != null">#{pedigree},</if>
+            <if test="pedigree2 != null">#{pedigree2},</if>
+            <if test="pedigreesource1 != null">#{pedigreesource1},</if>
+            <if test="pedigreesource2 != null">#{pedigreesource2},</if>
+            <if test="femalePedid != null">#{femalePedid},</if>
+            <if test="femalePlot != null">#{femalePlot},</if>
+            <if test="femalePedigree != null">#{femalePedigree},</if>
+            <if test="malePedid != null">#{malePedid},</if>
+            <if test="malePlot != null">#{malePlot},</if>
+            <if test="malePedigree != null">#{malePedigree},</if>
+            <if test="repNumber != null">#{repNumber},</if>
+            <if test="population != null">#{population},</if>
+            <if test="density != null">#{density},</if>
+            <if test="rowLength != null">#{rowLength},</if>
+            <if test="rowNumber != null">#{rowNumber},</if>
+            <if test="seedingMethod != null">#{seedingMethod},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="planterSowNumber != null">#{planterSowNumber},</if>
+            <if test="decisionNursery != null">#{decisionNursery},</if>
+            <if test="inventoryState != null">#{inventoryState},</if>
+            <if test="harvestNumber != null">#{harvestNumber},</if>
+            <if test="generations != null">#{generations},</if>
+            <if test="invertoryState != null">#{invertoryState},</if>
+            <if test="previewErrorMessage != null">#{previewErrorMessage},</if>
+            <if test="sourceId != null">#{sourceId},</if>
+            <if test="leafLength != null">#{leafLength},</if>
+            <if test="leafWidth != null">#{leafWidth},</if>
+            <if test="plantHeight != null">#{plantHeight},</if>
+            <if test="earHeight != null">#{earHeight},</if>
+            <if test="tasselLengthTop != null">#{tasselLengthTop},</if>
+            <if test="tasselBranchNumber1 != null">#{tasselBranchNumber1},</if>
+            <if test="expression != null">#{expression},</if>
+            <if test="tasselBranchNumber != null">#{tasselBranchNumber},</if>
+            <if test="rates != null">#{rates},</if>
+            <if test="leafNumberAboveEar != null">#{leafNumberAboveEar},</if>
+            <if test="seedlingPotential != null">#{seedlingPotential},</if>
+            <if test="tasselLength2 != null">#{tasselLength2},</if>
+            <if test="tasselPosture2 != null">#{tasselPosture2},</if>
+            <if test="tasselAngle2 != null">#{tasselAngle2},</if>
+            <if test="tasselLength3 != null">#{tasselLength3},</if>
+            <if test="tasselLength4 != null">#{tasselLength4},</if>
+            <if test="tasselDensity != null">#{tasselDensity},</if>
+            <if test="tasselWeight1 != null">#{tasselWeight1},</if>
+            <if test="tasselWeight2 != null">#{tasselWeight2},</if>
+            <if test="tasselFloretNumber != null">#{tasselFloretNumber},</if>
+            <if test="pollenQuantity != null">#{pollenQuantity},</if>
+            <if test="rootDistribution != null">#{rootDistribution},</if>
+            <if test="rootLayer != null">#{rootLayer},</if>
+            <if test="rootThickness != null">#{rootThickness},</if>
+            <if test="rootAngle != null">#{rootAngle},</if>
+            <if test="femaleRootDistribution != null">#{femaleRootDistribution},</if>
+            <if test="maleRootDistribution != null">#{maleRootDistribution},</if>
+            <if test="leafShape1 != null">#{leafShape1},</if>
+            <if test="leafPosture1 != null">#{leafPosture1},</if>
+            <if test="leafAngle != null">#{leafAngle},</if>
+            <if test="leafPosture2 != null">#{leafPosture2},</if>
+            <if test="leafNumber1 != null">#{leafNumber1},</if>
+            <if test="stemDiameter != null">#{stemDiameter},</if>
+            <if test="earBearingPosture != null">#{earBearingPosture},</if>
+            <if test="huskTier != null">#{huskTier},</if>
+            <if test="huskThickness1 != null">#{huskThickness1},</if>
+            <if test="huskTierAll != null">#{huskTierAll},</if>
+            <if test="huskThickness2 != null">#{huskThickness2},</if>
+            <if test="silkColor != null">#{silkColor},</if>
+            <if test="antherColor != null">#{antherColor},</if>
+            <if test="stemRootColor != null">#{stemRootColor},</if>
+            <if test="rachisColor != null">#{rachisColor},</if>
+            <if test="sheathColor1 != null">#{sheathColor1},</if>
+            <if test="glumeColor != null">#{glumeColor},</if>
+            <if test="leafColor1 != null">#{leafColor1},</if>
+            <if test="grainColor2 != null">#{grainColor2},</if>
+            <if test="grainColor != null">#{grainColor},</if>
+            <if test="sheathColor2 != null">#{sheathColor2},</if>
+            <if test="leafColor2 != null">#{leafColor2},</if>
+            <if test="fieldEvaluation != null">#{fieldEvaluation},</if>
+            <if test="fieldEvaluation2 != null">#{fieldEvaluation2},</if>
+            <if test="laboratoryEvaluation != null">#{laboratoryEvaluation},</if>
+            <if test="laboratoryEvaluation2 != null">#{laboratoryEvaluation2},</if>
+            <if test="benefitial != null">#{benefitial},</if>
+            <if test="emptyStalkNumber != null">#{emptyStalkNumber},</if>
+            <if test="selectedPlantNumber != null">#{selectedPlantNumber},</if>
+            <if test="plantNumber != null">#{plantNumber},</if>
+            <if test="leafStayGreen != null">#{leafStayGreen},</if>
+            <if test="pollinationPlan1 != null">#{pollinationPlan1},</if>
+            <if test="pollinationPlan2 != null">#{pollinationPlan2},</if>
+            <if test="doubleEarNumber != null">#{doubleEarNumber},</if>
+            <if test="decisionStrip != null">#{decisionStrip},</if>
+            <if test="decisionSource != null">#{decisionSource},</if>
+            <if test="siteDiscrepancy != null">#{siteDiscrepancy},</if>
+            <if test="tests1 != null">#{tests1},</if>
+            <if test="tests2 != null">#{tests2},</if>
+            <if test="daysToTassel != null">#{daysToTassel},</if>
+            <if test="daysToSeedling != null">#{daysToSeedling},</if>
+            <if test="daysToMaturity != null">#{daysToMaturity},</if>
+            <if test="datePlanted != null">#{datePlanted},</if>
+            <if test="growthPeriod != null">#{growthPeriod},</if>
+            <if test="daysToAnther != null">#{daysToAnther},</if>
+            <if test="daysToSilk != null">#{daysToSilk},</if>
+            <if test="dateHarvested != null">#{dateHarvested},</if>
+            <if test="daysToAnther2 != null">#{daysToAnther2},</if>
+            <if test="daysToSilk2 != null">#{daysToSilk2},</if>
+            <if test="antherTasselInterval != null">#{antherTasselInterval},</if>
+            <if test="grainLength != null">#{grainLength},</if>
+            <if test="grainLengthSd != null">#{grainLengthSd},</if>
+            <if test="grainWidth != null">#{grainWidth},</if>
+            <if test="grainWidthSd != null">#{grainWidthSd},</if>
+            <if test="earLength != null">#{earLength},</if>
+            <if test="earDiameter != null">#{earDiameter},</if>
+            <if test="earNumber != null">#{earNumber},</if>
+            <if test="kernelRowNumber != null">#{kernelRowNumber},</if>
+            <if test="kernelNumbersPerRow != null">#{kernelNumbersPerRow},</if>
+            <if test="grainShape != null">#{grainShape},</if>
+            <if test="grainType != null">#{grainType},</if>
+            <if test="grainWeight != null">#{grainWeight},</if>
+            <if test="yield != null">#{yield},</if>
+            <if test="earShape != null">#{earShape},</if>
+            <if test="earStalkLength != null">#{earStalkLength},</if>
+            <if test="earDryWeight != null">#{earDryWeight},</if>
+            <if test="kernelDryWeight != null">#{kernelDryWeight},</if>
+            <if test="kernelWetWeight != null">#{kernelWetWeight},</if>
+            <if test="kernelNumbersPerEar != null">#{kernelNumbersPerEar},</if>
+            <if test="earKernelWeight != null">#{earKernelWeight},</if>
+            <if test="earWetWeight != null">#{earWetWeight},</if>
+            <if test="earWeight != null">#{earWeight},</if>
+            <if test="kernelLengthWidthRatio != null">#{kernelLengthWidthRatio},</if>
+            <if test="grainWaterContent != null">#{grainWaterContent},</if>
+            <if test="kernelPercentage != null">#{kernelPercentage},</if>
+            <if test="volumeWeight != null">#{volumeWeight},</if>
+            <if test="fecundity != null">#{fecundity},</if>
+            <if test="ck1 != null">#{ck1},</if>
+            <if test="ck2 != null">#{ck2},</if>
+            <if test="ck3 != null">#{ck3},</if>
+            <if test="ck4 != null">#{ck4},</if>
+            <if test="ck5 != null">#{ck5},</if>
+            <if test="ck6 != null">#{ck6},</if>
+            <if test="biomass != null">#{biomass},</if>
+            <if test="grainDiameter != null">#{grainDiameter},</if>
+            <if test="barrenEarTip != null">#{barrenEarTip},</if>
+            <if test="sampleWeight != null">#{sampleWeight},</if>
+            <if test="sampleWeightDate != null">#{sampleWeightDate},</if>
+            <if test="grainRedMeanValue != null">#{grainRedMeanValue},</if>
+            <if test="grainBlueMeanValue != null">#{grainBlueMeanValue},</if>
+            <if test="grainGreenMeanValue != null">#{grainGreenMeanValue},</if>
+            <if test="grainAreaRatio != null">#{grainAreaRatio},</if>
+            <if test="grainAreaSd != null">#{grainAreaSd},</if>
+            <if test="grainAreaMeanValue != null">#{grainAreaMeanValue},</if>
+            <if test="grainMeanRoundness != null">#{grainMeanRoundness},</if>
+            <if test="grainMeanCircumferenceSd != null">#{grainMeanCircumferenceSd},</if>
+            <if test="grainMeanCircumference != null">#{grainMeanCircumference},</if>
+            <if test="totalKernelArea != null">#{totalKernelArea},</if>
+            <if test="ck1Yield != null">#{ck1Yield},</if>
+            <if test="ck2Yield != null">#{ck2Yield},</if>
+            <if test="ck3Yield != null">#{ck3Yield},</if>
+            <if test="cobDryWeight != null">#{cobDryWeight},</if>
+            <if test="cobWetWeight != null">#{cobWetWeight},</if>
+            <if test="cobDiameter != null">#{cobDiameter},</if>
+            <if test="rm != null">#{rm},</if>
+            <if test="grainThickness != null">#{grainThickness},</if>
+            <if test="grainQuality != null">#{grainQuality},</if>
+            <if test="rank != null">#{rank},</if>
+            <if test="seedcaseThickness != null">#{seedcaseThickness},</if>
+            <if test="scent != null">#{scent},</if>
+            <if test="tenderness != null">#{tenderness},</if>
+            <if test="cookingScore != null">#{cookingScore},</if>
+            <if test="sweetness != null">#{sweetness},</if>
+            <if test="flavor != null">#{flavor},</if>
+            <if test="freshEarLevel != null">#{freshEarLevel},</if>
+            <if test="freshEarYield != null">#{freshEarYield},</if>
+            <if test="earEvenness != null">#{earEvenness},</if>
+            <if test="ustilagoMaydis != null">#{ustilagoMaydis},</if>
+            <if test="maizeEarRot != null">#{maizeEarRot},</if>
+            <if test="maizeSheathBlight != null">#{maizeSheathBlight},</if>
+            <if test="southernCornRust != null">#{southernCornRust},</if>
+            <if test="leafSpotDisease != null">#{leafSpotDisease},</if>
+            <if test="maizeBorer != null">#{maizeBorer},</if>
+            <if test="maizeStalkRot != null">#{maizeStalkRot},</if>
+            <if test="maizeRoughDwarfDisease != null">#{maizeRoughDwarfDisease},</if>
+            <if test="southernCornRustTxt != null">#{southernCornRustTxt},</if>
+            <if test="northernLeafBlight != null">#{northernLeafBlight},</if>
+            <if test="maizeDwarfMosaicDisease != null">#{maizeDwarfMosaicDisease},</if>
+            <if test="maizeAlbinism != null">#{maizeAlbinism},</if>
+            <if test="physodermaMaydis != null">#{physodermaMaydis},</if>
+            <if test="grayLeafSpot != null">#{grayLeafSpot},</if>
+            <if test="earKernelRot != null">#{earKernelRot},</if>
+            <if test="southernLeafBlight != null">#{southernLeafBlight},</if>
+            <if test="graminearumStalkRot != null">#{graminearumStalkRot},</if>
+            <if test="pythiumStalkRot != null">#{pythiumStalkRot},</if>
+            <if test="fGraminearum != null">#{fGraminearum},</if>
+            <if test="fVerticillioides != null">#{fVerticillioides},</if>
+            <if test="aphis != null">#{aphis},</if>
+            <if test="borerResistance != null">#{borerResistance},</if>
+            <if test="treatmentsApplied != null">#{treatmentsApplied},</if>
+            <if test="resistanceCharacters1 != null">#{resistanceCharacters1},</if>
+            <if test="resistanceCharacters2 != null">#{resistanceCharacters2},</if>
+            <if test="resistanceCharacters3 != null">#{resistanceCharacters3},</if>
+            <if test="comprehensiveResistance != null">#{comprehensiveResistance},</if>
+            <if test="rootLodging != null">#{rootLodging},</if>
+            <if test="lodgingResistance != null">#{lodgingResistance},</if>
+            <if test="stemLodging != null">#{stemLodging},</if>
+            <if test="seedlingDeathPercent1 != null">#{seedlingDeathPercent1},</if>
+            <if test="deadSeedlingNumber1 != null">#{deadSeedlingNumber1},</if>
+            <if test="seedlingDeathPercent2 != null">#{seedlingDeathPercent2},</if>
+            <if test="deadSeedlingNumber2 != null">#{deadSeedlingNumber2},</if>
+            <if test="seedlingDeathPercent3 != null">#{seedlingDeathPercent3},</if>
+            <if test="deadSeedlingNumber3 != null">#{deadSeedlingNumber3},</if>
+            <if test="treatName != null">#{treatName},</if>
+            <if test="deformedSeedlingPercent != null">#{deformedSeedlingPercent},</if>
+            <if test="deformedSeedlingNumber != null">#{deformedSeedlingNumber},</if>
+            <if test="comment1 != null">#{comment1},</if>
+            <if test="comment2 != null">#{comment2},</if>
+            <if test="comment3 != null">#{comment3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWphenotype" parameterType="Wphenotype">
+        update phenotype
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="colDescription != null">col_description = #{colDescription},</if>
+            <if test="bookName != null">book_name = #{bookName},</if>
+            <if test="project != null">project = #{project},</if>
+            <if test="year != null">year = #{year},</if>
+            <if test="location != null">location = #{location},</if>
+            <if test="seq != null">seq = #{seq},</if>
+            <if test="plotNumber != null">plot_number = #{plotNumber},</if>
+            <if test="plotNumberName != null">plot_number_name = #{plotNumberName},</if>
+            <if test="pedigree != null">pedigree = #{pedigree},</if>
+            <if test="pedigree2 != null">pedigree2 = #{pedigree2},</if>
+            <if test="pedigreesource1 != null">pedigreeSource1 = #{pedigreesource1},</if>
+            <if test="pedigreesource2 != null">pedigreeSource2 = #{pedigreesource2},</if>
+            <if test="femalePedid != null">female_pedId = #{femalePedid},</if>
+            <if test="femalePlot != null">female_plot = #{femalePlot},</if>
+            <if test="femalePedigree != null">female_pedigree = #{femalePedigree},</if>
+            <if test="malePedid != null">male_pedId = #{malePedid},</if>
+            <if test="malePlot != null">male_plot = #{malePlot},</if>
+            <if test="malePedigree != null">male_pedigree = #{malePedigree},</if>
+            <if test="repNumber != null">rep_number = #{repNumber},</if>
+            <if test="population != null">population = #{population},</if>
+            <if test="density != null">density = #{density},</if>
+            <if test="rowLength != null">row_length = #{rowLength},</if>
+            <if test="rowNumber != null">row_number = #{rowNumber},</if>
+            <if test="seedingMethod != null">seeding_method = #{seedingMethod},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="planterSowNumber != null">planter_sow_number = #{planterSowNumber},</if>
+            <if test="decisionNursery != null">decision_nursery = #{decisionNursery},</if>
+            <if test="inventoryState != null">inventory_state = #{inventoryState},</if>
+            <if test="harvestNumber != null">harvest_number = #{harvestNumber},</if>
+            <if test="generations != null">generations = #{generations},</if>
+            <if test="invertoryState != null">invertory_state = #{invertoryState},</if>
+            <if test="previewErrorMessage != null">preview_error_message = #{previewErrorMessage},</if>
+            <if test="sourceId != null">source_id = #{sourceId},</if>
+            <if test="leafLength != null">leaf_length = #{leafLength},</if>
+            <if test="leafWidth != null">leaf_width = #{leafWidth},</if>
+            <if test="plantHeight != null">plant_height = #{plantHeight},</if>
+            <if test="earHeight != null">ear_height = #{earHeight},</if>
+            <if test="tasselLengthTop != null">tassel_length_top = #{tasselLengthTop},</if>
+            <if test="tasselBranchNumber1 != null">tassel_branch_number1 = #{tasselBranchNumber1},</if>
+            <if test="expression != null">expression = #{expression},</if>
+            <if test="tasselBranchNumber != null">tassel_branch_number = #{tasselBranchNumber},</if>
+            <if test="rates != null">rates = #{rates},</if>
+            <if test="leafNumberAboveEar != null">leaf_number_above_ear = #{leafNumberAboveEar},</if>
+            <if test="seedlingPotential != null">seedling_potential = #{seedlingPotential},</if>
+            <if test="tasselLength2 != null">tassel_length_2 = #{tasselLength2},</if>
+            <if test="tasselPosture2 != null">tassel_posture_2 = #{tasselPosture2},</if>
+            <if test="tasselAngle2 != null">tassel_angle_2 = #{tasselAngle2},</if>
+            <if test="tasselLength3 != null">tassel_length_3 = #{tasselLength3},</if>
+            <if test="tasselLength4 != null">tassel_length_4 = #{tasselLength4},</if>
+            <if test="tasselDensity != null">tassel_density = #{tasselDensity},</if>
+            <if test="tasselWeight1 != null">tassel_weight1 = #{tasselWeight1},</if>
+            <if test="tasselWeight2 != null">tassel_weight2 = #{tasselWeight2},</if>
+            <if test="tasselFloretNumber != null">tassel_floret_number = #{tasselFloretNumber},</if>
+            <if test="pollenQuantity != null">pollen_quantity = #{pollenQuantity},</if>
+            <if test="rootDistribution != null">root_distribution = #{rootDistribution},</if>
+            <if test="rootLayer != null">root_layer = #{rootLayer},</if>
+            <if test="rootThickness != null">root_thickness = #{rootThickness},</if>
+            <if test="rootAngle != null">root_angle = #{rootAngle},</if>
+            <if test="femaleRootDistribution != null">female_root_distribution = #{femaleRootDistribution},</if>
+            <if test="maleRootDistribution != null">male_root_distribution = #{maleRootDistribution},</if>
+            <if test="leafShape1 != null">leaf_shape_1 = #{leafShape1},</if>
+            <if test="leafPosture1 != null">leaf_posture1 = #{leafPosture1},</if>
+            <if test="leafAngle != null">leaf_angle = #{leafAngle},</if>
+            <if test="leafPosture2 != null">leaf_posture2 = #{leafPosture2},</if>
+            <if test="leafNumber1 != null">leaf_number1 = #{leafNumber1},</if>
+            <if test="stemDiameter != null">stem_diameter = #{stemDiameter},</if>
+            <if test="earBearingPosture != null">ear_bearing_posture = #{earBearingPosture},</if>
+            <if test="huskTier != null">husk_tier = #{huskTier},</if>
+            <if test="huskThickness1 != null">husk_thickness1 = #{huskThickness1},</if>
+            <if test="huskTierAll != null">husk_tier_all = #{huskTierAll},</if>
+            <if test="huskThickness2 != null">husk_thickness2 = #{huskThickness2},</if>
+            <if test="silkColor != null">silk_color = #{silkColor},</if>
+            <if test="antherColor != null">anther_color = #{antherColor},</if>
+            <if test="stemRootColor != null">stem_root_color = #{stemRootColor},</if>
+            <if test="rachisColor != null">rachis_color = #{rachisColor},</if>
+            <if test="sheathColor1 != null">sheath_color1 = #{sheathColor1},</if>
+            <if test="glumeColor != null">glume_color = #{glumeColor},</if>
+            <if test="leafColor1 != null">leaf_color1 = #{leafColor1},</if>
+            <if test="grainColor2 != null">grain_color2 = #{grainColor2},</if>
+            <if test="grainColor != null">grain_color = #{grainColor},</if>
+            <if test="sheathColor2 != null">sheath_color2 = #{sheathColor2},</if>
+            <if test="leafColor2 != null">leaf_color2 = #{leafColor2},</if>
+            <if test="fieldEvaluation != null">field_evaluation = #{fieldEvaluation},</if>
+            <if test="fieldEvaluation2 != null">field_evaluation2 = #{fieldEvaluation2},</if>
+            <if test="laboratoryEvaluation != null">laboratory_evaluation = #{laboratoryEvaluation},</if>
+            <if test="laboratoryEvaluation2 != null">laboratory_evaluation2 = #{laboratoryEvaluation2},</if>
+            <if test="benefitial != null">benefitial = #{benefitial},</if>
+            <if test="emptyStalkNumber != null">empty_stalk_number = #{emptyStalkNumber},</if>
+            <if test="selectedPlantNumber != null">selected_plant_number = #{selectedPlantNumber},</if>
+            <if test="plantNumber != null">plant_number = #{plantNumber},</if>
+            <if test="leafStayGreen != null">leaf_stay_green = #{leafStayGreen},</if>
+            <if test="pollinationPlan1 != null">pollination_plan1 = #{pollinationPlan1},</if>
+            <if test="pollinationPlan2 != null">pollination_plan2 = #{pollinationPlan2},</if>
+            <if test="doubleEarNumber != null">double_ear_number = #{doubleEarNumber},</if>
+            <if test="decisionStrip != null">decision_strip = #{decisionStrip},</if>
+            <if test="decisionSource != null">decision_source = #{decisionSource},</if>
+            <if test="siteDiscrepancy != null">site_discrepancy = #{siteDiscrepancy},</if>
+            <if test="tests1 != null">tests1 = #{tests1},</if>
+            <if test="tests2 != null">tests2 = #{tests2},</if>
+            <if test="daysToTassel != null">days_to_tassel = #{daysToTassel},</if>
+            <if test="daysToSeedling != null">days_to_seedling = #{daysToSeedling},</if>
+            <if test="daysToMaturity != null">days_to_maturity = #{daysToMaturity},</if>
+            <if test="datePlanted != null">date_Planted = #{datePlanted},</if>
+            <if test="growthPeriod != null">growth_period = #{growthPeriod},</if>
+            <if test="daysToAnther != null">days_to_anther = #{daysToAnther},</if>
+            <if test="daysToSilk != null">days_to_silk = #{daysToSilk},</if>
+            <if test="dateHarvested != null">date_harvested = #{dateHarvested},</if>
+            <if test="daysToAnther2 != null">days_to_anther2 = #{daysToAnther2},</if>
+            <if test="daysToSilk2 != null">days_to_silk2 = #{daysToSilk2},</if>
+            <if test="antherTasselInterval != null">anther_tassel_interval = #{antherTasselInterval},</if>
+            <if test="grainLength != null">grain_length = #{grainLength},</if>
+            <if test="grainLengthSd != null">grain_length_sd = #{grainLengthSd},</if>
+            <if test="grainWidth != null">grain_width = #{grainWidth},</if>
+            <if test="grainWidthSd != null">grain_width_sd = #{grainWidthSd},</if>
+            <if test="earLength != null">ear_length = #{earLength},</if>
+            <if test="earDiameter != null">ear_diameter = #{earDiameter},</if>
+            <if test="earNumber != null">ear_number = #{earNumber},</if>
+            <if test="kernelRowNumber != null">kernel_row_number = #{kernelRowNumber},</if>
+            <if test="kernelNumbersPerRow != null">kernel_numbers_per_row = #{kernelNumbersPerRow},</if>
+            <if test="grainShape != null">grain_shape = #{grainShape},</if>
+            <if test="grainType != null">grain_type = #{grainType},</if>
+            <if test="grainWeight != null">grain_weight = #{grainWeight},</if>
+            <if test="yield != null">yield = #{yield},</if>
+            <if test="earShape != null">ear_shape = #{earShape},</if>
+            <if test="earStalkLength != null">ear_stalk_length = #{earStalkLength},</if>
+            <if test="earDryWeight != null">ear_dry_weight = #{earDryWeight},</if>
+            <if test="kernelDryWeight != null">kernel_dry_weight = #{kernelDryWeight},</if>
+            <if test="kernelWetWeight != null">kernel_wet_weight = #{kernelWetWeight},</if>
+            <if test="kernelNumbersPerEar != null">kernel_numbers_per_ear = #{kernelNumbersPerEar},</if>
+            <if test="earKernelWeight != null">ear_kernel_weight = #{earKernelWeight},</if>
+            <if test="earWetWeight != null">ear_wet_weight = #{earWetWeight},</if>
+            <if test="earWeight != null">ear_weight = #{earWeight},</if>
+            <if test="kernelLengthWidthRatio != null">kernel_length_width_ratio = #{kernelLengthWidthRatio},</if>
+            <if test="grainWaterContent != null">grain_water_content = #{grainWaterContent},</if>
+            <if test="kernelPercentage != null">kernel_percentage = #{kernelPercentage},</if>
+            <if test="volumeWeight != null">volume_weight = #{volumeWeight},</if>
+            <if test="fecundity != null">fecundity = #{fecundity},</if>
+            <if test="ck1 != null">CK1 = #{ck1},</if>
+            <if test="ck2 != null">CK2 = #{ck2},</if>
+            <if test="ck3 != null">CK3 = #{ck3},</if>
+            <if test="ck4 != null">CK4 = #{ck4},</if>
+            <if test="ck5 != null">CK5 = #{ck5},</if>
+            <if test="ck6 != null">CK6 = #{ck6},</if>
+            <if test="biomass != null">biomass = #{biomass},</if>
+            <if test="grainDiameter != null">grain_diameter = #{grainDiameter},</if>
+            <if test="barrenEarTip != null">barren_ear_tip = #{barrenEarTip},</if>
+            <if test="sampleWeight != null">sample_weight = #{sampleWeight},</if>
+            <if test="sampleWeightDate != null">sample_weight_date = #{sampleWeightDate},</if>
+            <if test="grainRedMeanValue != null">grain_red_mean_value = #{grainRedMeanValue},</if>
+            <if test="grainBlueMeanValue != null">grain_blue_mean_value = #{grainBlueMeanValue},</if>
+            <if test="grainGreenMeanValue != null">grain_green_mean_value = #{grainGreenMeanValue},</if>
+            <if test="grainAreaRatio != null">grain_area_ratio = #{grainAreaRatio},</if>
+            <if test="grainAreaSd != null">grain_area_sd = #{grainAreaSd},</if>
+            <if test="grainAreaMeanValue != null">grain_area_mean_value = #{grainAreaMeanValue},</if>
+            <if test="grainMeanRoundness != null">grain_mean_roundness = #{grainMeanRoundness},</if>
+            <if test="grainMeanCircumferenceSd != null">grain_mean_circumference_sd = #{grainMeanCircumferenceSd},</if>
+            <if test="grainMeanCircumference != null">grain_mean_circumference = #{grainMeanCircumference},</if>
+            <if test="totalKernelArea != null">total_kernel_area = #{totalKernelArea},</if>
+            <if test="ck1Yield != null">CK1_yield = #{ck1Yield},</if>
+            <if test="ck2Yield != null">CK2_yield = #{ck2Yield},</if>
+            <if test="ck3Yield != null">CK3_yield = #{ck3Yield},</if>
+            <if test="cobDryWeight != null">cob_dry_weight = #{cobDryWeight},</if>
+            <if test="cobWetWeight != null">cob_wet_weight = #{cobWetWeight},</if>
+            <if test="cobDiameter != null">cob_diameter = #{cobDiameter},</if>
+            <if test="rm != null">RM = #{rm},</if>
+            <if test="grainThickness != null">grain_thickness = #{grainThickness},</if>
+            <if test="grainQuality != null">grain_quality = #{grainQuality},</if>
+            <if test="rank != null">rank = #{rank},</if>
+            <if test="seedcaseThickness != null">seedcase_thickness = #{seedcaseThickness},</if>
+            <if test="scent != null">scent = #{scent},</if>
+            <if test="tenderness != null">tenderness = #{tenderness},</if>
+            <if test="cookingScore != null">cooking_score = #{cookingScore},</if>
+            <if test="sweetness != null">sweetness = #{sweetness},</if>
+            <if test="flavor != null">flavor = #{flavor},</if>
+            <if test="freshEarLevel != null">fresh_ear_level = #{freshEarLevel},</if>
+            <if test="freshEarYield != null">fresh_ear_yield = #{freshEarYield},</if>
+            <if test="earEvenness != null">ear_evenness = #{earEvenness},</if>
+            <if test="ustilagoMaydis != null">ustilago_maydis = #{ustilagoMaydis},</if>
+            <if test="maizeEarRot != null">maize_ear_rot = #{maizeEarRot},</if>
+            <if test="maizeSheathBlight != null">maize_sheath_blight = #{maizeSheathBlight},</if>
+            <if test="southernCornRust != null">southern_corn_rust = #{southernCornRust},</if>
+            <if test="leafSpotDisease != null">leaf_spot_disease = #{leafSpotDisease},</if>
+            <if test="maizeBorer != null">maize_borer = #{maizeBorer},</if>
+            <if test="maizeStalkRot != null">maize_stalk_rot = #{maizeStalkRot},</if>
+            <if test="maizeRoughDwarfDisease != null">maize_rough_dwarf_disease = #{maizeRoughDwarfDisease},</if>
+            <if test="southernCornRustTxt != null">southern_corn_rust_txt = #{southernCornRustTxt},</if>
+            <if test="northernLeafBlight != null">northern_leaf_blight = #{northernLeafBlight},</if>
+            <if test="maizeDwarfMosaicDisease != null">maize_dwarf_mosaic_disease = #{maizeDwarfMosaicDisease},</if>
+            <if test="maizeAlbinism != null">maize_albinism = #{maizeAlbinism},</if>
+            <if test="physodermaMaydis != null">physoderma_maydis = #{physodermaMaydis},</if>
+            <if test="grayLeafSpot != null">gray_leaf_spot = #{grayLeafSpot},</if>
+            <if test="earKernelRot != null">ear_kernel_rot = #{earKernelRot},</if>
+            <if test="southernLeafBlight != null">southern_leaf_blight = #{southernLeafBlight},</if>
+            <if test="graminearumStalkRot != null">graminearum_stalk_rot = #{graminearumStalkRot},</if>
+            <if test="pythiumStalkRot != null">pythium_stalk_rot = #{pythiumStalkRot},</if>
+            <if test="fGraminearum != null">F_graminEarum = #{fGraminearum},</if>
+            <if test="fVerticillioides != null">F_verticillioides = #{fVerticillioides},</if>
+            <if test="aphis != null">aphis = #{aphis},</if>
+            <if test="borerResistance != null">borer_resistance = #{borerResistance},</if>
+            <if test="treatmentsApplied != null">treatments_applied = #{treatmentsApplied},</if>
+            <if test="resistanceCharacters1 != null">resistance_characters1 = #{resistanceCharacters1},</if>
+            <if test="resistanceCharacters2 != null">resistance_characters2 = #{resistanceCharacters2},</if>
+            <if test="resistanceCharacters3 != null">resistance_characters3 = #{resistanceCharacters3},</if>
+            <if test="comprehensiveResistance != null">comprehensive_resistance = #{comprehensiveResistance},</if>
+            <if test="rootLodging != null">root_lodging = #{rootLodging},</if>
+            <if test="lodgingResistance != null">lodging_resistance = #{lodgingResistance},</if>
+            <if test="stemLodging != null">stem_lodging = #{stemLodging},</if>
+            <if test="seedlingDeathPercent1 != null">seedling_death_percent1 = #{seedlingDeathPercent1},</if>
+            <if test="deadSeedlingNumber1 != null">dead_seedling_number1 = #{deadSeedlingNumber1},</if>
+            <if test="seedlingDeathPercent2 != null">seedling_death_percent2 = #{seedlingDeathPercent2},</if>
+            <if test="deadSeedlingNumber2 != null">dead_seedling_number2 = #{deadSeedlingNumber2},</if>
+            <if test="seedlingDeathPercent3 != null">seedling_death_percent3 = #{seedlingDeathPercent3},</if>
+            <if test="deadSeedlingNumber3 != null">dead_seedling_number3 = #{deadSeedlingNumber3},</if>
+            <if test="treatName != null">treat_name = #{treatName},</if>
+            <if test="deformedSeedlingPercent != null">deformed_seedling_percent = #{deformedSeedlingPercent},</if>
+            <if test="deformedSeedlingNumber != null">deformed_seedling_number = #{deformedSeedlingNumber},</if>
+            <if test="comment1 != null">comment1 = #{comment1},</if>
+            <if test="comment2 != null">comment2 = #{comment2},</if>
+            <if test="comment3 != null">comment3 = #{comment3},</if>
+        </trim>
+        where pedId = #{pedid}
+    </update>
+
+    <delete id="deleteWphenotypeByPedid" parameterType="Long">
+        delete from phenotype where pedId = #{pedid}
+    </delete>
+
+    <delete id="deleteWphenotypeByPedids" parameterType="String">
+        delete from phenotype where pedId in 
+        <foreach item="pedid" collection="array" open="(" separator="," close=")">
+            #{pedid}
+        </foreach>
+    </delete>
+
+    <select id="selectPhenotypeByYear" resultMap="WphenotypeResult">
+        select * from phenotype where 1=1 and year in
+        <foreach item="year" collection="years" index="index" open="(" close=")" separator=",">
+            #{year}
+        </foreach>
+    </select>
+
+    <select id="selectPhenotypeByLocations" resultMap="WphenotypeResult">
+        select * from phenotype where 1=1 and location in
+        <foreach item="location" collection="locations" index="index" open="(" close=")" separator=",">
+            #{location}
+        </foreach>
+    </select>
+
+    <select id="selectPhenotypeByname" resultMap="WphenotypeResult">
+        select * from phenotype where pedigree=#{pedigree}
+    </select>
+
+    <select id="selectAllPhenotype" resultMap="WphenotypeResult">
+        select * from phenotype
+    </select>
+
+    <select id="selectBy" resultType="java.util.Map">
+        select * from phenotype where 3=3
+        <if test="pedigrees != null and pedigrees.size() > 0">
+            and pedigree in <foreach collection="pedigrees" index="index" item="pedigree" open="(" close=")" separator=",">
+            #{pedigree}
+        </foreach>
+        </if>
+        <if test="locations != null and locations.size() > 0">
+            and location in
+            <foreach item="location" collection="locations" index="index" open="(" close=")" separator=",">
+                #{location}
+            </foreach>
+        </if>
+        <if test="years != null and years.size() > 0">
+            and year in
+            <foreach item="year" collection="years" index="index" open="(" close=")" separator=",">
+                #{year}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="findBxServe" resultType="java.util.Map">
+        select pedid,pedigreeSource1,pedigreeSource2,pedigree,year,location,
+        <foreach collection="traits" item="trait" index="index" separator=",">
+            ${trait}
+        </foreach>from phenotype where 1=1
+        <if test="pedigrees != null and pedigrees.size() > 0">
+            and pedigree in
+            <foreach collection="pedigrees" item="pedigree" index="index" open="(" close=")" separator=",">
+                #{pedigree}
+            </foreach>
+        </if>
+        <if test="locations != null and locations.size() > 0">
+            and location in
+            <foreach item="location" collection="locations" index="index" open="(" close=")" separator=",">
+                #{location}
+            </foreach>
+        </if>
+        <if test="years != null and years.size() > 0">
+            and year in
+            <foreach item="year" collection="years" index="index" open="(" close=")" separator=",">
+                #{year}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="selectWithTrait" resultType="SearchVo">
+        select pedid,pedigreeSource1,pedigreeSource2,pedigree,year,location,
+        <foreach collection="traits" item="trait" index="index" separator=",">
+            ${trait}
+        </foreach>from phenotype where 1=1
+        <if test="pedigrees != null and pedigrees.size() > 0">
+            and pedigree in
+            <foreach collection="pedigrees" item="pedigree" index="index" open="(" close=")" separator=",">
+                #{pedigree}
+            </foreach>
+        </if>
+        <if test="locations != null and locations.size() > 0">
+            and location in
+            <foreach item="location" collection="locations" index="index" open="(" close=")" separator=",">
+                #{location}
+            </foreach>
+        </if>
+        <if test="years != null and years.size() > 0">
+            and year in
+            <foreach item="year" collection="years" index="index" open="(" close=")" separator=",">
+                #{year}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="searchTrait" resultType="String">
+        select ${trait} from phenotype where 1=1
+        <if test="pedigree != null and pedigree !='' ">
+            and pedigree=#{pedigree}
+        </if>
+        <if test="year != null and year != '' ">
+            and year=#{year}
+        </if>
+        <if test="location != null and location != '' ">
+            and location=#{location}
+        </if>
+    </select>
+
+    <select id="selectAllYear" resultType="Long">
+        select distinct year from phenotype
+    </select>
+    
+    <select id="selectAllLocation" resultType="String">
+        select distinct location from phenotype
+    </select>
+
+    <select id="selectAllTrait" resultType="String">
+        select COLUMN_NAME from information_schema.`COLUMNS` where table_name='phenotype' and table_schema='zeamap'
+    </select>
+
+    <select id="selectYieldByName" resultMap="YieldResult">
+        select pedid,pedigreeSource1,pedigreeSource2,pedigree,year,location,grain_length,grain_width,ear_length,ear_diameter,kernel_row_number,kernel_numbers_per_row,grain_weight,yield,kernel_numbers_per_ear,ear_kernel_weight,grain_water_content,kernel_percentage
+        from phenotype where
+            pedigree=#{pedigree}
+            and grain_length is not null and grain_width is not null and ear_length is not null and ear_diameter is not null and kernel_row_number is not null and kernel_numbers_per_row is not null and grain_weight is not null and yield is not null and kernel_numbers_per_ear is not null and ear_kernel_weight is not null and grain_water_content is not null and kernel_percentage is not null
+    </select>
+
+    <select id="selectAllYield" resultMap="YieldResult">
+        select pedid,pedigreeSource1,pedigreeSource2,pedigree,year,location,grain_length,grain_width,ear_length,ear_diameter,kernel_row_number,kernel_numbers_per_row,grain_weight,yield,kernel_numbers_per_ear,ear_kernel_weight,grain_water_content,kernel_percentage
+        from phenotype where
+        grain_length is not null and grain_width is not null and ear_length is not null and ear_diameter is not null and kernel_row_number is not null and kernel_numbers_per_row is not null and grain_weight is not null and yield is not null and kernel_numbers_per_ear is not null and ear_kernel_weight is not null and grain_water_content is not null and kernel_percentage is not null
+    </select>
+
+    <select id="selectMorphologicalByname" resultMap="MorResult">
+        SELECT
+            pedid,pedigreeSource1,pedigreeSource2,pedigree,year,location,leaf_length,leaf_width,plant_height,
+            ear_height,
+            tassel_length_top,
+            tassel_branch_number1,
+            `expression`,
+            tassel_branch_number,
+            rates,
+            leaf_number_above_ear,
+            seedling_potential,
+            tassel_length_2,
+            tassel_posture_2,
+            tassel_angle_2,
+            tassel_length_3,
+            tassel_length_4,
+            tassel_density,
+            tassel_weight1,
+            tassel_weight2,
+            tassel_floret_number,
+            pollen_quantity,
+            root_distribution,
+            root_layer,
+            root_thickness,
+            root_angle,
+            female_root_distribution,
+            male_root_distribution,
+            leaf_shape_1,
+            leaf_posture1,
+            leaf_angle,
+            leaf_posture2,
+            leaf_number1,
+            stem_diameter,
+            ear_bearing_posture,
+            husk_tier,
+            husk_thickness1,
+            husk_tier_all,
+            husk_thickness2,
+            silk_color,
+            anther_color,
+            stem_root_color,
+            rachis_color,
+            sheath_color1,
+            glume_color,
+            leaf_color1,
+            grain_color2,
+            grain_color,
+            sheath_color2,
+            leaf_color2
+        FROM phenotype
+        WHERE
+            pedigree=#{pedigree}
+    </select>
+
+    <select id="selectAllMorphological" resultMap="MorResult">
+        SELECT
+            pedid,pedigreeSource1,pedigreeSource2,pedigree,year,location,
+            leaf_length,
+            leaf_width,
+            plant_height,
+            ear_height,
+            tassel_branch_number,
+            root_layer,
+            leaf_number1,
+            stem_diameter,
+            silk_color,
+            anther_color,
+            rachis_color,
+            grain_color
+        FROM phenotype
+        WHERE
+          leaf_length IS NOT NULL
+          AND leaf_width IS NOT NULL
+          AND plant_height IS NOT NULL
+          AND ear_height IS NOT NULL
+          AND tassel_length_top IS NOT NULL
+          AND tassel_branch_number1 IS NOT NULL
+          AND `expression` IS NOT NULL
+          AND tassel_branch_number IS NOT NULL
+          AND rates IS NOT NULL
+          AND leaf_number_above_ear IS NOT NULL
+          AND seedling_potential IS NOT NULL
+          AND tassel_length_2 IS NOT NULL
+          AND tassel_posture_2 IS NOT NULL
+          AND tassel_angle_2 IS NOT NULL
+          AND tassel_length_3 IS NOT NULL
+          AND tassel_length_4 IS NOT NULL
+          AND tassel_density IS NOT NULL
+          AND tassel_weight1 IS NOT NULL
+          AND tassel_weight2 IS NOT NULL
+          AND tassel_floret_number IS NOT NULL
+          AND pollen_quantity IS NOT NULL
+          AND root_distribution IS NOT NULL
+          AND root_layer IS NOT NULL
+          AND root_thickness IS NOT NULL
+          AND root_angle IS NOT NULL
+          AND female_root_distribution IS NOT NULL
+          AND male_root_distribution IS NOT NULL
+          AND leaf_shape_1 IS NOT NULL
+          AND leaf_posture1 IS NOT NULL
+          AND leaf_angle IS NOT NULL
+          AND leaf_posture2 IS NOT NULL
+          AND leaf_number1 IS NOT NULL
+          AND stem_diameter IS NOT NULL
+          AND ear_bearing_posture IS NOT NULL
+          AND husk_tier IS NOT NULL
+          AND husk_thickness1 IS NOT NULL
+          AND husk_tier_all IS NOT NULL
+          AND husk_thickness2 IS NOT NULL
+    </select>
+
+    <select id="selectAgrByName" resultMap="AgrResult">
+        select pedigreeSource1,pedigreeSource2,pedigree,year,location,field_evaluation,field_evaluation2,laboratory_evaluation,laboratory_evaluation2,benefitial,empty_stalk_number,selected_plant_number,plant_number,leaf_stay_green,pollination_plan1,pollination_plan2,double_ear_number,decision_strip,decision_source,site_discrepancy,tests1,tests2,anther_tassel_interval
+        from phenotype
+        where
+            pedigree=#{pedigree}
+    </select>
+
+    <select id="selectAllAgr" resultMap="AgrResult">
+        select pedigreeSource1,pedigreeSource2,pedigree,year,location,field_evaluation,field_evaluation2,laboratory_evaluation,laboratory_evaluation2,benefitial,empty_stalk_number,selected_plant_number,plant_number,leaf_stay_green,pollination_plan1,pollination_plan2,double_ear_number,decision_strip,decision_source,site_discrepancy,tests1,tests2,anther_tassel_interval
+        from phenotype
+        where
+          empty_stalk_number is not null
+          and selected_plant_number is not null
+          and plant_number is not null
+          and double_ear_number is not null
+          and anther_tassel_interval is not null
+    </select>
+
+    <select id="selectBxDate" resultMap="BxDateResult">
+        select days_to_tassel,days_to_seedling,days_to_maturity,date_planted,growth_period,days_to_anther,days_to_silk,date_harvested
+        from phenotype
+        where
+        pedigree=#{pedigree}
+          and days_to_tassel is not null
+          and days_to_seedling is not null
+          and days_to_maturity is not null
+          and date_planted is not null
+          and growth_period is not null
+          and days_to_anther is not null
+          and days_to_silk is not null
+          and date_harvested is not null
+    </select>
+
+    <select id="selectAllDate" resultMap="BxDateResult">
+        select days_to_tassel,days_to_seedling,days_to_maturity,date_planted,growth_period,days_to_anther,days_to_silk,date_harvested
+        from phenotype
+        where
+          days_to_tassel is not null
+          and days_to_seedling is not null
+          and days_to_maturity is not null
+          and date_planted is not null
+          and growth_period is not null
+          and days_to_anther is not null
+          and days_to_silk is not null
+          and date_harvested is not null
+    </select>
+
+
+
+    <select id="selectTrait" resultType="java.util.Map">
+        select pedigree,pedigreeSource1,pedigreeSource2,location,year,
+               <foreach collection="traits" item="trait" index="index" separator=",">
+        ${trait}
+    </foreach> from phenotype where pedigree is not null;
+    </select>
+
+    <select id="selectTraitsByName" resultType="java.util.Map">
+        select pedigree,pedigreeSource1,pedigreeSource2,location,year,
+        <foreach collection="traits" item="trait" index="index" separator=",">
+            ${trait}
+        </foreach> from phenotype where pedigree=#{pedigree}
+    </select>
+
+
+    <select id="selectTVo" resultType="TraitVo">
+        select pedigree,pedigreeSource1,pedigreeSource2 from phenotype where pedigree is not null;
+    </select>
+
+    <select id="selectTraitByName" resultType="String">
+        select ${trait} from phenotype where pedigree=#{pedigree} and ${trait} is not null
+    </select>
+
+    <select id="selectTVoByName" resultType="TraitVo">
+        select pedigree,pedigreeSource1,pedigreeSource2 from phenotype where pedigree=#{pedigree}
+    </select>
+
+    <select id="selectTraitGroup" resultType="String">
+        select ${trait} from phenotype where pedigree is not null
+    </select>
+
+    <select id="selectGe" resultType="GeVo">
+        select pedigree,year,location,${trait} from phenotype where pedigree is not null
+    </select>
+
+    <select id="selectTraitGroupByName" resultType="String">
+        select ${trait},year,location from phenotype where pedigree=#{pedigree} and pedigree is not null GROUP BY ${trait},year,location
+    </select>
+
+    <select id="selectGeByName" resultType="GeVo">
+        select year,location,${trait} from phenotype where pedigree=#{pedigree} group by year,location,${trait}
+    </select>
+
+    <select id="selectBxRateByName" resultMap="BxRateResult">
+        select ustilago_maydis,maize_ear_rot,maize_sheath_blight,southern_corn_rust,leaf_spot_disease,maize_borer,northern_leaf_blight,comprehensive_resistance from phenotype
+        where pedigree=#{pedigree}
+          and ustilago_maydis is not null
+          and maize_ear_rot is not null
+          and maize_sheath_blight is not null
+          and southern_corn_rust is not null
+          and leaf_spot_disease is not null
+          and maize_borer is not null
+          and northern_leaf_blight is not null
+          and comprehensive_resistance is not null
+    </select>
+
+    <select id="selectAllRate" resultMap="BxRateResult">
+        select ustilago_maydis,maize_ear_rot,maize_sheath_blight,southern_corn_rust,leaf_spot_disease,maize_borer,northern_leaf_blight,comprehensive_resistance from phenotype
+        where ustilago_maydis is not null
+          and maize_ear_rot is not null
+          and maize_sheath_blight is not null
+          and southern_corn_rust is not null
+          and leaf_spot_disease is not null
+          and maize_borer is not null
+          and northern_leaf_blight is not null
+          and comprehensive_resistance is not null
+    </select>
+
+    <select id="selectAllMar" resultMap="MorResult">
+        select pedid,pedigreeSource1,pedigreeSource2,pedigree,year,location,
+            leaf_length,
+            leaf_width,
+            plant_height,
+            ear_height,
+            tassel_length_top,
+            tassel_branch_number1,
+            `expression`,
+            tassel_branch_number,
+            rates,
+            leaf_number_above_ear,
+            seedling_potential,
+            tassel_length_2,
+            tassel_posture_2,
+            tassel_angle_2,
+            tassel_length_3,
+            tassel_length_4,
+            tassel_density,
+            tassel_weight1,
+            tassel_weight2,
+            tassel_floret_number,
+            pollen_quantity,
+            root_distribution,
+            root_layer,
+            root_thickness,
+            root_angle,
+            female_root_distribution,
+            male_root_distribution,
+            leaf_shape_1,
+            leaf_posture1,
+            leaf_angle,
+            leaf_posture2,
+            leaf_number1,
+            stem_diameter,
+            ear_bearing_posture,
+            husk_tier,
+            husk_thickness1,
+            husk_tier_all,
+            husk_thickness2,
+            silk_color,
+            anther_color,
+            stem_root_color,
+            rachis_color,
+            sheath_color1,
+            glume_color,
+            leaf_color1,
+            grain_color2,
+            grain_color,
+            sheath_color2,
+            leaf_color2
+        FROM phenotype
+            where
+            leaf_length IS NOT NULL
+            AND leaf_width IS NOT NULL
+            AND plant_height IS NOT NULL
+            AND ear_height IS NOT NULL
+            AND tassel_length_top IS NOT NULL
+            AND tassel_branch_number1 IS NOT NULL
+            AND `expression` IS NOT NULL
+            AND tassel_branch_number IS NOT NULL
+            AND rates IS NOT NULL
+            AND leaf_number_above_ear IS NOT NULL
+            AND seedling_potential IS NOT NULL
+            AND tassel_length_2 IS NOT NULL
+            AND tassel_posture_2 IS NOT NULL
+            AND tassel_angle_2 IS NOT NULL
+            AND tassel_length_3 IS NOT NULL
+            AND tassel_length_4 IS NOT NULL
+            AND tassel_density IS NOT NULL
+            AND tassel_weight1 IS NOT NULL
+            AND tassel_weight2 IS NOT NULL
+            AND tassel_floret_number IS NOT NULL
+            AND pollen_quantity IS NOT NULL
+            AND root_distribution IS NOT NULL
+            AND root_layer IS NOT NULL
+            AND root_thickness IS NOT NULL
+            AND root_angle IS NOT NULL
+            AND female_root_distribution IS NOT NULL
+            AND male_root_distribution IS NOT NULL
+            AND leaf_shape_1 IS NOT NULL
+            AND leaf_posture1 IS NOT NULL
+            AND leaf_angle IS NOT NULL
+            AND leaf_posture2 IS NOT NULL
+            AND leaf_number1 IS NOT NULL
+            AND stem_diameter IS NOT NULL
+            AND ear_bearing_posture IS NOT NULL
+            AND husk_tier IS NOT NULL
+            AND husk_thickness1 IS NOT NULL
+            AND husk_tier_all IS NOT NULL
+            AND husk_thickness2 IS NOT NULL
+    </select>
+
+    <select id="selectAllAgro" resultMap="AgrResult">
+    select pedigreeSource1,pedigreeSource2,pedigree,year,location,field_evaluation,field_evaluation2,laboratory_evaluation,laboratory_evaluation2,benefitial,empty_stalk_number,selected_plant_number,plant_number,leaf_stay_green,pollination_plan1,pollination_plan2,double_ear_number,decision_strip,decision_source,site_discrepancy,tests1,tests2,anther_tassel_interval
+    from phenotype where empty_stalk_number is not null
+        and selected_plant_number is not null
+        and plant_number is not null
+        and double_ear_number is not null
+        and anther_tassel_interval is not null
+    </select>
+
+    <select id="selectAllAbiotic" resultMap="AbResult">
+    select pedigreeSource1,pedigreeSource2,pedigree,year,location,root_lodging,
+        lodging_resistance,
+        stem_lodging,
+        seedling_death_percent1,
+        dead_seedling_number1,
+        seedling_death_percent2,
+        dead_seedling_number2,
+        seedling_death_percent3,
+        dead_seedling_number3,
+        treat_name,
+        deformed_seedling_percent,
+        deformed_seedling_number from phenotype
+    </select>
+
+    <select id="selectAllBiotic" resultMap="BiResult">
+        select pedigreeSource1,pedigreeSource2,pedigree,year,location,ustilago_maydis
+            maize_ear_rot,
+            maize_sheath_blight,
+            southern_corn_rust,
+            leaf_spot_disease,
+            maize_borer,
+            maize_stalk_rot,
+            maize_rough_dwarf_disease,
+            southern_corn_rust_txt,
+            northern_leaf_blight,
+            maize_dwarf_mosaic_disease,
+            maize_albinism,
+            physoderma_maydis,
+            gray_leaf_spot,
+            ear_kernel_rot,
+            southern_leaf_blight,
+            graminearum_stalk_rot,
+            pythium_stalk_rot,
+            F_graminEarum,
+            F_verticillioides,
+            aphis,
+            borer_resistance,
+            treatments_applied,
+            resistance_characters1,
+            resistance_characters2,
+            resistance_characters3,
+            comprehensive_resistance from phenotype
+    </select>
+
+
+    <select id="selectYearAgr" resultMap="YearAgrResult">
+        select year,field_evaluation,field_evaluation2,laboratory_evaluation,laboratory_evaluation2,benefitial,empty_stalk_number,selected_plant_number,plant_number,leaf_stay_green,pollination_plan1,pollination_plan2,double_ear_number,decision_strip,decision_source,site_discrepancy,tests1,tests2,anther_tassel_interval
+        from phenotype
+        group by year,field_evaluation,field_evaluation2,laboratory_evaluation,laboratory_evaluation2,benefitial,empty_stalk_number,selected_plant_number,plant_number,leaf_stay_green,pollination_plan1,pollination_plan2,double_ear_number,decision_strip,decision_source,site_discrepancy,tests1,tests2,anther_tassel_interval
+    </select>
+
+
+    <select id="selectYearAbiotic" resultMap="YearAbResult">
+        select year,root_lodging,
+            lodging_resistance,
+            stem_lodging,
+            seedling_death_percent1,
+            dead_seedling_number1,
+            seedling_death_percent2,
+            dead_seedling_number2,
+            seedling_death_percent3,
+            dead_seedling_number3,
+            treat_name,
+            deformed_seedling_percent,
+            deformed_seedling_number
+        from phenotype
+        group by year,root_lodging,
+            lodging_resistance,
+            stem_lodging,
+            seedling_death_percent1,
+            dead_seedling_number1,
+            seedling_death_percent2,
+            dead_seedling_number2,
+            seedling_death_percent3,
+            dead_seedling_number3,
+            treat_name,
+            deformed_seedling_percent,
+            deformed_seedling_number
+    </select>
+
+
+    <select id="selectYearBiotic" resultMap="YearBiResult">
+        select year,ustilago_maydis,
+            maize_ear_rot,
+            maize_sheath_blight,
+            southern_corn_rust,
+            leaf_spot_disease,
+            maize_borer,
+            maize_stalk_rot,
+            maize_rough_dwarf_disease,
+            southern_corn_rust_txt,
+            northern_leaf_blight,
+            maize_dwarf_mosaic_disease,
+            maize_albinism,
+            physoderma_maydis,
+            gray_leaf_spot,
+            ear_kernel_rot,
+            southern_leaf_blight,
+            graminearum_stalk_rot,
+            pythium_stalk_rot,
+            F_graminEarum,
+            F_verticillioides,
+            aphis,
+            borer_resistance,
+            treatments_applied,
+            resistance_characters1,
+            resistance_characters2,
+            resistance_characters3,
+            comprehensive_resistance
+        from phenotype
+        group by year,ustilago_maydis,
+            maize_ear_rot,
+            maize_sheath_blight,
+            southern_corn_rust,
+            leaf_spot_disease,
+            maize_borer,
+            maize_stalk_rot,
+            maize_rough_dwarf_disease,
+            southern_corn_rust_txt,
+            northern_leaf_blight,
+            maize_dwarf_mosaic_disease,
+            maize_albinism,
+            physoderma_maydis,
+            gray_leaf_spot,
+            ear_kernel_rot,
+            southern_leaf_blight,
+            graminearum_stalk_rot,
+            pythium_stalk_rot,
+            F_graminEarum,
+            F_verticillioides,
+            aphis,
+            borer_resistance,
+            treatments_applied,
+            resistance_characters1,
+            resistance_characters2,
+            resistance_characters3,
+            comprehensive_resistance
+    </select>
+
+    <select id="selectYearMor" resultMap="YearMorResult">
+        select year,leaf_length,
+            leaf_width,
+            plant_height,
+            ear_height,
+            tassel_length_top,
+            tassel_branch_number1,
+            `expression`,
+            tassel_branch_number,
+            rates,
+            leaf_number_above_ear,
+            seedling_potential,
+            tassel_length_2,
+            tassel_posture_2,
+            tassel_angle_2,
+            tassel_length_3,
+            tassel_length_4,
+            tassel_density,
+            tassel_weight1,
+            tassel_weight2,
+            tassel_floret_number,
+            pollen_quantity,
+            root_distribution,
+            root_layer,
+            root_thickness,
+            root_angle,
+            female_root_distribution,
+            male_root_distribution,
+            leaf_shape_1,
+            leaf_posture1,
+            leaf_angle,
+            leaf_posture2,
+            leaf_number1,
+            stem_diameter,
+            ear_bearing_posture,
+            husk_tier,
+            husk_thickness1,
+            husk_tier_all,
+            husk_thickness2,
+            silk_color,
+            anther_color,
+            stem_root_color,
+            rachis_color,
+            sheath_color1,
+            glume_color,
+            leaf_color1,
+            grain_color2,
+            grain_color,
+            sheath_color2,
+            leaf_color2
+        from phenotype
+        group by year,leaf_length,
+            leaf_width,
+            plant_height,
+            ear_height,
+            tassel_length_top,
+            tassel_branch_number1,
+            `expression`,
+            tassel_branch_number,
+            rates,
+            leaf_number_above_ear,
+            seedling_potential,
+            tassel_length_2,
+            tassel_posture_2,
+            tassel_angle_2,
+            tassel_length_3,
+            tassel_length_4,
+            tassel_density,
+            tassel_weight1,
+            tassel_weight2,
+            tassel_floret_number,
+            pollen_quantity,
+            root_distribution,
+            root_layer,
+            root_thickness,
+            root_angle,
+            female_root_distribution,
+            male_root_distribution,
+            leaf_shape_1,
+            leaf_posture1,
+            leaf_angle,
+            leaf_posture2,
+            leaf_number1,
+            stem_diameter,
+            ear_bearing_posture,
+            husk_tier,
+            husk_thickness1,
+            husk_tier_all,
+            husk_thickness2,
+            silk_color,
+            anther_color,
+            stem_root_color,
+            rachis_color,
+            sheath_color1,
+            glume_color,
+            leaf_color1,
+            grain_color2,
+            grain_color,
+            sheath_color2,
+            leaf_color2
+    </select>
+
+    <select id="countBx" resultType="int">
+        select count(*) from as_trait_type where trait_type_id in (select trait_type_id from trait_type where trait_type_name=#{traitName})
+    </select>
+
+    <select id="countData" resultType="int">
+        select count(*) from phenotype
+    </select>
+
+    <select id="selectAllYields" resultType="java.util.Map">
+        select pedid,pedigreeSource1,pedigreeSource2,pedigree,year,location,grain_length,grain_width,ear_length,ear_diameter,kernel_row_number,kernel_numbers_per_row,grain_weight,yield,kernel_numbers_per_ear,ear_kernel_weight,grain_water_content,kernel_percentage
+        from phenotype
+    </select>
+
+    <select id="selectYearYield" resultMap="YearYieldResult">
+        select year,grain_length,grain_width,ear_length,ear_diameter,kernel_row_number,kernel_numbers_per_row,grain_weight,yield,kernel_numbers_per_ear,ear_kernel_weight,grain_water_content,kernel_percentage
+        from phenotype
+        group by year,grain_length,grain_width,ear_length,ear_diameter,kernel_row_number,kernel_numbers_per_row,grain_weight,yield,kernel_numbers_per_ear,ear_kernel_weight,grain_water_content,kernel_percentage
+    </select>
+
+    <select id="selectAllpedigree" resultType="String">
+        select distinct pedigree from phenotype
+    </select>
+
+
+
+
+
+</mapper>

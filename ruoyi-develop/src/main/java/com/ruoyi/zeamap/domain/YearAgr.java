@@ -2,35 +2,8 @@ package com.ruoyi.zeamap.domain;
 
 import com.ruoyi.common.annotation.Excel;
 
-public class AgronomicalVo {
-    @Excel(name = "系谱")
-    private String pedigree;
-
-    /**
-     * 来源1
-     */
-    @Excel(name = "来源1")
-    private String pedigreeSource1;
-
-    /**
-     * 来源2
-     */
-    @Excel(name = "来源2")
-    private String pedigreeSource2;
-
-    /**
-     * 年份
-     */
-    @Excel(name = "年份")
+public class YearAgr {
     private Long year;
-
-    /**
-     * 试验地点
-     */
-    @Excel(name = "试验地点")
-    private String location;
-    /** 年份 */
-
     /**
      * 田评
      */
@@ -139,65 +112,7 @@ public class AgronomicalVo {
     @Excel(name = "散粉吐丝间隔")
     private Long antherTasselInterval;
 
-    public AgronomicalVo() {
-    }
-
-    public AgronomicalVo(String pedigree, String pedigreeSource1, String pedigreeSource2, Long year, String location, String fieldEvaluation, String fieldEvaluation2, String laboratoryEvaluation, String laboratoryEvaluation2, String benefitial, Long emptyStalkNumber, Long selectedPlantNumber, Long plantNumber, String leafStayGreen, String pollinationPlan1, String pollinationPlan2, Long doubleEarNumber, String decisionStrip, String decisionSource, String siteDiscrepancy, String tests1, String tests2, Long antherTasselInterval) {
-        this.pedigree = pedigree;
-        this.pedigreeSource1 = pedigreeSource1;
-        this.pedigreeSource2 = pedigreeSource2;
-        this.year = year;
-        this.location = location;
-        this.fieldEvaluation = fieldEvaluation;
-        this.fieldEvaluation2 = fieldEvaluation2;
-        this.laboratoryEvaluation = laboratoryEvaluation;
-        this.laboratoryEvaluation2 = laboratoryEvaluation2;
-        this.benefitial = benefitial;
-        this.emptyStalkNumber = emptyStalkNumber;
-        this.selectedPlantNumber = selectedPlantNumber;
-        this.plantNumber = plantNumber;
-        this.leafStayGreen = leafStayGreen;
-        this.pollinationPlan1 = pollinationPlan1;
-        this.pollinationPlan2 = pollinationPlan2;
-        this.doubleEarNumber = doubleEarNumber;
-        this.decisionStrip = decisionStrip;
-        this.decisionSource = decisionSource;
-        this.siteDiscrepancy = siteDiscrepancy;
-        this.tests1 = tests1;
-        this.tests2 = tests2;
-        this.antherTasselInterval = antherTasselInterval;
-    }
-
-    public AgronomicalVo(Long emptyStalkNumber, Long selectedPlantNumber, Long plantNumber, Long doubleEarNumber, Long antherTasselInterval) {
-        this.emptyStalkNumber = emptyStalkNumber;
-        this.selectedPlantNumber = selectedPlantNumber;
-        this.plantNumber = plantNumber;
-        this.doubleEarNumber = doubleEarNumber;
-        this.antherTasselInterval = antherTasselInterval;
-    }
-
-    public String getPedigree() {
-        return pedigree;
-    }
-
-    public void setPedigree(String pedigree) {
-        this.pedigree = pedigree;
-    }
-
-    public String getPedigreeSource1() {
-        return pedigreeSource1;
-    }
-
-    public void setPedigreeSource1(String pedigreeSource1) {
-        this.pedigreeSource1 = pedigreeSource1;
-    }
-
-    public String getPedigreeSource2() {
-        return pedigreeSource2;
-    }
-
-    public void setPedigreeSource2(String pedigreeSource2) {
-        this.pedigreeSource2 = pedigreeSource2;
+    public YearAgr() {
     }
 
     public Long getYear() {
@@ -206,14 +121,6 @@ public class AgronomicalVo {
 
     public void setYear(Long year) {
         this.year = year;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getFieldEvaluation() {
@@ -357,6 +264,28 @@ public class AgronomicalVo {
     }
 
     public void setAntherTasselInterval(Long antherTasselInterval) {
+        this.antherTasselInterval = antherTasselInterval;
+    }
+
+    public YearAgr(Long year, String fieldEvaluation, String fieldEvaluation2, String laboratoryEvaluation, String laboratoryEvaluation2, String benefitial, Long emptyStalkNumber, Long selectedPlantNumber, Long plantNumber, String leafStayGreen, String pollinationPlan1, String pollinationPlan2, Long doubleEarNumber, String decisionStrip, String decisionSource, String siteDiscrepancy, String tests1, String tests2, Long antherTasselInterval) {
+        this.year = year;
+        this.fieldEvaluation = fieldEvaluation;
+        this.fieldEvaluation2 = fieldEvaluation2;
+        this.laboratoryEvaluation = laboratoryEvaluation;
+        this.laboratoryEvaluation2 = laboratoryEvaluation2;
+        this.benefitial = benefitial;
+        this.emptyStalkNumber = emptyStalkNumber;
+        this.selectedPlantNumber = selectedPlantNumber;
+        this.plantNumber = plantNumber;
+        this.leafStayGreen = leafStayGreen;
+        this.pollinationPlan1 = pollinationPlan1;
+        this.pollinationPlan2 = pollinationPlan2;
+        this.doubleEarNumber = doubleEarNumber;
+        this.decisionStrip = decisionStrip;
+        this.decisionSource = decisionSource;
+        this.siteDiscrepancy = siteDiscrepancy;
+        this.tests1 = tests1;
+        this.tests2 = tests2;
         this.antherTasselInterval = antherTasselInterval;
     }
 }

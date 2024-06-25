@@ -2,8 +2,8 @@ package com.ruoyi.zeamap.domain;
 
 public class TraitVo {
     private String pedigree;
-    private String newSource;
-    private String pastSource;
+    private String pedigreesource1;
+    private String pedigreesource2;
     private String trait;
 
     public String getPedigree() {
@@ -14,20 +14,20 @@ public class TraitVo {
         this.pedigree = pedigree;
     }
 
-    public String getNewSource() {
-        return newSource;
+    public String getPedigreesource1() {
+        return pedigreesource1;
     }
 
-    public void setNewSource(String newSource) {
-        this.newSource = newSource;
+    public void setPedigreesource1(String pedigreesource1) {
+        this.pedigreesource1 = pedigreesource1;
     }
 
-    public String getPastSource() {
-        return pastSource;
+    public String getPedigreesource2() {
+        return pedigreesource2;
     }
 
-    public void setPastSource(String pastSource) {
-        this.pastSource = pastSource;
+    public void setPedigreesource2(String pedigreesource2) {
+        this.pedigreesource2 = pedigreesource2;
     }
 
     public String getTrait() {
@@ -38,10 +38,10 @@ public class TraitVo {
         this.trait = trait;
     }
 
-    public TraitVo(String pedigree, String newSource, String pastSource, String trait) {
+    public TraitVo(String pedigree, String pedigreesource1, String pedigreesource2, String trait) {
         this.pedigree = pedigree;
-        this.newSource = newSource;
-        this.pastSource = pastSource;
+        this.pedigreesource1 = pedigreesource1;
+        this.pedigreesource2 = pedigreesource2;
         this.trait = trait;
     }
 
