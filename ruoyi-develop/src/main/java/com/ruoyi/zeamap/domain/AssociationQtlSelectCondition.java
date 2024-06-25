@@ -12,8 +12,17 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class AssociationQtlSelectCondition {
     private String accession;
     private String version;
-    private String omics;
-    private String xot_uid;
+    private String traitTypeName;
+
+    public String getTraitTypeName() {
+        return traitTypeName;
+    }
+
+    public void setTraitTypeName(String traitTypeName) {
+        this.traitTypeName = traitTypeName;
+    }
+
+    private String traitName;
     private String chr;
     private long start;
     private long end;
@@ -36,22 +45,13 @@ public class AssociationQtlSelectCondition {
         this.version = version;
     }
 
-    public String getOmics() {
-        return omics;
+    public String getTraitName() {
+        return traitName;
     }
 
-    public void setOmics(String omics) {
-        this.omics = omics;
+    public void setTraitName(String traitName) {
+        this.traitName = traitName;
     }
-
-    public String getXot_uid() {
-        return xot_uid;
-    }
-
-    public void setXot_uid(String xot_uid) {
-        this.xot_uid = xot_uid;
-    }
-
 
     public String getChr() {
         return chr;
@@ -99,8 +99,8 @@ public class AssociationQtlSelectCondition {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("accession", getAccession())
                 .append("version", getVersion())
-                .append("omics", getOmics())
-                .append("xot_uid", getXot_uid())
+                .append("traitTypeName", getTraitTypeName())
+                .append("traitName", getTraitName())
                 .append("chr", getChr())
                 .append("start",getStart())
                 .append("end",getEnd())

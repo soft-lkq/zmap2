@@ -1,17 +1,22 @@
 package com.ruoyi.sidebarTree.service.impl;
 
-import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.sidebarTree.domain.Breed2;
+import com.ruoyi.sidebarTree.mapper.Breed2Mapper;
+import com.ruoyi.sidebarTree.service.IBreed2Service;
+import com.ruoyi.sidebarTree.utils.DownloadFileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.sidebarTree.mapper.Breed2Mapper;
-import com.ruoyi.sidebarTree.domain.Breed2;
-import com.ruoyi.sidebarTree.service.IBreed2Service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.util.List;
 
 /**
  * 【请填写功能名称】Service业务层处理
  *
- * @author ruoyi
+ * @author feidian
  * @date 2023-09-10
  */
 @Service
@@ -93,4 +98,20 @@ public class Breed2ServiceImpl implements IBreed2Service
     {
         return breed2Mapper.deleteBreed2ById(id);
     }
+
+    @Override
+    public void downloadFile(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String wordUrl = breed2Mapper.getFileUrl(id);
+        if (wordUrl == null || wordUrl.isEmpty()) {
+            // 文件不存在，返回错误消息
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        String type = wordUrl.substring(wordUrl.lastIndexOf(".") + 1);
+        File file = new File(wordUrl);
+        String filename = "文档" + "." + type;
+        DownloadFileUtil.downloadFile(filename, file, response, request);
+    }
+
 }

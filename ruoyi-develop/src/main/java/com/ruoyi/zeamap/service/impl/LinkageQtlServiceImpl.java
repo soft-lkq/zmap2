@@ -1,16 +1,16 @@
 package com.ruoyi.zeamap.service.impl;
 
-import java.util.List;
-
 import com.ruoyi.zeamap.domain.LinkageQtl;
 import com.ruoyi.zeamap.mapper.LinkageQtlMapper;
 import com.ruoyi.zeamap.service.ILinkageQtlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 【请填写功能名称】Service业务层处理
- * 
+ *
  * @author ruoyi
  * @date 2023-03-06
  */
@@ -22,7 +22,7 @@ public class LinkageQtlServiceImpl implements ILinkageQtlService
 
     /**
      * 查询【请填写功能名称】
-     * 
+     *
      * @param linkageQtlId 【请填写功能名称】主键
      * @return 【请填写功能名称】
      */
@@ -34,7 +34,7 @@ public class LinkageQtlServiceImpl implements ILinkageQtlService
 
     /**
      * 查询【请填写功能名称】列表
-     * 
+     *
      * @param linkageQtl 【请填写功能名称】
      * @return 【请填写功能名称】
      */
@@ -46,7 +46,7 @@ public class LinkageQtlServiceImpl implements ILinkageQtlService
 
     /**
      * 新增【请填写功能名称】
-     * 
+     *
      * @param linkageQtl 【请填写功能名称】
      * @return 结果
      */
@@ -58,7 +58,7 @@ public class LinkageQtlServiceImpl implements ILinkageQtlService
 
     /**
      * 修改【请填写功能名称】
-     * 
+     *
      * @param linkageQtl 【请填写功能名称】
      * @return 结果
      */
@@ -70,7 +70,7 @@ public class LinkageQtlServiceImpl implements ILinkageQtlService
 
     /**
      * 批量删除【请填写功能名称】
-     * 
+     *
      * @param linkageQtlIds 需要删除的【请填写功能名称】主键
      * @return 结果
      */
@@ -82,7 +82,7 @@ public class LinkageQtlServiceImpl implements ILinkageQtlService
 
     /**
      * 删除【请填写功能名称】信息
-     * 
+     *
      * @param linkageQtlId 【请填写功能名称】主键
      * @return 结果
      */
@@ -131,8 +131,8 @@ public class LinkageQtlServiceImpl implements ILinkageQtlService
         return linkageQtlMapper.selectlinkagemap();
     }
     //大查询
-    public List<LinkageQtl> selectlinkage_qtl(String accession, String version,String omics,String xot_uid, String linkageMap, String chr,long start, long end,Double lod_min, Double lod_max){
-        return linkageQtlMapper.selectlinkage_qtl(accession,version,omics,xot_uid,linkageMap,chr,start,end,lod_min,lod_max);
+    public List<LinkageQtl> selectlinkage_qtl(String accession, String version,String traitTypeName,String traitName, String linkageMap, String chr,long start, long end,Double lod_min, Double lod_max){
+        return linkageQtlMapper.selectlinkage_qtl(accession,version,traitTypeName,traitName,linkageMap,chr,start,end,lod_min,lod_max);
     }
 
 }

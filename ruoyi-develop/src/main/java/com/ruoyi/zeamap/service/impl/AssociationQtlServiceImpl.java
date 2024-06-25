@@ -1,12 +1,12 @@
 package com.ruoyi.zeamap.service.impl;
 
-import java.util.List;
-
 import com.ruoyi.zeamap.domain.AssociationQtl;
 import com.ruoyi.zeamap.mapper.AssociationQtlMapper;
 import com.ruoyi.zeamap.service.IAssociationQtlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 【请填写功能名称】Service业务层处理
@@ -126,8 +126,8 @@ public class AssociationQtlServiceImpl implements IAssociationQtlService {
 
     //大查询
     @Override
-    public List<AssociationQtl> selectassociation_qtl(String accession, String version, String omics, String xot_uid, String chr, long start, long end,  Double log_min, Double log_max) {
-        return associationQtlMapper.selectassociation_qtl(accession, version, omics, xot_uid, chr, start, end, log_min, log_max);
+    public List<AssociationQtl> selectassociation_qtl(String accession, String version, String traitTypeName,String traitName,  String chr, long start, long end,  Double log_min, Double log_max) {
+        return associationQtlMapper.selectassociation_qtl(accession, version, traitTypeName,traitName, chr, start, end, log_min, log_max);
 
     }
 }

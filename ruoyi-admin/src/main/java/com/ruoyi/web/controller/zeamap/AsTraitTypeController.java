@@ -70,6 +70,17 @@ public class AsTraitTypeController extends BaseController
         return AjaxResult.success(asTraitTypeService.selectAsTraitTypeByAsTraitTypeId(asTraitTypeId));
     }
 
+
+    /**
+     * 获取【请填写功能名称】详细信息
+     */
+    @GetMapping(value = "/traitTypeId/{TraitTypeId}")
+    public AjaxResult getInfoByTraitTypeId(@PathVariable("TraitTypeId") Long traitTypeId)
+    {
+        List<AsTraitType> res= asTraitTypeService.selectAsTraitTypeByTraitTypeId(traitTypeId);
+        return AjaxResult.success(res);
+    }
+
     /**
      * 新增【请填写功能名称】
      */

@@ -1,24 +1,23 @@
 package com.ruoyi.zeamap.mapper;
 
-import java.util.List;
-
-import com.ruoyi.zeamap.domain.AssociationMarker;
 import com.ruoyi.zeamap.domain.AssociationQtl;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 【请填写功能名称】Mapper接口
- * 
+ *
  * @author ruoyi
  * @date 2023-03-06
  */
 @Mapper
-public interface AssociationQtlMapper 
+public interface AssociationQtlMapper
 {
     /**
      * 查询【请填写功能名称】
-     * 
+     *
      * @param associationQtlId 【请填写功能名称】主键
      * @return 【请填写功能名称】
      */
@@ -26,7 +25,7 @@ public interface AssociationQtlMapper
 
     /**
      * 查询【请填写功能名称】列表
-     * 
+     *
      * @param associationQtl 【请填写功能名称】
      * @return 【请填写功能名称】集合
      */
@@ -34,7 +33,7 @@ public interface AssociationQtlMapper
 
     /**
      * 新增【请填写功能名称】
-     * 
+     *
      * @param associationQtl 【请填写功能名称】
      * @return 结果
      */
@@ -42,7 +41,7 @@ public interface AssociationQtlMapper
 
     /**
      * 修改【请填写功能名称】
-     * 
+     *
      * @param associationQtl 【请填写功能名称】
      * @return 结果
      */
@@ -50,7 +49,7 @@ public interface AssociationQtlMapper
 
     /**
      * 删除【请填写功能名称】
-     * 
+     *
      * @param associationQtlId 【请填写功能名称】主键
      * @return 结果
      */
@@ -58,7 +57,7 @@ public interface AssociationQtlMapper
 
     /**
      * 批量删除【请填写功能名称】
-     * 
+     *
      * @param associationQtlIds 需要删除的数据主键集合
      * @return 结果
      */
@@ -87,6 +86,6 @@ public interface AssociationQtlMapper
     public List<String> selectchr();
 
     //大查询
-    public List<AssociationQtl> selectassociation_qtl(@Param("accession") String accession, @Param("version") String version, @Param("omics") String omics, @Param("xot_uid") String xot_uid, @Param("chr") String chr, @Param("start") long start, @Param("end") long end, @Param("log_min") Double log_min, @Param("log_max") Double log_max);
+    public List<AssociationQtl> selectassociation_qtl(@Param("accession") String accession, @Param("version") String version, @Param("traitTypeName") String traitTypeName,@Param("traitName") String traitName,  @Param("chr") String chr, @Param("start") long start, @Param("end") long end, @Param("log_min") Double log_min, @Param("log_max") Double log_max);
 
 }

@@ -116,6 +116,12 @@ public class TraitTypeController extends BaseController
         return getDataTable(list);
     }
 
+    @PostMapping("/selectTraitTypeIdByName")
+    public AjaxResult selectTraitTypeIdByName(String traitTypeName) {
+        Long traitTypeId = traitTypeService.selectTraitTypeIdByName(traitTypeName);
+        return AjaxResult.success(traitTypeId);
+    }
+
     //1.5 查询是否存在输入的name
     @PreAuthorize("@ss.hasPermi('system:population:list')")
     @PostMapping("/checkTraitTypeName")

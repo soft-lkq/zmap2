@@ -1,21 +1,20 @@
 package com.ruoyi.web.controller.zeamap;
 
-import java.util.List;
-import javax.servlet.http.HttpServletResponse;
-
-import com.ruoyi.zeamap.domain.*;
-import com.ruoyi.zeamap.domain.AssociationQtl;
-import com.ruoyi.zeamap.domain.AssociationQtlSelectCondition;
-import com.ruoyi.zeamap.service.IAssociationQtlService;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.zeamap.domain.AssociationQtl;
+import com.ruoyi.zeamap.domain.AssociationQtlSelectCondition;
+import com.ruoyi.zeamap.service.IAssociationQtlService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 【请填写功能名称】Controller
@@ -140,11 +139,11 @@ public class AssociationQtlController extends BaseController {
     }
 
     //大查询
-    @PreAuthorize("@ss.hasPermi('ruoyi.zeamap:associationQtl:selectassociation_qtl')")
+//    @PreAuthorize("@ss.hasPermi('ruoyi.zeamap:associationQtl:selectassociation_qtl')")
     @PostMapping("/selectassociation_qtl")
     public TableDataInfo selectassociation_qtl(@RequestBody AssociationQtlSelectCondition associationQtlSelectCondition) {
         startPage();
-        List<AssociationQtl> list = associationQtlService.selectassociation_qtl(associationQtlSelectCondition.getAccession(), associationQtlSelectCondition.getVersion(), associationQtlSelectCondition.getOmics(), associationQtlSelectCondition.getXot_uid(), associationQtlSelectCondition.getChr(), associationQtlSelectCondition.getStart(), associationQtlSelectCondition.getEnd(), associationQtlSelectCondition.getLog_min(), associationQtlSelectCondition.getLog_max());
+        List<AssociationQtl> list = associationQtlService.selectassociation_qtl(associationQtlSelectCondition.getAccession(), associationQtlSelectCondition.getVersion(),associationQtlSelectCondition.getTraitTypeName(), associationQtlSelectCondition.getTraitName(), associationQtlSelectCondition.getChr(), associationQtlSelectCondition.getStart(), associationQtlSelectCondition.getEnd(), associationQtlSelectCondition.getLog_min(), associationQtlSelectCondition.getLog_max());
         return getDataTable(list);
     }
     @PreAuthorize("@ss.hasPermi('ruoyi.zeamap:association_qtl:download')")

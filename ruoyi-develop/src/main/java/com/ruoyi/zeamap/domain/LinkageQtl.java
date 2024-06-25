@@ -35,10 +35,10 @@ public class LinkageQtl extends BaseEntity {
     private Long end;
 
     @Excel(name = "Trait Category")
-    private String omics;
+    private String traitTypeName;
 
     @Excel(name = "Trait ID")
-    private String xot_uid;
+    private String traitName;
 
     @Excel(name = "LOD")
     private String lod;
@@ -98,20 +98,20 @@ public class LinkageQtl extends BaseEntity {
         this.end = end;
     }
 
-    public String getOmics() {
-        return omics;
+    public String getTraitTypeName() {
+        return traitTypeName;
     }
 
-    public void setOmics(String omics) {
-        this.omics = omics;
+    public void setTraitTypeName(String traitTypeName) {
+        this.traitTypeName = traitTypeName;
     }
 
-    public String getXot_uid() {
-        return xot_uid;
+    public String getTraitName() {
+        return traitName;
     }
 
-    public void setXot_uid(String xot_uid) {
-        this.xot_uid = xot_uid;
+    public void setTraitName(String traitName) {
+        this.traitName = traitName;
     }
 
     public String getLod() {
@@ -164,8 +164,8 @@ public class LinkageQtl extends BaseEntity {
                 .append("chr", getChr())
                 .append("start", getStart())
                 .append("end", getEnd())
-                .append("omics", getOmics())
-                .append("xot_uid", getXot_uid())
+                .append("traitTypeName", getTraitTypeName())
+                .append("traitName", getTraitName())
                 .append("lod", getLod())
                 .append("linkagemap", getLinkagemap())
                 .append("dbxrefId", getDbxrefId())

@@ -35,6 +35,12 @@ public class AsTraitTypeServiceImpl implements IAsTraitTypeService
         return asTraitTypeMapper.selectAsTraitTypeByAsTraitTypeId(asTraitTypeId);
     }
 
+    @Override
+    public List<AsTraitType> selectAsTraitTypeByTraitTypeId(Long traitTypeId)
+    {
+        return asTraitTypeMapper.selectAsTraitTypeByTraitTypeId(traitTypeId);
+    }
+
     /**
      * 查询【请填写功能名称】列表
      *

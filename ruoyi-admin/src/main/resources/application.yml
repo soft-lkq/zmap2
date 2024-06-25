@@ -9,11 +9,14 @@ ruoyi:
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置C:\Users\Administrator\Desktop\zeamap\uploadPath，Linux配置 /home/ruoyi/uploadPath）
-  profile: C:\Users\Administrator\Desktop\zeamap\uploadPath
+#  profile: C:\Users\Administrator\Desktop\zeamap\uploadPath
+  profile: /home/r740xd/maize/zmap2/uploadPath
   #任务结
-  taskUploadPath: C:\Users\Administrator\Desktop\zeamap\taskUpload
+#  taskUploadPath: C:\Users\Administrator\Desktop\zeamap\taskUpload
+  taskUploadPath: /home/r740xd/maize/zmap2/taskUpload
   #任务结果存储
-  taskResPath: C:\Users\Administrator\Desktop\zeamap\taskRes
+#  taskResPath: C:\Users\Administrator\Desktop\zeamap\taskRes
+  taskResPath: /home/r740xd/maize/zmap2/taskRes
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数组计算 char 字符验证

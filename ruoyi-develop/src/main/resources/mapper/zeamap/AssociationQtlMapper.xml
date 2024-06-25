@@ -12,8 +12,9 @@
         <result property="start" column="start"/>
         <result property="end" column="end"/>
         <result property="qtlUid" column="qtl_uid"/>
-        <result property="omics" column="omics"/>
-        <result property="xot_uid" column="xot_uid"/>
+        <result property="traitTypeName" column="trait_type_name"/>
+        <result property="traitName" column="trait_name"/>
+<!--        <result property="xot_uid" column="xot_uid"/>-->
         <result property="log" column="log"/>
         <result property="dbxrefId" column="dbxref_id"/>
         <result property="traitId" column="trait_id"/>
@@ -102,9 +103,7 @@
     <!--@Author 刘洋-->
     <!--查找dbxref表里面的accession-->
     <select id="selectaccession" resultType="String">
-        select distinct D.accession FROM dbxref D,db
-        where
-            db.name like '%-GFF' and D.db_id=db.db_id
+        select distinct accession FROM dbxref
     </select>
     <!--查找dbxref表里面的version,version是reference的下级-->
     <select id="selectversion" parameterType="String" resultType="String">
@@ -112,15 +111,13 @@
     </select>
     <!--查找Trait Category -->
     <select id="selecttraitcategory" resultType="String">
-        select distinct omics
-        from xot
+        select distinct trait_type_name from trait_type
     </select>
     <!--查找Trait Id -->
     <select id="selecttraitid" parameterType="String" resultType="String">
-        select distinct xot_uid
-        from xot
-        where xot_uid like concat('%',#{trait_id},'%') or #{trait_id} is null or #{trait_id}='' or #{trait_id}='null'
-        limit 20
+        select distinct trait_name
+        from trait
+
     </select>
     <!--查找chr-->
     <select id="selectchr" resultType="String">
@@ -130,20 +127,17 @@
 
     <!--大查询-->
     <select id="selectassociation_qtl" resultMap="AssociationQtlResult">
-        select association_qtl_id,qtl_uid,accession,version,chr,start,end ,omics,xot_uid,log,association_qtl.dbxref_id
-        from association_qtl,dbxref,xot
+        select association_qtl_id,qtl_uid,accession,version,chr,start,end ,trait_type.trait_type_name,trait.trait_name,log,association_qtl.dbxref_id
+        from association_qtl,dbxref,trait,trait_type
         where
-            (accession=#{accession} and version=#{version}
-            or (#{accession}=''or #{accession} is null))
+        (accession=#{accession} and version=#{version} or (#{accession}=''or #{accession} is null))
           and association_qtl.dbxref_id=dbxref.dbxref_id
-          and (omics=#{omics}
-                 or (#{omics}=''or #{omics} is null))
-          and (xot_uid=#{xot_uid}
-                    or (#{xot_uid}=''or #{xot_uid} is null))
-          and association_qtl.trait_id=xot.xot_id
-            and (chr=#{chr} or #{chr}=''or #{chr} is null)
-            and start>#{start} and #{end}>end
-            and log>#{log_min} and #{log_max}>log
+          and (trim(trait_name)=#{traitName} or (#{traitName}=''or #{traitName} is null))
+          and association_qtl.trait_id=trait.trait_id
+          and (chr=#{chr} or #{chr}=''or #{chr} is null)
+          and start>=#{start} and #{end}>=end
+          and log>=#{log_min} and #{log_max}>=log
+          and trait_type.trait_type_name = #{traitTypeName}
 
     </select>
 </mapper>

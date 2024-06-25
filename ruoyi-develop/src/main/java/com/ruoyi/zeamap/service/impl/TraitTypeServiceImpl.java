@@ -35,6 +35,13 @@ public class TraitTypeServiceImpl implements ITraitTypeService
         return traitTypeMapper.selectTraitTypeByTraitTypeId(traitTypeId);
     }
 
+
+
+    @Override
+    public Long selectTraitTypeIdByName(String traitTypeName)
+    {
+        return traitTypeMapper.selectTraitTypeIdByName(traitTypeName);
+    }
     /**
      * 查询【请填写功能名称】列表
      *

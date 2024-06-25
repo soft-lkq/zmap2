@@ -11,9 +11,18 @@ public class LinkageQtlSelectCondition {
 
         private String accession;
         private String version;
-        private String omics;
-        private String xot_uid;
-        private String linkageMap;
+        private String traitTypeName;
+        private String traitName;
+
+    public String getTraitTypeName() {
+        return traitTypeName;
+    }
+
+    public void setTraitTypeName(String traitTypeName) {
+        this.traitTypeName = traitTypeName;
+    }
+
+    private String linkageMap;
         private String chr;
         private long Start;
         private long end;
@@ -36,20 +45,12 @@ public class LinkageQtlSelectCondition {
         this.version = version;
     }
 
-    public String getOmics() {
-        return omics;
+    public String getTraitName() {
+        return traitName;
     }
 
-    public void setOmics(String omics) {
-        this.omics = omics;
-    }
-
-    public String getXot_uid() {
-        return xot_uid;
-    }
-
-    public void setXot_uid(String xot_uid) {
-        this.xot_uid = xot_uid;
+    public void setTraitName(String traitName) {
+        this.traitName = traitName;
     }
 
     public String getLinkageMap() {
@@ -104,9 +105,9 @@ public class LinkageQtlSelectCondition {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("accession", getAccession())
                 .append("version", getVersion())
-                .append("omics", getOmics())
+                .append("traitTypeName", getTraitTypeName())
+                .append("traitName", getTraitName())
                 .append("linkageMap",getLinkageMap())
-                .append("xot_uid", getXot_uid())
                 .append("chr", getChr())
                 .append("start",getStart())
                 .append("end",getEnd())

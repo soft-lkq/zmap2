@@ -41,6 +41,8 @@ public class UseParam {
     public final static String GENOPATH = "C:/Users/Administrator/Desktop/sdxx/uploadData/";//python环境
     public final static String PHENOPATH = "C:/Users/Administrator/Desktop/zmap2/uploadData/";//python环境
     public final static String pythonEvn="python";
+    public final static String INPUTFILEPATH = "C:/Users/Administrator/Desktop/zmap2/uploadData/";
+
     public final static String pythonCodeDict="C:/SeedlinManagement/pythonCode";
 
     public final static String PYTHONEVN = "python";//python环境

@@ -1,21 +1,20 @@
 package com.ruoyi.web.controller.zeamap;
 
-import java.util.List;
-import javax.servlet.http.HttpServletResponse;
-
-import com.ruoyi.zeamap.domain.LinkageQtl;
-import com.ruoyi.zeamap.domain.LinkageQtlSelectCondition;
-import com.ruoyi.zeamap.service.ILinkageQtlService;
-import org.apache.poi.ss.formula.functions.T;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.zeamap.domain.LinkageQtl;
+import com.ruoyi.zeamap.domain.LinkageQtlSelectCondition;
+import com.ruoyi.zeamap.service.ILinkageQtlService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 【请填写功能名称】Controller
@@ -152,7 +151,7 @@ public class LinkageQtlController extends BaseController {
     @PostMapping ("/selectlinkage_qtl")
     public TableDataInfo selectlinkage_qtl(@RequestBody LinkageQtlSelectCondition linkageQtlSelectCondition) {
         startPage();
-        List<LinkageQtl> list=linkageQtlService.selectlinkage_qtl(linkageQtlSelectCondition.getAccession(), linkageQtlSelectCondition.getVersion(), linkageQtlSelectCondition.getOmics(), linkageQtlSelectCondition.getXot_uid(), linkageQtlSelectCondition.getLinkageMap(), linkageQtlSelectCondition.getChr(), linkageQtlSelectCondition.getStart(), linkageQtlSelectCondition.getEnd(), linkageQtlSelectCondition.getLod_min(), linkageQtlSelectCondition.getLod_max());
+        List<LinkageQtl> list=linkageQtlService.selectlinkage_qtl(linkageQtlSelectCondition.getAccession(), linkageQtlSelectCondition.getVersion(),linkageQtlSelectCondition.getTraitTypeName(), linkageQtlSelectCondition.getTraitName(),  linkageQtlSelectCondition.getLinkageMap(), linkageQtlSelectCondition.getChr(), linkageQtlSelectCondition.getStart(), linkageQtlSelectCondition.getEnd(), linkageQtlSelectCondition.getLod_min(), linkageQtlSelectCondition.getLod_max());
         return getDataTable(list);
     }
     //下载

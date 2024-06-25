@@ -21,6 +21,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from trait_type
     </select>
 
+    <select id="selectTraitTypeIdByName" parameterType="String"  resultType="Long">
+        select distinct trait_type_id
+        from trait_type
+        where trait_type_name= #{traitTypeName}
+    </select>
+
     <!--1.5 搜索框 通过 性状类型名称 模糊匹配 查询-->
     <select id="selectTraitType" resultMap="TraitTypeResult">
         select *

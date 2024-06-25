@@ -64,4 +64,6 @@ public interface Breed2Mapper
 
 
     Integer selectMaxId();
+
+    String getFileUrl(int id);
 }

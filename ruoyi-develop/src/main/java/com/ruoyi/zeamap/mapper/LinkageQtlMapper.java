@@ -1,24 +1,23 @@
 package com.ruoyi.zeamap.mapper;
 
-import java.util.List;
-
-import com.ruoyi.zeamap.domain.AssociationQtl;
 import com.ruoyi.zeamap.domain.LinkageQtl;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 【请填写功能名称】Mapper接口
- * 
+ *
  * @author ruoyi
  * @date 2023-03-06
  */
 @Mapper
-public interface LinkageQtlMapper 
+public interface LinkageQtlMapper
 {
     /**
      * 查询【请填写功能名称】
-     * 
+     *
      * @param linkageQtlId 【请填写功能名称】主键
      * @return 【请填写功能名称】
      */
@@ -26,7 +25,7 @@ public interface LinkageQtlMapper
 
     /**
      * 查询【请填写功能名称】列表
-     * 
+     *
      * @param linkageQtl 【请填写功能名称】
      * @return 【请填写功能名称】集合
      */
@@ -34,7 +33,7 @@ public interface LinkageQtlMapper
 
     /**
      * 新增【请填写功能名称】
-     * 
+     *
      * @param linkageQtl 【请填写功能名称】
      * @return 结果
      */
@@ -42,7 +41,7 @@ public interface LinkageQtlMapper
 
     /**
      * 修改【请填写功能名称】
-     * 
+     *
      * @param linkageQtl 【请填写功能名称】
      * @return 结果
      */
@@ -50,7 +49,7 @@ public interface LinkageQtlMapper
 
     /**
      * 删除【请填写功能名称】
-     * 
+     *
      * @param linkageQtlId 【请填写功能名称】主键
      * @return 结果
      */
@@ -58,7 +57,7 @@ public interface LinkageQtlMapper
 
     /**
      * 批量删除【请填写功能名称】
-     * 
+     *
      * @param linkageQtlIds 需要删除的数据主键集合
      * @return 结果
      */
@@ -89,6 +88,6 @@ public interface LinkageQtlMapper
     //查找linkagemap
     public List<String> selectlinkagemap();
     //大查询
-    public List<LinkageQtl> selectlinkage_qtl(@Param("accession") String accession, @Param("version") String version, @Param("omics") String omics, @Param("xot_uid") String xot_uid, @Param("linkagemap") String linkageMap,@Param("chr") String chr, @Param("start") long start, @Param("end") long end, @Param("lod_min") Double log_min, @Param("lod_max") Double log_max);
+    public List<LinkageQtl> selectlinkage_qtl(@Param("accession") String accession, @Param("version") String version, @Param("traitTypeName") String traitTypeName, @Param("traitName") String traitName,  @Param("linkagemap") String linkageMap,@Param("chr") String chr, @Param("start") long start, @Param("end") long end, @Param("lod_min") Double log_min, @Param("lod_max") Double log_max);
 
 }

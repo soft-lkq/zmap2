@@ -36,10 +36,10 @@ public class AssociationQtl extends BaseEntity {
     private Long end;
 
     @Excel(name = "Trait Category")
-    private String omics;
+    private String traitTypeName;
 
     @Excel(name = "Trait ID")
-    private String xot_uid;
+    private String traitName;
     @Excel(name = "Leading-log10(P)")
     private String log;
 
@@ -88,6 +88,22 @@ public class AssociationQtl extends BaseEntity {
         this.start = start;
     }
 
+    public String getTraitTypeName() {
+        return traitTypeName;
+    }
+
+    public void setTraitTypeName(String traitTypeName) {
+        this.traitTypeName = traitTypeName;
+    }
+
+    public String getTraitName() {
+        return traitName;
+    }
+
+    public void setTraitName(String traitName) {
+        this.traitName = traitName;
+    }
+
     public Long getEnd() {
         return end;
     }
@@ -96,21 +112,6 @@ public class AssociationQtl extends BaseEntity {
         this.end = end;
     }
 
-    public String getOmics() {
-        return omics;
-    }
-
-    public void setOmics(String omics) {
-        this.omics = omics;
-    }
-
-    public String getXot_uid() {
-        return xot_uid;
-    }
-
-    public void setXot_uid(String xot_uid) {
-        this.xot_uid = xot_uid;
-    }
 
     public String getLog() {
         return log;
@@ -154,8 +155,8 @@ public class AssociationQtl extends BaseEntity {
                 .append("chr", getChr())
                 .append("start", getStart())
                 .append("end", getEnd())
-                .append("omics", getOmics())
-                .append("xot_uid", getXot_uid())
+                .append("traitTypeName", getTraitTypeName())
+                .append("traitName", getTraitName())
                 .append("log", getLog())
                 .append("dbxrefId", getDbxrefId())
                 .append("traitId", getTraitId())

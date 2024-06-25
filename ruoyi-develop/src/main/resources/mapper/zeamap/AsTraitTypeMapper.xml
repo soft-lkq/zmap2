@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.zeamap.mapper.AsTraitTypeMapper">
-    
+
     <resultMap type="AsTraitType" id="AsTraitTypeResult">
         <result property="asTraitTypeId"    column="as_trait_type_id"    />
         <result property="traitTypeId"    column="trait_type_id"    />
@@ -21,17 +21,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectAsTraitTypeList" parameterType="AsTraitType" resultMap="AsTraitTypeResult">
         <include refid="selectAsTraitTypeVo"/>
-        <where>  
+        <where>
             <if test="traitTypeId != null "> and trait_type_id = #{traitTypeId}</if>
             <if test="traitId != null  and traitId != ''"> and trait_id = #{traitId}</if>
         </where>
     </select>
-    
+
     <select id="selectAsTraitTypeByAsTraitTypeId" parameterType="Long" resultMap="AsTraitTypeResult">
         <include refid="selectAsTraitTypeVo"/>
         where as_trait_type_id = #{asTraitTypeId}
     </select>
-        
+
+    <select id="selectAsTraitTypeByTraitTypeId" parameterType="Long" resultMap="AsTraitTypeResult">
+        <include refid="selectAsTraitTypeVo"/>
+        where trait_type_id = #{traitTypeId}
+    </select>
+
     <insert id="insertAsTraitType" parameterType="AsTraitType" useGeneratedKeys="true" keyProperty="asTraitTypeId">
         insert into as_trait_type
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -73,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteAsTraitTypeByAsTraitTypeIds" parameterType="String">
-        delete from as_trait_type where as_trait_type_id in 
+        delete from as_trait_type where as_trait_type_id in
         <foreach item="asTraitTypeId" collection="array" open="(" separator="," close=")">
             #{asTraitTypeId}
         </foreach>

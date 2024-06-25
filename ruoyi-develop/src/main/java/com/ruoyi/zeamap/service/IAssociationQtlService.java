@@ -1,22 +1,21 @@
 package com.ruoyi.zeamap.service;
 
-import java.util.List;
-
-import com.ruoyi.zeamap.domain.AssociationMarker;
 import com.ruoyi.zeamap.domain.AssociationQtl;
+
+import java.util.List;
 
 
 /**
  * 【请填写功能名称】Service接口
- * 
+ *
  * @author ruoyi
  * @date 2023-03-06
  */
-public interface IAssociationQtlService 
+public interface IAssociationQtlService
 {
     /**
      * 查询【请填写功能名称】
-     * 
+     *
      * @param associationQtlId 【请填写功能名称】主键
      * @return 【请填写功能名称】
      */
@@ -24,7 +23,7 @@ public interface IAssociationQtlService
 
     /**
      * 查询【请填写功能名称】列表
-     * 
+     *
      * @param associationQtl 【请填写功能名称】
      * @return 【请填写功能名称】集合
      */
@@ -32,7 +31,7 @@ public interface IAssociationQtlService
 
     /**
      * 新增【请填写功能名称】
-     * 
+     *
      * @param associationQtl 【请填写功能名称】
      * @return 结果
      */
@@ -40,7 +39,7 @@ public interface IAssociationQtlService
 
     /**
      * 修改【请填写功能名称】
-     * 
+     *
      * @param associationQtl 【请填写功能名称】
      * @return 结果
      */
@@ -48,7 +47,7 @@ public interface IAssociationQtlService
 
     /**
      * 批量删除【请填写功能名称】
-     * 
+     *
      * @param associationQtlIds 需要删除的【请填写功能名称】主键集合
      * @return 结果
      */
@@ -56,7 +55,7 @@ public interface IAssociationQtlService
 
     /**
      * 删除【请填写功能名称】信息
-     * 
+     *
      * @param associationQtlId 【请填写功能名称】主键
      * @return 结果
      */
@@ -85,6 +84,6 @@ public interface IAssociationQtlService
     //查找chr
     public List<String> selectchr();
     //大查询
-    public List<AssociationQtl> selectassociation_qtl(String accession, String version, String omics, String xot_uid,  String chr, long start, long end, Double log_min, Double log_max);
+    public List<AssociationQtl> selectassociation_qtl(String accession, String version, String traitTypeName,String traitName,  String chr, long start, long end, Double log_min, Double log_max);
 
    }

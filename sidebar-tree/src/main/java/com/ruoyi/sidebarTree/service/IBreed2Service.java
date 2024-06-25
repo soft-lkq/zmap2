@@ -1,12 +1,15 @@
 package com.ruoyi.sidebarTree.service;
 
-import java.util.List;
 import com.ruoyi.sidebarTree.domain.Breed2;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 【请填写功能名称】Service接口
  *
- * @author ruoyi
+ * @author feidian
  * @date 2023-09-10
  */
 public interface IBreed2Service
@@ -58,4 +61,7 @@ public interface IBreed2Service
      * @return 结果
      */
     public int deleteBreed2ById(Long id);
+
+
+    void downloadFile(HttpServletRequest request, HttpServletResponse response);
 }

@@ -22,6 +22,8 @@ public interface IAsTraitTypeService
      */
     public AsTraitType selectAsTraitTypeByAsTraitTypeId(Long asTraitTypeId);
 
+    public List<AsTraitType> selectAsTraitTypeByTraitTypeId(Long traitTypeId);
+
     /**
      * 查询【请填写功能名称】列表
      *

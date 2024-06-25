@@ -1,22 +1,21 @@
 package com.ruoyi.zeamap.service;
 
 import com.ruoyi.zeamap.domain.LinkageQtl;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 
 /**
  * 【请填写功能名称】Service接口
- * 
+ *
  * @author ruoyi
  * @date 2023-03-06
  */
-public interface ILinkageQtlService 
+public interface ILinkageQtlService
 {
     /**
      * 查询【请填写功能名称】
-     * 
+     *
      * @param linkageQtlId 【请填写功能名称】主键
      * @return 【请填写功能名称】
      */
@@ -24,7 +23,7 @@ public interface ILinkageQtlService
 
     /**
      * 查询【请填写功能名称】列表
-     * 
+     *
      * @param linkageQtl 【请填写功能名称】
      * @return 【请填写功能名称】集合
      */
@@ -32,7 +31,7 @@ public interface ILinkageQtlService
 
     /**
      * 新增【请填写功能名称】
-     * 
+     *
      * @param linkageQtl 【请填写功能名称】
      * @return 结果
      */
@@ -40,7 +39,7 @@ public interface ILinkageQtlService
 
     /**
      * 修改【请填写功能名称】
-     * 
+     *
      * @param linkageQtl 【请填写功能名称】
      * @return 结果
      */
@@ -48,7 +47,7 @@ public interface ILinkageQtlService
 
     /**
      * 批量删除【请填写功能名称】
-     * 
+     *
      * @param linkageQtlIds 需要删除的【请填写功能名称】主键集合
      * @return 结果
      */
@@ -56,7 +55,7 @@ public interface ILinkageQtlService
 
     /**
      * 删除【请填写功能名称】信息
-     * 
+     *
      * @param linkageQtlId 【请填写功能名称】主键
      * @return 结果
      */
@@ -87,6 +86,6 @@ public interface ILinkageQtlService
     public List<String> selectlinkagemap();
 
     //大查询
-    public List<LinkageQtl> selectlinkage_qtl(String accession, String version,String omics,String xot_uid, String linkageMap,  String chr,long start, long end,Double lod_min, Double lod_max);
+    public List<LinkageQtl> selectlinkage_qtl(String accession, String version,String traitTypeName,String traitName, String linkageMap,  String chr,long start, long end,Double lod_min, Double lod_max);
 
 }
